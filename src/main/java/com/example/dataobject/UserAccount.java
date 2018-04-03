@@ -34,7 +34,7 @@ public class UserAccount {
     /** 创建时间*/
     private Date createTime;
 
-    /**更新时间*/
+    /** 更新时间*/
     private Date updateTime;
 
 }

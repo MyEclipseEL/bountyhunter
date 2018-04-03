@@ -11,7 +11,7 @@ import javax.persistence.Id;
  */
 @Entity
 @Data
-public class assignmentCategory {
+public class AssignmentCategory {
 
 
     @Id
