@@ -22,14 +22,23 @@
                "type" : 101,
                "assignment":[
                     {
-                        "id":"12345678911"
-                        "":
-                    }
-                    {
-                        "id":"12345678912"
-                        "":
+                        "id":"123456",
+                        "owner":[
+                            {
+                                "id":"12345678911"
+                                "name": "hunter"
+                             }
+                        ],
+                        "reward":25.5,
+                        "description":"一个跑腿的任务",
+                        "icon":http://xxx.jpg,
+                        "position":"松北区黑科技是十四舍"
+                        
                     }
               ]
+              
+              "name" : "XXX"
+              
           }
     ]
 }

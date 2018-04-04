@@ -13,6 +13,9 @@ public interface AssignmentCategoryService {
 
     List<AssignmentCategory> findAll();
 
+    /** 通过集合查找*/
+    List<AssignmentCategory> findByCategoryTypeIn(List<Integer> categoryTypeList);
+
     /** 新增或更新*/
     AssignmentCategory save(AssignmentCategory category);
 

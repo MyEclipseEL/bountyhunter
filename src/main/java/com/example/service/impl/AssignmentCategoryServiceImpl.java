@@ -28,7 +28,13 @@ public class AssignmentCategoryServiceImpl implements AssignmentCategoryService{
     }
 
     @Override
+    public List<AssignmentCategory> findByCategoryTypeIn(List<Integer> categoryTypeList) {
+        return repository.findByCategoryTypeIn(categoryTypeList);
+    }
+
+    @Override
     public AssignmentCategory save(AssignmentCategory category) {
         return repository.save(category);
     }
+
 }

@@ -22,6 +22,7 @@ public class AssignmentInfoVO {
     /**
      * 任务发布者
      */
+    @JsonProperty("owner")
     private UserAccount assignmentOwner;
 
     /** 任务类别*/
