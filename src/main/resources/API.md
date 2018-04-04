@@ -44,3 +44,45 @@
 }
 
 ```
+
+### 任务详情列
+```
+GET /bountyhunter/assignment/detail
+```
+参数
+```
+"accountId":"12345678911"
+"assignmentId":"123456"
+```
+返回
+
+```
+{
+    "code":0,
+    "msg":"成功".
+    "data":[
+        {
+            "id":"123456",
+            "owner":[
+                {
+                    "id":"12345678911",
+                    "name": "hunter",
+                    "email":?
+                    "detail":[
+                        {
+                            "icon":"http://xxx.jpg",
+                        }
+                    ],
+                }
+            ],
+            "reward":25.5,
+            "description":"一个跑腿的任务",
+            "icon":"http://xxx.jpg",
+            "position":"松北区黑科技是十四舍"
+        }
+    
+    ]
+
+
+}
+```
