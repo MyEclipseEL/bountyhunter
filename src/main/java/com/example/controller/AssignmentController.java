@@ -4,24 +4,30 @@ import com.example.VO.AssignmentInfoVO;
 import com.example.VO.AssignmentVO;
 import com.example.VO.ResultVO;
 import com.example.VO.UserAccountVO;
+import com.example.converter.AssignmentForm2InfoConverter;
 import com.example.dataobject.AssignmentCategory;
 import com.example.dataobject.AssignmentInfo;
 import com.example.dataobject.UserAccount;
 import com.example.dataobject.UserDetail;
+import com.example.enums.ResultEnum;
+import com.example.exception.HunterException;
+import com.example.form.AssignmentForm;
 import com.example.service.AssignmentCategoryService;
 import com.example.service.AssignmentService;
 import com.example.service.DetailService;
 import com.example.service.UserAccountService;
 import com.example.util.ResultVOUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -29,6 +35,7 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping("/assignment")
+@Slf4j
 public class AssignmentController {
 
     @Autowired
@@ -43,7 +50,24 @@ public class AssignmentController {
     @Autowired
     private DetailService detailService;
 
-    @RequestMapping("/list")
+    @PostMapping("/issue")
+    public ResultVO<Map<String,String>> issue(@Valid AssignmentForm assignmentForm,
+                                              BindingResult bindingResult) {
+        if (bindingResult.hasErrors()){
+            log.error("【发布任务】参数错误 assignmentForm={}",assignmentForm);
+            throw new HunterException(ResultEnum.PARAM_ERROR.getCode(),
+                    bindingResult.getFieldError().getDefaultMessage());
+        }
+
+        AssignmentInfo assignmentInfo = AssignmentForm2InfoConverter.converter(assignmentForm);
+
+        AssignmentInfo result = assignmentService.save(assignmentInfo);
+        Map<String,String> map = new HashMap<>();
+        map.put("assignmentId",result.getAssignmentId());
+        return ResultVOUtil.success(map);
+    }
+
+    @GetMapping("/list")
     public ResultVO list(){
         //1.查询所有未接任务
         List<AssignmentInfo> assignmentInfoList = assignmentService.findAllUnReceive();
@@ -79,7 +103,7 @@ public class AssignmentController {
                     accountVO.setUserDetail(detail);
 
                     BeanUtils.copyProperties(assignmentInfo,assignmentInfoVO);
-                    assignmentInfoVO.setAssignmentOwner(account);
+                    assignmentInfoVO.setAssignmentOwner(accountVO);
 
                     assignmentInfoVOList.add(assignmentInfoVO);
                 }
@@ -106,7 +130,7 @@ public class AssignmentController {
         BeanUtils.copyProperties(account,accountVO);
 
         accountVO.setUserDetail(detail);
-        assignmentInfoVO.setAssignmentOwner(account);
+        assignmentInfoVO.setAssignmentOwner(accountVO);
 
         return ResultVOUtil.success(assignmentInfoVO);
     }

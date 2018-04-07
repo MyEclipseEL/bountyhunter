@@ -19,11 +19,15 @@ public class AssignmentInfoVO {
     @JsonProperty("id")
     private String assignmentId;
 
+    /** 任务名称*/
+    @JsonProperty("name")
+    private String assignmentName;
+
     /**
      * 任务发布者
      */
     @JsonProperty("owner")
-    private UserAccount assignmentOwner;
+    private UserAccountVO assignmentOwner;
 
     /** 任务类别*/
     @JsonProperty("type")

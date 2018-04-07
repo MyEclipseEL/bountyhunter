@@ -23,6 +23,7 @@
                "assignment":[
                     {
                         "id":"123456",
+                        "name":"取快递",
                         "owner":[
                             {
                                 "id":"12345678911"
@@ -63,6 +64,7 @@ GET /bountyhunter/assignment/detail
     "data":[
         {
             "id":"123456",
+            "name":"取快递",
             "owner":[
                 {
                     "id":"12345678911",

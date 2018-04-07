@@ -18,6 +18,9 @@ public class AssignmentInfo {
     @Id
     private String assignmentId;
 
+    /** 任务名称*/
+    private String assignmentName;
+
     /** 任务发布者*/
     private String assignmentOwner;
 
