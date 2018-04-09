@@ -1,8 +1,7 @@
 package com.example.VO;
 
-import com.example.dataobject.UserAccount;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -30,7 +29,8 @@ public class AssignmentInfoVO {
     private UserAccountVO assignmentOwner;
 
     /** 任务类别*/
-    @JsonProperty("type")
+//    @JsonProperty("type")
+    @JsonIgnore
     private Integer categoryType;
 
     /** 任务回报*/

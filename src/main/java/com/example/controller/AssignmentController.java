@@ -9,6 +9,7 @@ import com.example.dataobject.AssignmentCategory;
 import com.example.dataobject.AssignmentInfo;
 import com.example.dataobject.UserAccount;
 import com.example.dataobject.UserDetail;
+import com.example.enums.AssignmentStatus;
 import com.example.enums.ResultEnum;
 import com.example.exception.HunterException;
 import com.example.form.AssignmentForm;
@@ -23,6 +24,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,7 +55,10 @@ public class AssignmentController {
 
     @PostMapping("/issue")
     public ResultVO<Map<String,String>> issue(@Valid AssignmentForm assignmentForm,
+                                                HttpServletRequest request,
                                               BindingResult bindingResult) {
+        HttpSession session = request.getSession();
+        UserAccount account = (UserAccount) session.getAttribute("account");
         if (bindingResult.hasErrors()){
             log.error("【发布任务】参数错误 assignmentForm={}",assignmentForm);
             throw new HunterException(ResultEnum.PARAM_ERROR.getCode(),
@@ -60,6 +66,7 @@ public class AssignmentController {
         }
 
         AssignmentInfo assignmentInfo = AssignmentForm2InfoConverter.converter(assignmentForm);
+        assignmentInfo.setAssignmentOwner(account.getAccountId());
 
         AssignmentInfo result = assignmentService.save(assignmentInfo);
         Map<String,String> map = new HashMap<>();
@@ -67,71 +74,8 @@ public class AssignmentController {
         return ResultVOUtil.success(map);
     }
 
-    @GetMapping("/list")
-    public ResultVO list(){
-        //1.查询所有未接任务
-        List<AssignmentInfo> assignmentInfoList = assignmentService.findAllUnReceive();
+    /**
+     * 主页悬赏任务
+     * */
 
-        //2.查询任务类别
-        List<Integer> categoryTypeList = assignmentInfoList.stream()
-                .map(e ->e.getCategoryType())
-                .collect(Collectors.toList());
-        List<AssignmentCategory> categoryList = categoryService.findByCategoryTypeIn(categoryTypeList);
-
-        //3.查询任务发布者
-//        List<String> accountIdList = assignmentInfoList.stream()
-//                .map(e->e.getAssignmentOwner())
-//                .collect(Collectors.toList());
-//        List<UserAccount> accountList = accountService.findByAccountIdIn(accountIdList);
-
-        //4.数据拼装
-        List<AssignmentVO> resultVOList = new ArrayList<>();
-        for(AssignmentCategory category:categoryList){
-            AssignmentVO assignmentVO = new AssignmentVO();
-            assignmentVO.setCategoryName(category.getCategoryName());
-            assignmentVO.setCategoryType(category.getCategoryType());
-
-            List<AssignmentInfoVO> assignmentInfoVOList = new ArrayList<>();
-            for (AssignmentInfo assignmentInfo:assignmentInfoList){
-                if (assignmentInfo.getCategoryType().equals(category.getCategoryType())){
-                    AssignmentInfoVO assignmentInfoVO = new AssignmentInfoVO();
-
-                    UserAccount account =  accountService.findOne(assignmentInfo.getAssignmentOwner());
-                    UserAccountVO accountVO = new UserAccountVO();
-                    BeanUtils.copyProperties(account,accountVO);
-                    UserDetail detail = detailService.findOne(account.getDetailId());
-                    accountVO.setUserDetail(detail);
-
-                    BeanUtils.copyProperties(assignmentInfo,assignmentInfoVO);
-                    assignmentInfoVO.setAssignmentOwner(accountVO);
-
-                    assignmentInfoVOList.add(assignmentInfoVO);
-                }
-            }
-
-            assignmentVO.setAssignmentInfoVOList(assignmentInfoVOList);
-            resultVOList.add(assignmentVO);
-
-        }
-        return ResultVOUtil.success(resultVOList);
-    }
-
-    @GetMapping("/detail")
-    public ResultVO detail(@RequestParam("assignmentOwner") String assignmentOwner,
-                       @RequestParam("assignmentId") String assignmentId){
-        AssignmentInfo assignmentInfo = assignmentService.findOne(assignmentId);
-        UserAccount account = accountService.findOne(assignmentOwner);
-        UserDetail detail = detailService.findOne(account.getDetailId());
-
-        AssignmentInfoVO assignmentInfoVO = new AssignmentInfoVO();
-        BeanUtils.copyProperties(assignmentInfo,assignmentInfoVO);
-
-        UserAccountVO accountVO = new UserAccountVO();
-        BeanUtils.copyProperties(account,accountVO);
-
-        accountVO.setUserDetail(detail);
-        assignmentInfoVO.setAssignmentOwner(accountVO);
-
-        return ResultVOUtil.success(assignmentInfoVO);
-    }
 }

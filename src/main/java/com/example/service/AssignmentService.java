@@ -15,6 +15,14 @@ public interface AssignmentService {
 
     List<AssignmentInfo> findByCategoryType(Integer categoryType);
 
+    /**
+     * 通过类别以及任务状态查找
+     * @param categoryType
+     * @param assignmentStatus
+     * @return
+     * */
+    List<AssignmentInfo> findByCategoryTypeAndAssignmentStatus(Integer categoryType,Integer assignmentStatus);
+
     List<AssignmentInfo> findByAssignmentStatus(Integer assignmentStatus);
 
     List<AssignmentInfo> findByPayStatus(Integer payStatus);
@@ -23,7 +31,7 @@ public interface AssignmentService {
 
     List<AssignmentInfo> findByAssignmentReceive(String assignmentReceive);
 
-    List<AssignmentInfo> findAllUnReceive();
+    List<AssignmentInfo> findAllUnReceive(Integer status);
 
     /** 修改任务状态*/
 

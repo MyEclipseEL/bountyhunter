@@ -48,7 +48,7 @@
 
 ### 任务详情列
 ```
-GET /bountyhunter/assignment/detail
+GET /bountyhunter/category/detail
 ```
 参数
 ```
@@ -84,7 +84,33 @@ GET /bountyhunter/assignment/detail
         }
     
     ]
-
-
 }
 ```
+
+#### 发布任务
+```
+POST /bountyhunter/assignment/issue
+```
+参数
+
+```
+"name":"root",
+"type":101,
+"reward":"20.0",
+"description":这是一个跑腿任务",
+"icon":"http://xxxx.jpg",
+"position":"14舍"
+```
+返回
+```
+{
+    "code":"0",
+    "msg":"成功",
+    "data":[
+        
+    ]
+}
+```
+
+#### 任务分类
+

@@ -32,6 +32,12 @@ public class AssignmentServiceImpl implements AssignmentService{
         return repository.findByCategoryType(categoryType);
     }
 
+
+    @Override
+    public List<AssignmentInfo> findByCategoryTypeAndAssignmentStatus(Integer categoryType,Integer assignmentStatus) {
+        return repository.findByCategoryTypeAndAssignmentStatus(categoryType,assignmentStatus);
+    }
+
     @Override
     public List<AssignmentInfo> findByAssignmentStatus(Integer assignmentStatus) {
         return repository.findByAssignmentStatus(assignmentStatus);
@@ -53,8 +59,8 @@ public class AssignmentServiceImpl implements AssignmentService{
     }
 
     @Override
-    public List<AssignmentInfo> findAllUnReceive() {
-        return repository.findAll();
+    public List<AssignmentInfo> findAllUnReceive(Integer status) {
+        return repository.findByAssignmentStatus(status);
     }
 
     @Override

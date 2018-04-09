@@ -14,11 +14,16 @@ public interface AssignmentRepository extends JpaRepository<AssignmentInfo,Strin
 
     List<AssignmentInfo> findByCategoryType(Integer categoryType);
 
+    List<AssignmentInfo> findByCategoryTypeAndAssignmentStatus(Integer categoryType,Integer assignmentStatus);
+
     List<AssignmentInfo> findByAssignmentStatus(Integer assignmentStatus);
 
     List<AssignmentInfo> findByPayStatus(Integer payStatus);
 
     List<AssignmentInfo> findByAssignmentOwner(String AssignmentOwner);
+
+    List<AssignmentInfo> findByAssignmentOwnerAndAssignmentStatus(String AssignmentOwner,Integer assignmentStatus);
+
 
     List<AssignmentInfo> findByAssignmentReceive(String AssignmentReceive);
 }

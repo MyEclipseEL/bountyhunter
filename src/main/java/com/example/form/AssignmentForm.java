@@ -18,9 +18,6 @@ public class AssignmentForm {
     @NotEmpty(message = "任务名称不能为空")
     private String name;
 
-    /** 发布人账号*/
-    @NotEmpty(message = "发布者必须存在")
-    private String owner;
 
     /** 任务类别*/
 //    @NotEmpty(message = "类别必填")
