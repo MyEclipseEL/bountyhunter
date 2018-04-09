@@ -114,3 +114,48 @@ POST /bountyhunter/assignment/issue
 
 #### 任务分类
 
+```
+GET /bountyhunter/category/list
+```
+参数
+
+```
+"categoryType":"101",
+```
+
+返回
+```
+{
+    "code": 0,
+    "msg": "成功",
+    "data": [
+        {
+            "name": "跑腿",
+            "type": 101,
+            "assignments": [
+                {
+                    "id": "1523103556512107696",
+                    "name": "取快递",
+                    "owner": {
+                        "account": "17745140138",
+                        "name": "root",
+                        "email": "1228537086@qq.com",
+                        "detail": {
+                            "detailId": "123456",
+                            "userPhone": "17745140138",
+                            "userAddress": "黑科技",
+                            "userIcon": "http://xxx.jpg",
+                            "userBirthday": "1998-1-15",
+                            "updateTime": 1523098998000
+                        }
+                    },
+                    "reward": 10,
+                    "description": "去小区5号楼",
+                    "icon": "http://xxx.jpg",
+                    "position": "14"
+                }
+            ]
+        }
+    ]
+}
+```
