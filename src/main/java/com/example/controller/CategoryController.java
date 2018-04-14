@@ -9,6 +9,8 @@ import com.example.dataobject.AssignmentInfo;
 import com.example.dataobject.UserAccount;
 import com.example.dataobject.UserDetail;
 import com.example.enums.AssignmentStatus;
+import com.example.enums.ResultEnum;
+import com.example.exception.HunterException;
 import com.example.service.AssignmentCategoryService;
 import com.example.service.AssignmentService;
 import com.example.service.DetailService;
@@ -23,6 +25,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -102,8 +107,20 @@ public class CategoryController {
     @GetMapping("/detail")
     public ResultVO detail(@RequestParam("assignmentOwner") String assignmentOwner,
                            @RequestParam("assignmentId") String assignmentId){
+        if(assignmentOwner.equals("")||assignmentId.equals("")){
+            log.error("【任务详情】参数错误: assignmentOwner={} , assignmentId={}",assignmentOwner,assignmentId);
+            throw new HunterException(ResultEnum.PARAM_ERROR);
+        }
         AssignmentInfo assignmentInfo = assignmentService.findOne(assignmentId);
+        if (assignmentInfo==null){
+            log.error("【任务详情】任务不存在：assignmentId={}",assignmentId);
+            throw new HunterException(ResultEnum.ASSIGNMENT_NOT_EXIST);
+        }
         UserAccount account = accountService.findOne(assignmentOwner);
+        if (account==null){
+            log.error("【任务详情】没有匹配的用户：assignmentOwner={}",assignmentOwner);
+            throw new HunterException(ResultEnum.OWNER_NOT_EXIST);
+        }
         UserDetail detail = detailService.findOne(account.getDetailId());
 
         AssignmentInfoVO assignmentInfoVO = new AssignmentInfoVO();
@@ -117,4 +134,44 @@ public class CategoryController {
 
         return ResultVOUtil.success(assignmentInfoVO);
     }
+
+    @GetMapping("/receive")
+    public ResultVO<AssignmentInfo> receive(@RequestParam("assignmentId") String assignmentId,
+                        HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        String accountId = (String) session.getAttribute("account");
+        log.info(accountId);
+        if (accountId==null||accountId.isEmpty()){
+            log.error("【接取任务】用户信息为空 session={}",session.getAttributeNames());
+            throw new HunterException(ResultEnum.ACCOUNT_EMPTY);
+        }
+        UserAccount account = accountService.findOne(accountId);
+        if (account==null){
+            log.error("【接取任务】用户信息为空 session={}",session.getId());
+            throw new HunterException(ResultEnum.ACCOUNT_EMPTY);
+        }
+        if (assignmentId.isEmpty()){
+            log.error("【接取任务】参数错误 assignmentId={}",assignmentId);
+            throw new HunterException(ResultEnum.PARAM_ERROR);
+        }
+        AssignmentInfo assignmentInfo = assignmentService.findOne(assignmentId);
+        if (assignmentInfo==null){
+            log.error("【接取任务】任务不存在 assignmentId={}",assignmentId);
+            throw new HunterException(ResultEnum.ASSIGNMENT_NOT_EXIST);
+        }
+        if (!assignmentInfo.getAssignmentStatus().equals(AssignmentStatus.NEW)
+                ||!assignmentInfo.getAssignmentReceive().isEmpty()){
+            log.error("【接取任务】出错了 任务已被接取");
+            throw new HunterException(ResultEnum.RECEIVE_EXIST);
+        }
+        assignmentInfo.setAssignmentStatus(AssignmentStatus.RECEIVED.getCode());
+        assignmentInfo.setAssignmentReceive(account.getAccountId());
+
+        AssignmentInfo result = assignmentService.save(assignmentInfo);
+
+        return ResultVOUtil.success(result);
+    }
+
+
+
 }

@@ -10,7 +10,11 @@ public enum ResultEnum {
 
     SUCCESS(0, "成功"),
     PARAM_ERROR(1, "参数错误"),
-
+    ASSIGNMENT_NOT_EXIST(2,"任务不存在"),
+    ACCOUNT_NOT_EXIST(3,"用户不存在"),
+    OWNER_NOT_EXIST(4,"没有匹配的发布者"),
+    ACCOUNT_EMPTY(5,"用户信息为空"),
+    RECEIVE_EXIST(6,"任务接取人已存在")
     ;
 
     private Integer code;

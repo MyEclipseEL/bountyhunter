@@ -13,6 +13,8 @@ public interface AssignmentService {
 
     AssignmentInfo findOne(String assignmentId);
 
+//    AssignmentInfo findOne(String assignmentId,Integer assignmentStatus);
+
     List<AssignmentInfo> findByCategoryType(Integer categoryType);
 
     /**
