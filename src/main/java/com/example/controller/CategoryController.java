@@ -139,7 +139,16 @@ public class CategoryController {
     public ResultVO<AssignmentInfo> receive(@RequestParam("assignmentId") String assignmentId,
                         HttpServletRequest request) {
         HttpSession session = request.getSession();
-        String accountId = (String) session.getAttribute("account");
+//        String accountId = (String) session.getAttribute("account");
+//        String accountId = (String) session.getValue("account");
+        String accountId = "";
+        Cookie cookies[] = request.getCookies();
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("account")) {
+                accountId = cookie.getValue();
+                break;
+            }
+        }
         log.info(accountId);
         if (accountId==null||accountId.isEmpty()){
             log.error("【接取任务】用户信息为空 session={}",session.getAttributeNames());
@@ -147,8 +156,8 @@ public class CategoryController {
         }
         UserAccount account = accountService.findOne(accountId);
         if (account==null){
-            log.error("【接取任务】用户信息为空 session={}",session.getId());
-            throw new HunterException(ResultEnum.ACCOUNT_EMPTY);
+            log.error("【接取任务】用户不存在 accountId={}",accountId);
+            throw new HunterException(ResultEnum.ACCOUNT_NOT_EXIST);
         }
         if (assignmentId.isEmpty()){
             log.error("【接取任务】参数错误 assignmentId={}",assignmentId);
@@ -159,9 +168,8 @@ public class CategoryController {
             log.error("【接取任务】任务不存在 assignmentId={}",assignmentId);
             throw new HunterException(ResultEnum.ASSIGNMENT_NOT_EXIST);
         }
-        if (!assignmentInfo.getAssignmentStatus().equals(AssignmentStatus.NEW)
-                ||!assignmentInfo.getAssignmentReceive().isEmpty()){
-            log.error("【接取任务】出错了 任务已被接取");
+        if (!assignmentInfo.getAssignmentStatus().equals(AssignmentStatus.NEW.getCode())){
+            log.error("【接取任务】出错了 任务已被接取 assignmentStatus={}",assignmentInfo.getAssignmentStatus());
             throw new HunterException(ResultEnum.RECEIVE_EXIST);
         }
         assignmentInfo.setAssignmentStatus(AssignmentStatus.RECEIVED.getCode());
