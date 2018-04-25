@@ -9,9 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
  * Created by Administrator on 2018/4/14.
  */
 @RestController
-@Slf4j
+@RequestMapping("/user")
 public class LoginController {
-
 
     /**
      * 用户登陆
@@ -23,5 +22,15 @@ public class LoginController {
 
     /**
      * 用户注册
-     * */
+     */
+    @PostMapping("/register")
+    public void register() {
+
+
+    }
+
+
+
+
+
 }

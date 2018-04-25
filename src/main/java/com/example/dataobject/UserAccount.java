@@ -31,6 +31,12 @@ public class UserAccount {
     /** 用户邮箱*/
     private String userEmail;
 
+    /** 激活码 **/
+    private String activeCode;
+
+    /** 激活状态 **/
+    private int state;
+
     /** 创建时间*/
     private Date createTime;
 

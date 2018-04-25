@@ -2,11 +2,26 @@ spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     username: root
-    password: 111111
+    password: kira
     url: jdbc:mysql://127.0.0.1/bountyhunter?characterEncoding=utf-8&useSSL=false
+
   jpa:
     show-sql: true
   jackson:
     default-property-inclusion: non_null
+  mail:
+      host: smtp.163.com
+      username: fate1342746626@163.com
+      password: a456789
+#      port: 25
+      default-encoding: UTF-8
+      protocol: smtp
+      properties:
+        mail:
+          smth:
+            auth: true
+            starttls:
+              enable: true
+              required: true
 
 
