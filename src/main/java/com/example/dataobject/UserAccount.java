@@ -34,7 +34,7 @@ public class UserAccount {
     /** 激活码 **/
     private String activeCode;
 
-    /** 激活状态 **/
+    /** 激活状态  默认为 0 未激活**/
     private int state;
 
     /** 创建时间*/

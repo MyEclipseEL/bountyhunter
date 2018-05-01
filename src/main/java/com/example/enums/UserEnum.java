@@ -12,6 +12,9 @@ public enum UserEnum {
 
     CODE_NOT_TRUE(13, "激活码不正确"),
 
+    PARAM_ERROR(14, "参数不正确"),
+
+    EMAIL_IS_EXIST(15,"该邮箱已注册")
     ;
     private Integer code;
 

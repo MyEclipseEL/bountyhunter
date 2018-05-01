@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 /**
+ * 用户信息补全表
+ *
  * Created by Administrator on 2018/4/4.
  */
 @Service

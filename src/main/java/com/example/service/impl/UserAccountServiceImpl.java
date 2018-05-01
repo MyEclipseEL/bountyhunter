@@ -1,10 +1,13 @@
 package com.example.service.impl;
 
 import com.example.dataobject.UserAccount;
+import com.example.dataobject.UserDetail;
 import com.example.enums.UserEnum;
 import com.example.exception.UserException;
+import com.example.repository.DetailRepository;
 import com.example.repository.UserAccountRepository;
 import com.example.service.UserAccountService;
+import com.example.util.KeyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
@@ -22,11 +25,17 @@ public class UserAccountServiceImpl implements UserAccountService {
     @Autowired
     private UserAccountRepository repository;
 
+    @Autowired
+    private DetailRepository detailRepository;
+
     @Value("${spring.mail.username}")
     private String sender;
 
     @Autowired
     private JavaMailSender javaMailSender;
+
+
+
 
     @Override
     public UserAccount findOne(String accountId) {
@@ -42,13 +51,29 @@ public class UserAccountServiceImpl implements UserAccountService {
     @Override
     public UserAccount register(UserAccount user) {
 
+        UserAccount userTest = repository.findOne(user.getUserEmail());
+        if (userTest != null) {
+            throw new UserException(UserEnum.EMAIL_IS_EXIST);
+        }
+
         SimpleMailMessage message = new SimpleMailMessage();
-        String activityCode= user.getActiveCode();
+        String activityCode = KeyUtil.genUniqueKey();
         message.setFrom(sender);
         message.setTo(user.getUserEmail());
 
         message.setSubject("用户激活");
-        message.setText("激活赏金猎人账号"+"http://127.0.0.1/bountyhunter?activityCode="+activityCode);
+        message.setText("请激活赏金猎人账号"+"http://127.0.0.1/bountyhunter?activityCode="+activityCode);
+
+        String accountId = KeyUtil.getUserKey();
+        user.setActiveCode(activityCode);
+        user.setAccountId(accountId);
+        user.setState(0);
+        user.setDetailId(activityCode);
+
+
+        UserDetail userDetail = new UserDetail();
+        userDetail.setDetailId(accountId);
+        detailRepository.save(userDetail);
 
         javaMailSender.send(message);
 
