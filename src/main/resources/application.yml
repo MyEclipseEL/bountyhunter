@@ -23,7 +23,6 @@ spring:
             starttls:
               enable: true
               required: true
-
 server:
     context-path: /bountyhunter
     port: 8080
