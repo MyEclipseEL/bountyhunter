@@ -23,17 +23,14 @@ public class UserAccountServiceImplTest {
     @Autowired
     private UserAccountService userAccountService;
 
+
     @Test
     public void register() throws Exception {
 
         UserAccount user = new UserAccount();
-        user.setUserName("打蜡");
-        user.setAccountId("111");
-        user.setUserEmail("1342746626@qq.com");
-        user.setUserPassword("abd1111");
-        user.setState(0);
-        user.setDetailId("如何");
-        user.setActiveCode(KeyUtil.genUniqueKey());
+        user.setUserName("绅士");
+        user.setUserEmail("22233@qq.com");
+        user.setUserPassword("dsdsd");
 
         UserAccount result = userAccountService.register(user);
 
