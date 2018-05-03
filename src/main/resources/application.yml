@@ -2,7 +2,7 @@ spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     username: root
-    password: kira
+    password: 111111
     url: jdbc:mysql://127.0.0.1/bountyhunter?characterEncoding=utf-8&useSSL=false
 
   jpa:
@@ -23,12 +23,21 @@ spring:
             starttls:
               enable: true
               required: true
+  thymeleaf:
+    mode: HTML5
+    encoding: UTF-8
+    content-type: text/html
+    cache: false
+  mvc:
+    static-path-pattern: /**
   resources:
-    chain:
-      strategy:
-        content:
-          paths: /bountyhunter
+    static-locations: classpath:/templates/,classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/ #
+#  resources:
+#    chain:
+#      strategy:
+#        content:
+#          paths:
 server:
-    context-path: /bountyhunter
+    context-path:
+#    /bountyhunter
     port: 8080
-

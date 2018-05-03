@@ -1,8 +1,11 @@
 package com.example.form;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 /**
@@ -12,7 +15,8 @@ import java.math.BigDecimal;
 public class AssignmentForm {
 
     /** 任务id*/
-    private String id;
+//    @JsonIgnore
+//    private String id;
 
     /** 任务名字*/
     @NotEmpty(message = "任务名称不能为空")
@@ -20,11 +24,11 @@ public class AssignmentForm {
 
 
     /** 任务类别*/
-//    @NotEmpty(message = "类别必填")
+    @NotNull(message = "类别必填")
     private Integer type;
 
     /** 任务回报*/
-//    @NotEmpty(message = "不存在学雷锋的，请填写金额")
+    @NotNull(message = "不存在学雷锋的，请填写金额")
     private BigDecimal reward;
 
     /** 任务描述*/

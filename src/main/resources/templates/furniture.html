@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Products</title>
+<title>Furniture</title>
 <!-- for-mobile-apps -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -39,6 +39,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="container">
 		<div class="header-grid">
 			<div class="header-grid-left animated wow slideInLeft" data-wow-delay=".5s">
+
 			</div>
 			<div class="header-grid-right animated wow slideInRight" data-wow-delay=".2s">
 				<ul class="social-icons">
@@ -74,9 +75,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<ul class="nav navbar-nav">
 							<li class="active"><a href="index.html" >首页</a></li>
 							<!-- Mega Menu -->
-							<li class="dropdown active">
+							<li class="dropdown ">
 
-								<a href="#" class="dropdown-toggle act" data-toggle="dropdown">悬赏任务分类 <b class="caret"></b></a>
+								<a href="#" class="dropdown-toggle " data-toggle="dropdown">悬赏任务分类 <b class="caret"></b></a>
 								<ul class="dropdown-menu multi-column columns-1">
 									<div class="row"  >
 										<div class="col-sm-8"  >
@@ -97,173 +98,213 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											</ul>
 										</div>
 
+
 										<div class="clearfix"></div>
 									</div>
 								</ul>
 							</li>
-							<li ><a href="furniture.html" >最新任务列表</a></li>
+							<li class="active" >
+								<a href="furniture.html" class="act">最新任务列表
+								</a>
+
+							</li>
 							<li><a href="mail.html">任务发布</a></li>
 							<li><a href="checkout.html">历史任务</a></li>
 						</ul>
 					</div>
 				</nav>
 			</div>
+			<div class="logo-nav-right">
+				<div class="search-box">
+					<div id="sb-search" class="sb-search">
+						<form>
+							<input class="sb-search-input" placeholder="Enter your search term..." type="search" id="search">
+							<input class="sb-search-submit" type="submit" value="">
+							<span class="sb-icon-search"> </span>
+						</form>
+					</div>
+				</div>
+				<!-- search-scripts -->
+				<script src="js/classie.js"></script>
+				<script src="js/uisearch.js"></script>
+				<script>
+                    new UISearch( document.getElementById( 'sb-search' ) );
+				</script>
+				<!-- //search-scripts -->
+			</div>
 
 			<div class="clearfix"> </div>
 		</div>
 	</div>
 </div>
-
 <!-- //header -->
 <!-- breadcrumbs -->
 	<div class="breadcrumbs">
 		<div class="container">
 			<ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
 				<li><a href="index.html"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
-				<li class="active">Products</li>
+				<li class="active">Furniture</li>
 			</ol>
 		</div>
 	</div>
 	<div class="products">
 		<div class="container">
-			<div class="col-md-4 products-left">
 
-				<div class="new-products animated wow slideInUp" data-wow-delay=".5s">
-					<h3>最新任务发布</h3>
-					<div class="new-products-grids">
-						<div class="new-products-grid">
-							<div class="new-products-grid-left">
-								<a href="single.html"><img src="images/food-02.jpg" alt=" " class="img-responsive" /></a>
-							</div>
-							<div class="new-products-grid-right">
-								<h4><a href="single.html">任务：带一份咖啡+蛋糕</a></h4>
-								<div class="simpleCart_shelfItem new-products-grid-right-add-cart">
-									<p> <span class="item_price">￥20</span><a class="item_add" href="single.html">详 情 </a></p>
-								</div>
-							</div>
-							<div class="clearfix"> </div>
-						</div>
-						<div class="new-products-grid">
-							<div class="new-products-grid-left" >
-								<a href="single.html"><img src="images/banner-20.jpg" alt=" " class="img-responsive" style="height:150px"/></a>
-							</div>
-							<div class="new-products-grid-right">
-								<h4><a href="single.html">任务：代购拉花咖啡</a></h4>
-
-								<div class="simpleCart_shelfItem new-products-grid-right-add-cart">
-									<p> <span class="item_price">￥49</span><a class="item_add" href="single.html">详情 </a></p>
-								</div>
-							</div>
-							<div class="clearfix"> </div>
-						</div>
-						<div class="new-products-grid">
-							<div class="new-products-grid-left">
-								<a href="single.html"><img src="images/food-14.jpg" alt=" " class="img-responsive" /></a>
-							</div>
-							<div class="new-products-grid-right">
-								<h4><a href="single.html">任务：沙拉甜品</a></h4>
-
-								<div class="simpleCart_shelfItem new-products-grid-right-add-cart">
-									<p> <span class="item_price">￥45</span><a class="item_add" href="single.html">详 情 </a></p>
-								</div>
-							</div>
-							<div class="clearfix"> </div>
-						</div>
-					</div>
-				</div>
-				<div class="men-position animated wow slideInUp" data-wow-delay=".4s">
-					<a href="single.html"><img src="images/food-07.jpg" alt=" " class="img-responsive" /></a>
-					<div class="men-position-pos">
-						<h4>马卡龙</h4>
-						<h5><span>99.99%</span> 女生最爱</h5>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-8 products-right">
+			<div class="col-md-12 products-right">
 				<div class="products-right-grid">
+					<div class="products-right-grids animated wow slideInRight" data-wow-delay=".5s">
 
+						<div class="clearfix"> </div>
+					</div>
 					<div class="products-right-grids-position animated wow slideInRight" data-wow-delay=".5s">
-						<img src="images/food-03.jpg" alt=" " class="img-responsive" style="width:100%;height:500px;"/>
+						<img src="images/car.png" alt=" " class="img-responsive"  style="width:100%;height:100%"/>
 						<div class="products-right-grids-position1">
-							<h4>2018 赏金任务Top.1</h4>
-							<p>法棍面包，搭配营养美容养颜的蜂蜜，坚果谷物，营养加倍，草莓水果补充丰富维生素</p>
+							<h3>2018 最新任务</h3>
+							<p>法拉利是举世闻名的赛车和运动跑车的生产厂家，总部位于意大利马拉内罗（Maranello），由恩佐·法拉利（Enzo Ferrari）于1947年创办，主要制造一级方程式赛车、赛车及高性能跑车。</p>
 						</div>
 					</div>
 				</div>
 				<div class="products-right-grids-bottom">
 					<div class="col-md-4 products-right-grids-bottom-grid">
-						<div class="new-collections-grid1 products-right-grid1 animated wow " >
-							<!--一个-->
+						<div class="new-collections-grid1 products-right-grid1 animated wow slideInUp" data-wow-delay=".5s">
 							<div class="new-collections-grid1-image">
-								<a href="single.html" class="product-image"><img src="images/food-08.jpg" alt=" " class="img-responsive" style="width:100%;height: 200px"></a>
-								<div class="new-collections-grid1-image-pos products-right-grids-pos">
-									<a href="single.html">点击查看任务</a>
+								<a href="single.html" class="product-image"><img src="images/30.jpg" alt=" " class="img-responsive"></a>
+								<div class="new-collections-grid1-image-pos products-right-grids-pos" style="padding-left:50px;">
+									<a href="single.html">Quick View</a>
+								</div>
+								<div class="new-collections-grid1-right products-right-grids-pos-right">
+									<div class="rating">
+										<div class="rating-left">
+											<img src="images/2.png" alt=" " class="img-responsive">
+										</div>
+										<div class="rating-left">
+											<img src="images/2.png" alt=" " class="img-responsive">
+										</div>
+										<div class="rating-left">
+											<img src="images/2.png" alt=" " class="img-responsive">
+										</div>
+										<div class="rating-left">
+											<img src="images/1.png" alt=" " class="img-responsive">
+										</div>
+										<div class="rating-left">
+											<img src="images/1.png" alt=" " class="img-responsive">
+										</div>
+										<div class="clearfix"> </div>
+									</div>
 								</div>
 							</div>
-							<h4><a href="single.html">美味虾尾</a></h4>
-							<p>营养健康，能量加倍</p>
+							<h4><a href="single.html">Centre Table</a></h4>
+							<p>Vel illum qui dolorem.</p>
 							<div class="simpleCart_shelfItem products-right-grid1-add-cart">
-								<p><i>￥325</i> <span class="item_price">￥250</span>
-									<a class="item_add" href="single.html">详 情 </a>
-								</p>
+								<p><i>$325</i> <span class="item_price">$250</span><a class="item_add" href="#">add to cart </a></p>
 							</div>
 						</div>
-						<div class="new-collections-grid1 products-right-grid1 animated wow " >
-							<!--两个-->
+						<div class="new-collections-grid1 products-right-grid1 animated wow slideInUp" data-wow-delay=".5s">
 							<div class="new-collections-grid1-image">
-								<a href="single.html" class="product-image"><img src="images/food-09.jpg" alt=" " class="img-responsive" style="width:100%;height: 200px"></a>
-								<div class="new-collections-grid1-image-pos products-right-grids-pos">
-									<a href="single.html">点击查看详情</a>
+								<a href="single.html" class="product-image"><img src="images/32.jpg" alt=" " class="img-responsive"></a>
+								<div class="new-collections-grid1-image-pos products-right-grids-pos" style="padding-left:50px;">
+									<a href="single.html">Quick View</a>
+								</div>
+								<div class="new-collections-grid1-right products-right-grids-pos-right">
+									<div class="rating">
+										<div class="rating-left">
+											<img src="images/2.png" alt=" " class="img-responsive">
+										</div>
+										<div class="rating-left">
+											<img src="images/2.png" alt=" " class="img-responsive">
+										</div>
+										<div class="rating-left">
+											<img src="images/2.png" alt=" " class="img-responsive">
+										</div>
+										<div class="rating-left">
+											<img src="images/1.png" alt=" " class="img-responsive">
+										</div>
+										<div class="rating-left">
+											<img src="images/1.png" alt=" " class="img-responsive">
+										</div>
+										<div class="clearfix"> </div>
+									</div>
 								</div>
 							</div>
-							<h4><a href="single.html">糖醋五花肉</a></h4>
-							<p>酸酸甜甜，滑顺可口</p>
+							<h4><a href="single.html">Media Cabinet</a></h4>
+							<p>Vel illum qui dolorem.</p>
 							<div class="simpleCart_shelfItem products-right-grid1-add-cart">
-								<p><i>￥75</i> <span class="item_price">￥50</span><a class="item_add" href="single.html">详 情</a></p>
+								<p><i>$325</i> <span class="item_price">$250</span><a class="item_add" href="#">add to cart </a></p>
 							</div>
 						</div>
-						<div class="new-collections-grid1 products-right-grid1 animated wow " >
-							<!--三个-->
+						<div class="new-collections-grid1 products-right-grid1 animated wow slideInUp" data-wow-delay=".5s">
 							<div class="new-collections-grid1-image">
-								<a href="single.html" class="product-image"><img src="images/food-04.jpg" alt=" " class="img-responsive" style="width:100%;height: 200px"></a>
-								<div class="new-collections-grid1-image-pos products-right-grids-pos">
-									<a href="single.html">点击查看任务</a>
+								<a href="single.html" class="product-image"><img src="images/31.jpg" alt=" " class="img-responsive"></a>
+								<div class="new-collections-grid1-image-pos products-right-grids-pos" style="padding-left:50px;">
+									<a href="single.html">Quick View</a>
+								</div>
+								<div class="new-collections-grid1-right products-right-grids-pos-right">
+									<div class="rating">
+										<div class="rating-left">
+											<img src="images/2.png" alt=" " class="img-responsive">
+										</div>
+										<div class="rating-left">
+											<img src="images/2.png" alt=" " class="img-responsive">
+										</div>
+										<div class="rating-left">
+											<img src="images/2.png" alt=" " class="img-responsive">
+										</div>
+										<div class="rating-left">
+											<img src="images/1.png" alt=" " class="img-responsive">
+										</div>
+										<div class="rating-left">
+											<img src="images/1.png" alt=" " class="img-responsive">
+										</div>
+										<div class="clearfix"> </div>
+									</div>
 								</div>
 							</div>
-							<h4><a href="single.html">营养快餐</a></h4>
-							<p>荤素搭配，营养美味</p>
+							<h4><a href="single.html">Entertainment Unit</a></h4>
+							<p>Vel illum qui dolorem.</p>
 							<div class="simpleCart_shelfItem products-right-grid1-add-cart">
-								<p><i>￥45</i> <span class="item_price">￥25</span><a class="item_add" href="single.html">详 情</a></p>
+								<p><i>$585</i> <span class="item_price">$489</span><a class="item_add" href="#">add to cart </a></p>
 							</div>
 						</div>
 					</div>
 					<div class="col-md-4 products-right-grids-bottom-grid">
-						<div class="new-collections-grid1 products-right-grid1 animated wow " >
-							<!--四个-->
+						<div class="new-collections-grid1 products-right-grid1 animated wow slideInUp" data-wow-delay=".5s">
 							<div class="new-collections-grid1-image">
-								<a href="single.html" class="product-image"><img src="images/food-16.jpg" alt=" " class="img-responsive" style="width:100%;height: 200px"></a>
-								<div class="new-collections-grid1-image-pos products-right-grids-pos">
-									<a href="single.html">点击查看详情</a>
+								<a href="single.html" class="product-image"><img src="images/33.jpg" alt=" " class="img-responsive"></a>
+								<div class="new-collections-grid1-image-pos products-right-grids-pos" style="padding-left:50px;">
+									<a href="single.html">Quick View</a>
 								</div>
 								<div class="new-collections-grid1-right products-right-grids-pos-right">
 									<div class="rating">
-
+										<div class="rating-left">
+											<img src="images/2.png" alt=" " class="img-responsive">
+										</div>
+										<div class="rating-left">
+											<img src="images/2.png" alt=" " class="img-responsive">
+										</div>
+										<div class="rating-left">
+											<img src="images/2.png" alt=" " class="img-responsive">
+										</div>
+										<div class="rating-left">
+											<img src="images/1.png" alt=" " class="img-responsive">
+										</div>
+										<div class="rating-left">
+											<img src="images/1.png" alt=" " class="img-responsive">
+										</div>
 										<div class="clearfix"> </div>
 									</div>
 								</div>
 							</div>
-							<h4><a href="single.html"></a>草莓西米露</h4>
-							<p>冷饮，甜点，休闲放松</p>
+							<h4><a href="single.html">2 Seater Sofa</a></h4>
+							<p>Vel illum qui dolorem.</p>
 							<div class="simpleCart_shelfItem products-right-grid1-add-cart">
-								<p><i>￥28</i> <span class="item_price">￥25</span><a class="item_add" href="#">详 情</a></p>
+								<p><i>$280</i> <span class="item_price">$250</span><a class="item_add" href="#">add to cart </a></p>
 							</div>
 						</div>
-						<div class="new-collections-grid1 products-right-grid1 animated wow " >
-							<!--五个-->
+						<div class="new-collections-grid1 products-right-grid1 animated wow slideInUp" data-wow-delay=".5s">
 							<div class="new-collections-grid1-image">
-								<a href="single.html" class="product-image"><img src="images/food-15.jpg" alt=" " class="img-responsive" style="width:100%;height: 200px"></a>
-								<div class="new-collections-grid1-image-pos products-right-grids-pos">
-									<a href="single.html">点击查看详情</a>
+								<a href="single.html" class="product-image"><img src="images/6.jpg" alt=" " class="img-responsive"></a>
+								<div class="new-collections-grid1-image-pos products-right-grids-pos" style="padding-left:50px;">
+									<a href="single.html">Quick View</a>
 								</div>
 								<div class="new-collections-grid1-right products-right-grids-pos-right">
 									<div class="rating">
@@ -286,18 +327,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									</div>
 								</div>
 							</div>
-							<h4><a href="single.html">鸡蛋肉丝面</a></h4>
-							<p>营养优惠，第二份半价</p>
+							<h4><a href="single.html">Street Lamp</a></h4>
+							<p>Vel illum qui dolorem.</p>
 							<div class="simpleCart_shelfItem products-right-grid1-add-cart">
-								<p><i>$50</i> <span class="item_price">$48</span><a class="item_add" href="#">详 情 </a></p>
+								<p><i>$500</i> <span class="item_price">$480</span><a class="item_add" href="#">add to cart </a></p>
 							</div>
 						</div>
-						<div class="new-collections-grid1 products-right-grid1 animated wow " >
-							<!--六个-->
+						<div class="new-collections-grid1 products-right-grid1 animated wow slideInUp" data-wow-delay=".5s">
 							<div class="new-collections-grid1-image">
-								<a href="single.html" class="product-image"><img src="images/food-10.jpg" alt=" " class="img-responsive" style="width:100%;height: 200px"></a>
-								<div class="new-collections-grid1-image-pos products-right-grids-pos">
-									<a href="single.html">点击查看详情</a>
+								<a href="single.html" class="product-image"><img src="images/9.jpg" alt=" " class="img-responsive"></a>
+								<div class="new-collections-grid1-image-pos products-right-grids-pos" style="padding-left:50px;">
+									<a href="single.html">Quick View</a>
 								</div>
 								<div class="new-collections-grid1-right products-right-grids-pos-right">
 									<div class="rating">
@@ -320,20 +360,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									</div>
 								</div>
 							</div>
-							<h4><a href="single.html">巧克力，奶酪披萨饼</a></h4>
-							<p>甜蜜驿站，聊天约会最佳地点</p>
+							<h4><a href="single.html">Street Lamp</a></h4>
+							<p>Vel illum qui dolorem.</p>
 							<div class="simpleCart_shelfItem products-right-grid1-add-cart">
-								<p><i>￥58</i> <span class="item_price">￥48</span><a class="item_add" href="single.html">详 情 </a></p>
+								<p><i>$585</i> <span class="item_price">$489</span><a class="item_add" href="#">add to cart </a></p>
 							</div>
 						</div>
 					</div>
 					<div class="col-md-4 products-right-grids-bottom-grid">
-						<div class="new-collections-grid1 products-right-grid1 animated wow " >
-							<!--八个-->
+						<div class="new-collections-grid1 products-right-grid1 animated wow slideInUp" data-wow-delay=".5s">
 							<div class="new-collections-grid1-image">
-								<a href="single.html" class="product-image"><img src="images/food-12.jpg" alt=" " class="img-responsive" style="width:100%;height: 200px"></a>
-								<div class="new-collections-grid1-image-pos products-right-grids-pos">
-									<a href="single.html">点击查看详情</a>
+								<a href="single.html" class="product-image"><img src="images/10.jpg" alt=" " class="img-responsive"></a>
+								<div class="new-collections-grid1-image-pos products-right-grids-pos" style="padding-left:50px;">
+									<a href="single.html">Quick View</a>
 								</div>
 								<div class="new-collections-grid1-right products-right-grids-pos-right">
 									<div class="rating">
@@ -356,17 +395,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									</div>
 								</div>
 							</div>
-							<h4><a href="single.html">法式三明治</a></h4>
-							<p>营养均衡，颜值超高</p>
+							<h4><a href="single.html">Anklet</a></h4>
+							<p>Vel illum qui dolorem.</p>
 							<div class="simpleCart_shelfItem products-right-grid1-add-cart">
-								<p><i>￥30</i> <span class="item_price">￥25</span><a class="item_add" href="single.html">详 情 </a></p>
+								<p><i>$305</i> <span class="item_price">$280</span><a class="item_add" href="#">add to cart </a></p>
 							</div>
 						</div>
-						<div class="new-collections-grid1 products-right-grid1 animated wow ">
+						<div class="new-collections-grid1 products-right-grid1 animated wow slideInUp" data-wow-delay=".5s">
 							<div class="new-collections-grid1-image">
-								<a href="single.html" class="product-image"><img src="images/food-13.jpg" alt=" " class="img-responsive" style="width:100%;height: 200px"></a>
-								<div class="new-collections-grid1-image-pos products-right-grids-pos">
-									<a href="single.html">点击查看详情</a>
+								<a href="single.html" class="product-image"><img src="images/11.jpg" alt=" " class="img-responsive"></a>
+								<div class="new-collections-grid1-image-pos products-right-grids-pos" style="padding-left:50px;">
+									<a href="single.html">Quick View</a>
 								</div>
 								<div class="new-collections-grid1-right products-right-grids-pos-right">
 									<div class="rating">
@@ -389,17 +428,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									</div>
 								</div>
 							</div>
-							<h4><a href="single.html">夏日水果沙拉</a></h4>
-							<p>清凉一夏，热带水果</p>
+							<h4><a href="single.html">Stone Bangles</a></h4>
+							<p>Vel illum qui dolorem.</p>
 							<div class="simpleCart_shelfItem products-right-grid1-add-cart">
-								<p><i>￥38</i> <span class="item_price">￥29</span><a class="item_add" href="single.html">详情 </a></p>
+								<p><i>$389</i> <span class="item_price">$299</span><a class="item_add" href="#">add to cart </a></p>
 							</div>
 						</div>
-						<div class="new-collections-grid1 products-right-grid1 animated wow " >
+						<div class="new-collections-grid1 products-right-grid1 animated wow slideInUp" data-wow-delay=".5s">
 							<div class="new-collections-grid1-image">
-								<a href="single.html" class="product-image"><img src="images/food-11.jpg" alt=" " class="img-responsive" style="width:100%;height: 200px"></a>
-								<div class="new-collections-grid1-image-pos products-right-grids-pos">
-									<a href="single.html">点击查看详情</a>
+								<a href="single.html" class="product-image"><img src="images/34.jpg" alt=" " class="img-responsive"></a>
+								<div class="new-collections-grid1-image-pos products-right-grids-pos" style="padding-left:50px;">
+									<a href="single.html">Quick View</a>
 								</div>
 								<div class="new-collections-grid1-right products-right-grids-pos-right">
 									<div class="rating">
@@ -422,10 +461,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									</div>
 								</div>
 							</div>
-							<h4><a href="single.html">北京烤鸭</a></h4>
-							<p>肉质酥软，肥而不腻</p>
+							<h4><a href="single.html">Analog Wall Clock</a></h4>
+							<p>Vel illum qui dolorem.</p>
 							<div class="simpleCart_shelfItem products-right-grid1-add-cart">
-								<p><i>￥58</i> <span class="item_price">￥48</span><a class="item_add" href="single.html">详情 </a></p>
+								<p><i>$585</i> <span class="item_price">$489</span><a class="item_add" href="#">add to cart </a></p>
 							</div>
 						</div>
 					</div>

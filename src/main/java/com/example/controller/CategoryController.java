@@ -20,10 +20,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -35,9 +34,11 @@ import java.util.stream.Collectors;
 /**
  * Created by Administrator on 2018/4/9.
  */
-@RestController
+//@RestController
 @RequestMapping("/category")
 @Slf4j
+//@CrossOrigin
+@Controller
 public class CategoryController {
 
     @Autowired
@@ -102,6 +103,15 @@ public class CategoryController {
                 resultVOList.add(assignmentVO);
             }
         return ResultVOUtil.success(resultVOList);
+    }
+
+    //获取所有类别
+    @RequestMapping("/type")
+    public String type(Model model){
+        List<AssignmentCategory> categoryList = categoryService.findAll();
+        model.addAttribute("msg","这是类别");
+//        return ResultVOUtil.success(categoryList);
+        return "/index";
     }
 
     @GetMapping("/detail")
