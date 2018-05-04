@@ -12,7 +12,7 @@ public class AssignmentForm2InfoConverter {
     public static AssignmentInfo converter(AssignmentForm assignmentForm){
         AssignmentInfo assignmentInfo = new AssignmentInfo();
 
-        assignmentInfo.setAssignmentId(assignmentForm.getId());
+//        assignmentInfo.setAssignmentId(assignmentForm.getId());
         assignmentInfo.setAssignmentName(assignmentForm.getName());
         assignmentInfo.setCategoryType(assignmentForm.getType());
         assignmentInfo.setAssignmentDescription(assignmentForm.getDescription());

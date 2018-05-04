@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Login</title>
+<title>Mail Us</title>
 <!-- for-mobile-apps -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -19,6 +19,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<script src="js/simpleCart.min.js"> </script>
 <!-- cart -->
 <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
+
 <!-- for bootstrap working -->
 	<script type="text/javascript" src="js/bootstrap-3.1.1.min.js"></script>
 <!-- //for bootstrap working -->
@@ -27,10 +28,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- animation-effect -->
 <link href="css/animate.min.css" rel="stylesheet"> 
 <!--<script src="js/wow.min.js"></script>-->
-<!--<script>
- new WOW().init();
-</script>-->
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery-3.2.1.min.js"></script>
+<script>
+// new WOW().init();
+</script>
 <!-- //animation-effect -->
+	<!--<script src="js/vue.min.js"></script>-->
+	<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
+
+
 </head>
 	
 <body>
@@ -74,32 +82,40 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<ul class="nav navbar-nav">
 							<li class="active"><a href="index.html" >首页</a></li>
 							<!-- Mega Menu -->
-							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown">悬赏任务分类 <b class="caret"></b></a>
+							<li class="dropdown ">
+
+								<a href="#" class="dropdown-toggle " data-toggle="dropdown">悬赏任务分类 <b class="caret"></b></a>
 								<ul class="dropdown-menu multi-column columns-1">
 									<div class="row"  >
 										<div class="col-sm-8"  >
-											<ul class="multi-column-dropdown" style="padding-left: 40px;font-size：30px;" >
-												<li ><a href="products.html" >跑腿任务</a></li>
-												<li><a href="products.html" >二手交易</a></li>
-												<li><a href="products.html">招聘兼职</a></li>
-												<li><a href="products.html">日租短租</a></li>
-												<li ><a href="products.html">游戏任务</a></li>
+											<ul class="multi-column-dropdown" style="padding-left: 40px;" >
+												<!--<h6>分类列表</h6>-->
+												<li ><a href="products.html" >餐饮任务</a></li>
+												<li><a href="products.html" >游戏任务</a></li>
+												<li><a href="products.html">休闲娱乐</a></li>
+												<li><a href="products.html">食品饮料</a></li>
+												<li ><a href="products.html">文化教育</a></li>
+												<li ><a href="products.html">IT任务</a></li>
+												<li ><a href="products.html">工业任务</a></li>
+												<li><a href="products.html">家具任务</a></li>
 												<li><a href="products.html">美容健身</a></li>
+												<li><a href="products.html">医疗行业</a></li>
+												<li><a href="products.html">交通运输</a></li>
 
 											</ul>
 										</div>
+
+
 										<div class="clearfix"></div>
 									</div>
 								</ul>
 							</li>
-							<li  >
+							<li >
 								<a href="furniture.html" >最新任务列表
-									<!--<b class="caret"></b>-->
 								</a>
 
 							</li>
-							<li><a href="mail.html">任务发布</a></li>
+							<li class="active"><a href="mail.html" class="act">任务发布</a></li>
 							<li><a href="checkout.html">历史任务</a></li>
 						</ul>
 					</div>
@@ -134,33 +150,59 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="container">
 			<ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
 				<li><a href="index.html"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
-				<li class="active">登录注册</li>
+				<li class="active">发布任务</li>
 			</ol>
 		</div>
 	</div>
 <!-- //breadcrumbs -->
-<!-- login -->
-	<div class="login">
-		<div class="container">
-			<h3 class="animated wow zoomIn" data-wow-delay=".5s">登录注册</h3>
-			<div class="login-form-grids animated wow slideInUp" data-wow-delay=".5s">
-				<form>
-					<input type="email" placeholder="电子邮箱" required=" " id="email" name="email" >
-					<!--<input type="text" placeholder="用户名" required=" " id="username">-->
-					<input type="password" placeholder="密码" required=" " id="password" name="password">
-					<div class="forgot">
-						<a href="#">忘记密码?</a>
+<!-- mail -->
+
+	<div class="mail animated wow zoomIn" data-wow-delay=".5s">
+
+		<div class="container"  id="box">
+			<h3>发布任务</h3>
+
+				<div class="col-md-8 mail-grid-left animated wow slideInLeft" data-wow-delay=".5s" >
+					<form id="ajaxsubmit" method="post">
+						<!--<input type="text" value="任务发布者" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '任务发布者';}" required="" id="publisher" name="">-->
+						<input type="text" value="任务名称" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '任务名称';}" required="" id="name" name="name">
+						<input type="text" value="任务价格" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '任务价格';}" required="" id="reward" name="reward">
+						<input type="text" value="任务分类" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '任务分类';}" required="" id="type" name="type">
+						<input type="text" value="任务小图" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '任务小图';}" required="" id="icon" name="icon">
+						<input type="text" value="配送地点" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '任务地点';}" required="" id="position" name="position">
+						<input type="text" value="联系电话" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '联系电话';}" required="" id="owner" name="owner">
+						<textarea type="text"  onfocus="this.value = '任务描述';" onblur="if (this.value == '') {this.value = '任务描述';}" required="" id="description" name="description">任务描述：</textarea>
+
+						<div id="box-01">
+							<input type="submit"  value="提交任务" id="submit">
+						</div>
+					</form>
+
+
+				</div>
+
+				<div class="col-md-4 mail-grid-right animated wow slideInRight" data-wow-delay=".5s">
+					<div class="mail-grid-right1">
+						<img src="images/3.png" alt=" " class="img-responsive" />
+						<h4>张丽丽 <span>Manager</span></h4>
+						<ul class="phone-mail">
+							<li><i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>Phone: +1234 567 893</li>
+							<li><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i>Email: <a href="mailto:info@example.com">info@example.com</a></li>
+						</ul>
+						<ul class="social-icons">
+							<!--<li><a href="#" class="facebook"></a></li>-->
+							<li><a href="#" class="twitter"></a></li>
+							<!--<li><a href="#" class="g"></a></li>-->
+							<!--<li><a href="#" class="instagram"></a></li>-->
+						</ul>
 					</div>
-					<input type="submit" value="登录" id="postBtn" onclick="infoJumpTo">
-					<div id="test"></div>
-				</form>
+				</div>
+				<div class="clearfix"> </div>
 			</div>
-			<!--<h4 class="animated wow slideInUp" data-wow-delay=".5s">For New People</h4>-->
-			<!--<p class="animated wow slideInUp" data-wow-delay=".5s"><a href="register.html">Register Here</a> (Or) go back to <a href="index.html">Home<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></p>-->
 
 		</div>
 	</div>
-<!-- //login -->
+<!-- //mail -->
 <!-- footer -->
 <div class="footer">
 	<div class="container">
@@ -175,35 +217,49 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="footer-logo animated wow " >
 			<h2><a href="index.html">Bounty Hunter <span>shop anywhere</span></a></h2>
 		</div>
-		<!--<div class="copy-right animated wow slideInUp" data-wow-delay=".5s">-->
-		<!--<p>Copyright &copy; 2016.Company name All rights reserved.More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>-->
-		<!--</div>-->
 	</div>
 </div>
 <!-- //footer -->
-<script>
 
-$("#postBtn").click(function(e){
-    e.preventDefault();
-    $.ajax({
-        type:'POST',
-        dataType: "json",
-        url:"user/login",
-        data:{
-            email:$("#email").val,
-            password:$("#password").val()
-        },
+<script type="text/javascript">
+    (function () {
+        $("#submit").click(function(e){
+            e.preventDefault();
+            console.log("ui");
+//            var formData = new FormData($("ajaxsubmit")[0]);
+            $.ajax({
+                type:'post',
+                url:"/bountyhunter/assignment/issue",
+                dataType: "json",
 
-        success:function(data){
-                alert("23");
 
-        },
-        error:function(jqXHR){
-            $("#test").html("发生错误:"+jqXHR.status);
-        }
-    });
-})
+                data:{
+//                    "publisher": "李明"
+                    name: $('#name').val(),
+                    reward : $('#reward').val(),
+					type:$('#type').val(),
+                    position: $('#position').val(),
+                    description : $('#description').val(),
+                    icon: $('#icon').val()
+                },
+
+                success:function(data){
+                   if(data.code!="0"){
+                       console.log(data);
+                       alert(data.msg);
+				   }
+                },
+                error:function(jqXHR){
+                    $("#test").html("发生错误:"+jqXHR.status);
+                }
+            });
+        })
+    })()
 
 </script>
+
+
+
+
 </body>
 </html>
