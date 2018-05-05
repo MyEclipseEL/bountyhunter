@@ -2,6 +2,7 @@ package com.example.repository;
 
 import com.example.dataobject.AssignmentInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
@@ -21,6 +22,7 @@ public interface AssignmentRepository extends JpaRepository<AssignmentInfo,Strin
     List<AssignmentInfo> findByPayStatus(Integer payStatus);
 
     List<AssignmentInfo> findByAssignmentOwner(String AssignmentOwner);
+
 
     List<AssignmentInfo> findByAssignmentOwnerAndAssignmentStatus(String AssignmentOwner,Integer assignmentStatus);
 

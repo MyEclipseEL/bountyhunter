@@ -78,27 +78,22 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</div>
 					<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
 						<ul class="nav navbar-nav">
-							<li class="active"><a href="../index.html" class="act">首页</a></li>
+							<li class="active"><a th:href="@{'index/'}" class="act">首页</a></li>
 							<!-- Mega Menu -->
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">悬赏任务分类 <b class="caret"></b></a>
 								<ul class="dropdown-menu multi-column columns-1">
 									<div class="row"  >
 										<div class="col-sm-8"  >
-											<ul class="multi-column-dropdown" style="padding-left: 40px;font-size:30px;" >
+											<ul class="multi-column-dropdown" style="padding-left: 40px;" th:each="c : ${category}">
 												<!--<h6>分类列表</h6>-->
-
-												<li ><a href="products.html?val=1" >代取任务</a></li>
-												<li><a href="/category/type" >二手交易</a></li>
-												<li><a href="products.html">招聘兼职</a></li>
-												<li><a href="products.html">日租短租</a></li>
-												<li ><a href="products.html">游戏任务</a></li>
-												<!--<li ><a hrproducts.jsphtml">IT任务</a></li>-->
-												<!--<li ><a hrproducts.jsphtml">工业任务</a></li>-->
-												<!--<li><a hrproducts.jsphtml">家具任务</a></li>-->
-												<li><a href="products.html">美容健身</a></li>
-												<!--<li><a hrproducts.jsphtml">医疗行业</a></li>-->
-												<!--<li><a hrproducts.jsphtml">交通运输</a></li>-->
+												<li><a th:href="@{'../category/list?categoryType='+${c.categoryType} }" th:text="${c.categoryName}">招聘兼职</a></li>
+												<!--<li ><a href="products.html?val=1" >代取任务</a></li>-->
+												<!--<li><a href="/category/type" >二手交易</a></li>-->
+												<!--<li><a href="products.html">招聘兼职</a></li>-->
+												<!--<li><a href="products.html">日租短租</a></li>-->
+												<!--<li ><a href="products.html">游戏任务</a></li>-->
+												<!--<li><a href="products.html">美容健身</a></li>-->
 
 											</ul>
 										</div>
@@ -108,7 +103,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								</ul>
 							</li>
 							<li  >
-								<a href="../furniture.html" >最新任务列表
+								<a href="../category/news" >最新任务列表
 									<!--<b class="caret"></b>-->
 								</a>
 

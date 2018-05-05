@@ -4,6 +4,7 @@ import com.example.VO.AssignmentInfoVO;
 import com.example.VO.AssignmentVO;
 import com.example.VO.ResultVO;
 import com.example.VO.UserAccountVO;
+import com.example.converter.AssignmentInfoList2VOlistConverter;
 import com.example.dataobject.AssignmentCategory;
 import com.example.dataobject.AssignmentInfo;
 import com.example.dataobject.UserAccount;
@@ -19,7 +20,6 @@ import com.example.util.ResultVOUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -57,7 +57,7 @@ public class CategoryController {
      *
      * */
     @GetMapping("/list")
-    public ResultVO allList(@RequestParam(value = "categoryType" ,required = false) Integer categoryType ){
+    public String category(@RequestParam(value = "categoryType" ,required = false) Integer categoryType,Model model ){
         List<AssignmentInfo> assignmentInfoList = new ArrayList<>();
         List<Integer> categoryTypeList = new ArrayList<>();
         //判断是否传类别
@@ -74,44 +74,32 @@ public class CategoryController {
 
         List<AssignmentCategory> categoryList = categoryService.findByCategoryTypeIn(categoryTypeList);
 
+        AssignmentInfoList2VOlistConverter converter = new AssignmentInfoList2VOlistConverter();
         //组装数据
-        List<AssignmentVO> resultVOList = new ArrayList<>();
-            for(AssignmentCategory category:categoryList){
-                AssignmentVO assignmentVO = new AssignmentVO();
-                assignmentVO.setCategoryName(category.getCategoryName());
-                assignmentVO.setCategoryType(category.getCategoryType());
+        List<AssignmentInfoVO> resultVOList = converter.converter(assignmentInfoList,accountService,detailService);
 
-                List<AssignmentInfoVO> assignmentInfoVOList = new ArrayList<>();
-                for (AssignmentInfo assignmentInfo:assignmentInfoList){
-                    if (assignmentInfo.getCategoryType().equals(category.getCategoryType())){
-                        AssignmentInfoVO assignmentInfoVO = new AssignmentInfoVO();
+        model.addAttribute("results",resultVOList);
+        model.addAttribute("categoryList",categoryList);
+        return "/products";
+    }
 
-                        UserAccount account =  accountService.findOne(assignmentInfo.getAssignmentOwner());
-                        UserAccountVO accountVO = new UserAccountVO();
-                        BeanUtils.copyProperties(account,accountVO);
-                        UserDetail detail = detailService.findOne(account.getDetailId());
-                        accountVO.setUserDetail(detail);
-
-                        BeanUtils.copyProperties(assignmentInfo,assignmentInfoVO);
-                        assignmentInfoVO.setAssignmentOwner(accountVO);
-
-                        assignmentInfoVOList.add(assignmentInfoVO);
-                    }
-                }
-
-                assignmentVO.setAssignmentInfoVOList(assignmentInfoVOList);
-                resultVOList.add(assignmentVO);
-            }
-        return ResultVOUtil.success(resultVOList);
+    /**
+     * 查找最新任务
+     * */
+    @GetMapping("/news")
+    public String news(Model model){
+        AssignmentInfoList2VOlistConverter converter = new AssignmentInfoList2VOlistConverter();
+        List<AssignmentInfo> assignmentInfoList = assignmentService.findTheNWE();
+        List<AssignmentInfoVO> resultVOList = converter.converter(assignmentInfoList,accountService,detailService);
+        model.addAttribute("results",resultVOList);
+        type(model);
+        return "furniture";
     }
 
     //获取所有类别
-    @RequestMapping("/type")
-    public String type(Model model){
+    public void type(Model model){
         List<AssignmentCategory> categoryList = categoryService.findAll();
-        model.addAttribute("msg","这是类别");
-//        return ResultVOUtil.success(categoryList);
-        return "/index";
+        model.addAttribute("category",categoryList);
     }
 
     @GetMapping("/detail")
