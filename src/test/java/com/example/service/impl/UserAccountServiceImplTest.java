@@ -38,4 +38,19 @@ public class UserAccountServiceImplTest {
 
     }
 
+    @Test
+    public void login() throws Exception {
+
+        UserAccount user = new UserAccount();
+        user.setUserName("绅士");
+        user.setUserEmail("22233@qq.com");
+        user.setUserPassword("dsdsd");
+
+        UserAccount result = userAccountService.login(user);
+
+        System.out.println("result" + result);
+
+        Assert.assertNotNull(result);
+    }
+
 }

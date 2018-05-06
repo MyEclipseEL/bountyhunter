@@ -11,18 +11,26 @@ import com.example.service.UserAccountService;
 import com.example.util.ResultVOUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Created by Administrator on 2018/4/14.
  */
-@RestController
+/*@RestController*/
+@Controller
 @RequestMapping("/user")
 @Slf4j
 public class LoginController {
@@ -33,9 +41,13 @@ public class LoginController {
     /**
      * 用户登陆
      */
-    @PostMapping("/login")
+    /*@PostMapping("/login")
     public ResultVO<Map<String, String>> login(@Valid LoginForm loginForm,
-                                               BindingResult bindingResult) {
+                                               BindingResult bindingResult) {*/
+    @PostMapping("/login")
+    public ResultVO<UserAccount> login(@Valid LoginForm loginForm,
+                      BindingResult bindingResult,
+                      HttpServletRequest request) throws ServletException, IOException {
 
         System.out.println("进入--------------------");
 
@@ -49,13 +61,19 @@ public class LoginController {
         userAccount.setUserEmail(loginForm.getEmail());
         userAccount.setUserPassword(loginForm.getPassword());
 
+        UserAccount user = userService.login(userAccount);
+        if (user == null) {
+            log.error("【用户名或密码错误】,user={}", user);
+            throw new UserException(UserEnum.PASSWORD_ERROR.getCode()
+                    , bindingResult.getFieldError().getDefaultMessage());
+        } else {
+            request.getSession().setAttribute("user", user);
+        }
 
-        System.out.println("登陆---------------------");
-
-
-        return null;
-
+        return ResultVOUtil.success(user);
     }
+
+
 
     /**
      * 用户注册
@@ -82,18 +100,25 @@ public class LoginController {
     }
 
 
-    @PostMapping("/test")
-    public void test(@RequestParam("test") String test) {
+    @GetMapping("/test")
+    public String test(Model model, HttpSession session) {
+
+
+        Object object = session.getAttribute("user");
+        if (object == null) {
+            System.out.println("空空空");
+        } else {
+            UserAccount userAccount = (UserAccount) object;
+        }
+
 
         System.out.println("进入测试");
 
+        UserAccount user = new UserAccount();
+        user.setUserName("水水水水水");
 
+        model.addAttribute("user", user);
+
+        return "index";
     }
-
-    @GetMapping("/test")
-    public void test2() {
-        System.out.println("进入测试sssssss");
-
-    }
-
 }

@@ -11,4 +11,7 @@ import java.util.List;
 public interface UserAccountRepository extends JpaRepository<UserAccount,String> {
 
     List<UserAccount> findByAccountIdIn(List<String> accountIdList);
+
+    List<UserAccount> findByUserEmailAndUserPassword(String email, String password);
+
 }
