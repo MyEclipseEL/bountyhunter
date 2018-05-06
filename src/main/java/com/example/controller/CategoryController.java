@@ -92,14 +92,26 @@ public class CategoryController {
         List<AssignmentInfo> assignmentInfoList = assignmentService.findTheNWE();
         List<AssignmentInfoVO> resultVOList = converter.converter(assignmentInfoList,accountService,detailService);
         model.addAttribute("results",resultVOList);
-        type(model);
+        findType(model);
         return "furniture";
     }
 
     //获取所有类别
-    public void type(Model model){
+    public void findType(Model model){
         List<AssignmentCategory> categoryList = categoryService.findAll();
         model.addAttribute("category",categoryList);
+    }
+
+    @GetMapping("/mail")
+    public String mailType(Model model){
+        findType(model);
+        return "mail";
+    }
+
+    @GetMapping("/check")
+    public String checkType(Model model){
+        findType(model);
+        return "checkout";
     }
 
     @GetMapping("/detail")
