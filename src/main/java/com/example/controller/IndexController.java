@@ -50,7 +50,21 @@ public class IndexController {
         log.info(String.valueOf(resultVOList.size()));
 //        List<AssignmentVO> resultVOList = new ArrayList<>();
         model.addAttribute("category",categoryList);
-        model.addAttribute("resultVO",resultVOList);
+        model.addAttribute("results",resultVOList);
         return "index";
+    }
+
+    @RequestMapping("/login")
+    public String toLogin(Model model){
+        List<AssignmentCategory> categoryList = categoryService.findAll();
+        model.addAttribute("category",categoryList);
+        return "login";
+    }
+
+    @RequestMapping("/register-01")
+    public String toRegister(Model model){
+        List<AssignmentCategory> categoryList = categoryService.findAll();
+        model.addAttribute("category",categoryList);
+        return "register-01";
     }
 }

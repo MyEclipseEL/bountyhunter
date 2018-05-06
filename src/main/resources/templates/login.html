@@ -49,7 +49,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<!--<li><a href="#" class="instagram"></a></li>-->
 					<li>
 						<i class="glyphicon " aria-hidden="true">
-						</i><a href="../login.html">登录/</a><a href="../register-01.html">免费注册</a>
+						</i><a href="../login">登录/</a><a href="../register-01">免费注册</a>
 					</li>-->
 				</ul>
 			</div>
@@ -73,22 +73,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</div>
 					<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
 						<ul class="nav navbar-nav">
-							<li class="active"><a href="../index.html/" >首页</a></li>
+							<li class="active"><a href="../index" class="act">首页</a></li>
 							<!-- Mega Menu -->
 							<li class="dropdown">
-								<a href="../products.html" class="dropdown-toggle" data-toggle="dropdown">悬赏任务分类 <b class="caret"></b></a>
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">悬赏任务分类 <b class="caret"></b></a>
 								<ul class="dropdown-menu multi-column columns-1">
 									<div class="row"  >
 										<div class="col-sm-8"  >
 											<ul class="multi-column-dropdown" style="padding-left: 40px;" th:each="c : ${category}">
 												<!--<h6>分类列表</h6>-->
 												<li><a th:href="@{'../category/list?categoryType='+${c.categoryType} }" th:text="${c.categoryName}">招聘兼职</a></li>
-												<!--<li ><a href="products.html?val=1" >代取任务</a></li>-->
-												<!--<li><a href="/category/type" >二手交易</a></li>-->
-												<!--<li><a href="products.html">招聘兼职</a></li>-->
-												<!--<li><a href="products.html">日租短租</a></li>-->
-												<!--<li ><a href="products.html">游戏任务</a></li>-->
-												<!--<li><a href="products.html">美容健身</a></li>-->
 
 											</ul>
 										</div>
@@ -148,7 +142,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<input type="password" placeholder="密码" required=" " id="password" name="password">
 					<div class="forgot">
 						<a href="#">忘记密码?</a>
-						<a href="../register-01.html" style="float:right;">免费注册</a>
+						<a href="../register-01" style="float:right;">免费注册</a>
 					</div>
 					<input type="submit" value="登录" id="postBtn" onclick="infoJumpTo">
 
@@ -156,7 +150,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</form>
 			</div>
 			<h4 class="animated wow slideInUp" data-wow-delay=".5s" ><a href="center.html">去完善个人信息</a></h4>
-			<p class="animated wow slideInUp" data-wow-delay=".5s"><a hrregister.jsphtml">Register Here</a> (Or) go back to <a hrindex.jsphtml">Home<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></p>
+			<p class="animated wow slideInUp" data-wow-delay=".5s"><a href="register.html">Register Here</a> (Or) go back to <a href="../index">Home<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></p>
 
 		</div>
 	</div>
@@ -193,7 +187,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 </script>
 
-<script>
+<script th:inline="javascript">
 $("#postBtn").click(function(e){
     e.preventDefault();
     $.ajax({
@@ -207,6 +201,7 @@ $("#postBtn").click(function(e){
 
         success:function(data){
                 alert("23");
+                window.href('/index');
 
         },
         error:function(jqXHR){
@@ -214,6 +209,15 @@ $("#postBtn").click(function(e){
         }
     });
 })
+
+</script>
+<script th:inline="javascript">
+	var msg = [[${msg}]];
+	$(document).ready(function () {
+        if (msg != null){
+            alert(msg);
+        }
+    })
 
 </script>
 </body>

@@ -114,11 +114,11 @@ public class CategoryController {
         return "checkout";
     }
 
-    @GetMapping("/detail")
-    public ResultVO detail(@RequestParam("assignmentOwner") String assignmentOwner,
-                           @RequestParam("assignmentId") String assignmentId){
-        if(assignmentOwner.equals("")||assignmentId.equals("")){
-            log.error("【任务详情】参数错误: assignmentOwner={} , assignmentId={}",assignmentOwner,assignmentId);
+    @GetMapping("/detail{assignmentId}")
+    public String detail(@RequestParam("assignmentId") String assignmentId,
+                         Model model){
+        if(assignmentId.equals("")){
+            log.error("【任务详情】参数错误: assignmentId={}",assignmentId);
             throw new HunterException(ResultEnum.PARAM_ERROR);
         }
         AssignmentInfo assignmentInfo = assignmentService.findOne(assignmentId);
@@ -126,11 +126,8 @@ public class CategoryController {
             log.error("【任务详情】任务不存在：assignmentId={}",assignmentId);
             throw new HunterException(ResultEnum.ASSIGNMENT_NOT_EXIST);
         }
-        UserAccount account = accountService.findOne(assignmentOwner);
-        if (account==null){
-            log.error("【任务详情】没有匹配的用户：assignmentOwner={}",assignmentOwner);
-            throw new HunterException(ResultEnum.OWNER_NOT_EXIST);
-        }
+        UserAccount account = accountService.findOne(assignmentInfo.getAssignmentOwner());
+
         UserDetail detail = detailService.findOne(account.getDetailId());
 
         AssignmentInfoVO assignmentInfoVO = new AssignmentInfoVO();
@@ -141,37 +138,50 @@ public class CategoryController {
 
         accountVO.setUserDetail(detail);
         assignmentInfoVO.setAssignmentOwner(accountVO);
+        List<AssignmentCategory> categoryList = categoryService.findAll();
+        model.addAttribute("category",categoryList);
+        model.addAttribute("result",assignmentInfoVO);
 
-        return ResultVOUtil.success(assignmentInfoVO);
+        return "single";
     }
 
-    @GetMapping("/receive")
-    public ResultVO<AssignmentInfo> receive(@RequestParam("assignmentId") String assignmentId,
-                        HttpServletRequest request) {
+    @GetMapping("/receive{assignmentId}")
+    public String receive(@RequestParam("assignmentId") String assignmentId,
+                                            HttpServletRequest request,
+                                            Model model) {
         HttpSession session = request.getSession();
 //        String accountId = (String) session.getAttribute("account");
 //        String accountId = (String) session.getValue("account");
         String accountId = "";
         Cookie cookies[] = request.getCookies();
+        List<AssignmentCategory> categoryList = categoryService.findAll();
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals("account")) {
                 accountId = cookie.getValue();
                 break;
             }
         }
+        model.addAttribute("category",categoryList);
         log.info(accountId);
         if (accountId==null||accountId.isEmpty()){
             log.error("【接取任务】用户信息为空 session={}",session.getAttributeNames());
-            throw new HunterException(ResultEnum.ACCOUNT_EMPTY);
+            model.addAttribute("msg","尚未登陆或登陆失效，请重新登陆！");
+            return "login";
+//            throw new HunterException(ResultEnum.ACCOUNT_EMPTY);
         }
         UserAccount account = accountService.findOne(accountId);
         if (account==null){
+            model.addAttribute("msg","尚未登陆或登陆失效，请重新登陆！");
             log.error("【接取任务】用户不存在 accountId={}",accountId);
-            throw new HunterException(ResultEnum.ACCOUNT_NOT_EXIST);
+            return "login";
+//            throw new HunterException(ResultEnum.ACCOUNT_NOT_EXIST);
         }
         if (assignmentId.isEmpty()){
             log.error("【接取任务】参数错误 assignmentId={}",assignmentId);
-            throw new HunterException(ResultEnum.PARAM_ERROR);
+            model.addAttribute("code",-1);
+            model.addAttribute("msg","出错了，稍后试试");
+            return "redirect:single";
+//            throw new HunterException(ResultEnum.PARAM_ERROR);
         }
         AssignmentInfo assignmentInfo = assignmentService.findOne(assignmentId);
         if (assignmentInfo==null){
@@ -187,7 +197,7 @@ public class CategoryController {
 
         AssignmentInfo result = assignmentService.save(assignmentInfo);
 
-        return ResultVOUtil.success(result);
+        return "redirect:/single.html";
     }
 
 
