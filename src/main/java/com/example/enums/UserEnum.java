@@ -14,7 +14,9 @@ public enum UserEnum {
 
     PARAM_ERROR(14, "参数不正确"),
 
-    EMAIL_IS_EXIST(15,"该邮箱已注册")
+    EMAIL_IS_EXIST(15,"该邮箱已注册"),
+
+    PASSWORD_ERROR(16, "用户名或密码错误"),
     ;
     private Integer code;
 

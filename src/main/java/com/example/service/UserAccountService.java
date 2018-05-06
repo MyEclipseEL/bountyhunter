@@ -1,8 +1,6 @@
 package com.example.service;
 
 import com.example.dataobject.UserAccount;
-import com.example.dataobject.UserDetail;
-import org.apache.catalina.User;
 
 import java.util.List;
 
@@ -20,6 +18,8 @@ public interface UserAccountService {
 
     // 激活
     UserAccount activity(UserAccount user);
+
+    UserAccount login(UserAccount user);
 
 
 }

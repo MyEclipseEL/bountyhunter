@@ -99,4 +99,16 @@ public class UserAccountServiceImpl implements UserAccountService {
 
         return repository.save(userAccount);
     }
+
+    @Override
+    public UserAccount login(UserAccount user) {
+        List<UserAccount> userAccountList = repository.findByUserEmailAndUserPassword(user.getUserEmail(), user.getUserPassword());
+
+        if (userAccountList == null || userAccountList.isEmpty()) {
+            return null;
+        } else {
+            return userAccountList.get(0);
+        }
+
+    }
 }
