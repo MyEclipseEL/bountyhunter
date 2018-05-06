@@ -29,8 +29,7 @@ public class AssignmentInfoVO {
     private UserAccountVO assignmentOwner;
 
     /** 任务类别*/
-//    @JsonProperty("type")
-    @JsonIgnore
+    @JsonProperty("type")
     private Integer categoryType;
 
     /** 任务回报*/

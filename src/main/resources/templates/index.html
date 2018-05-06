@@ -83,27 +83,22 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</div>
 					<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
 						<ul class="nav navbar-nav">
-							<li class="active"><a href="../index.html" class="act">首页</a></li>
+							<li class="active"><a th:href="@{'index/'}" class="act">首页</a></li>
 							<!-- Mega Menu -->
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">悬赏任务分类 <b class="caret"></b></a>
 								<ul class="dropdown-menu multi-column columns-1">
 									<div class="row"  >
 										<div class="col-sm-8"  >
-											<ul class="multi-column-dropdown" style="padding-left: 40px;font-size:30px;" >
+											<ul class="multi-column-dropdown" style="padding-left: 40px;" th:each="c : ${category}">
 												<!--<h6>分类列表</h6>-->
-
-												<li ><a href="products.html?val=1" >代取任务</a></li>
-												<li><a href="/category/type" >二手交易</a></li>
-												<li><a href="products.html">招聘兼职</a></li>
-												<li><a href="products.html">日租短租</a></li>
-												<li ><a href="products.html">游戏任务</a></li>
-												<!--<li ><a hrproducts.jsphtml">IT任务</a></li>-->
-												<!--<li ><a hrproducts.jsphtml">工业任务</a></li>-->
-												<!--<li><a hrproducts.jsphtml">家具任务</a></li>-->
-												<li><a href="products.html">美容健身</a></li>
-												<!--<li><a hrproducts.jsphtml">医疗行业</a></li>-->
-												<!--<li><a hrproducts.jsphtml">交通运输</a></li>-->
+												<li><a th:href="@{'../category/list?categoryType='+${c.categoryType} }" th:text="${c.categoryName}">招聘兼职</a></li>
+												<!--<li ><a href="products.html?val=1" >代取任务</a></li>-->
+												<!--<li><a href="/category/type" >二手交易</a></li>-->
+												<!--<li><a href="products.html">招聘兼职</a></li>-->
+												<!--<li><a href="products.html">日租短租</a></li>-->
+												<!--<li ><a href="products.html">游戏任务</a></li>-->
+												<!--<li><a href="products.html">美容健身</a></li>-->
 
 											</ul>
 										</div>
@@ -113,13 +108,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								</ul>
 							</li>
 							<li  >
-								<a href="../furniture.html" >最新任务列表
+								<a href="../category/news" >最新任务列表
 									<!--<b class="caret"></b>-->
 								</a>
 
 							</li>
-							<li><a href="../mail.html">任务发布</a></li>
-							<li><a href="../checkout.html">历史任务</a></li>
+							<li><a href="../category/mail">任务发布</a></li>
+							<li><a href="../category/check">历史任务</a></li>
 						</ul>
 					</div>
 					</nav>
@@ -189,9 +184,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="banner-bottom-grid-left animated wow slideInLeft" data-wow-delay=".2s">
 					<div class="grid">
 						<figure class="effect-julia">
-							<img src=".././images//add-02.jpg" alt=" " class="img-responsive" />
+							<img src=".././images/add-02.jpg" alt=" " class="img-responsive" />
 							<figcaption>
-								<h3 th:text="${msg}">aaa <span></span><i> 拼购炸鸡电影</i></h3>
+								<h3 th:text="${category[0].categoryName}">aaa <span></span><i> 拼购炸鸡电影</i></h3>
 								<!--<div>-->
 									<!--<p>电影票拼团</p>-->
 									<!--<p>炸鸡可乐</p>-->
@@ -204,19 +199,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="banner-bottom-grid-left1 animated wow slideInUp" data-wow-delay=".2s">
 					<div class="banner-bottom-grid-left-grid left1-grid grid-left-grid1" >
 						<div class="banner-bottom-grid-left-grid1" style="height:230px;" >
-							<img src=".././images//banner-01.jpg" alt=" " class="img-responsive" />
+							<img src=".././images/banner-01.jpg" alt=" " class="img-responsive" />
 						</div>
 						<div class="banner-bottom-grid-left1-pos">
-							<p>说走就走的旅行</p>
+							<p th:text="${category[1].categoryName}">说走就走的旅行</p>
 						</div>
 					</div>
 					<div class="banner-bottom-grid-left-grid left1-grid grid-left-grid1">
 						<div class="banner-bottom-grid-left-grid1" style="height:230px">
-							<img src=".././images//banner-19.jpg" alt=" " class="img-responsive"   />
+							<img src=".././images/banner-19.jpg" alt=" " class="img-responsive"   />
 						</div>
 						<div class="banner-bottom-grid-left1-position">
 							<div class="banner-bottom-grid-left1-pos1">
-								<p>任务：代购咖啡花语豆</p>
+								<p th:text="${category[2].categoryName}">任务：代购咖啡花语豆</p>
 							</div>
 						</div>
 					</div>
@@ -224,10 +219,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="banner-bottom-grid-right animated wow slideInRight" data-wow-delay=".2s">
 					<div class="banner-bottom-grid-left-grid grid-left-grid1">
 						<div class="banner-bottom-grid-left-grid1" >
-							<img src=".././images//cover_bg_1.jpg" alt=" " class="img-responsive" style="height:480px" >
+							<img src=".././images/cover_bg_1.jpg" alt=" " class="img-responsive" style="height:480px" >
 						</div>
 						<div class="grid-left-grid1-pos">
-							<p>任务：大量招募街头艺人 <span></span></p>
+							<p th:text="${category[3].categoryName}">任务：大量招募街头艺人 <span></span></p>
 						</div>
 					</div>
 				</div>
@@ -246,7 +241,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<div class="new-collections-grid1 animated wow slideInUp" data-wow-delay=".5s">
 						<div class="new-collections-grid1-image">
 							<a href="single.html" class="product-image">
-								<img src=".././images//7.jpg" alt=" " class="img-responsive" />
+								<img src=".././images/7.jpg" alt=" " class="img-responsive" />
 							</a>
 
 							<div class="new-collections-grid1-image-pos">
@@ -255,19 +250,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<div class="new-collections-grid1-right">
 								<div class="rating">
 									<div class="rating-left">
-										<img src=".././images//2.png" alt=" " class="img-responsive" />
+										<img src=".././images/2.png" alt=" " class="img-responsive" />
 									</div>
 									<div class="rating-left">
-										<img src=".././images//2.png" alt=" " class="img-responsive" />
+										<img src=".././images/2.png" alt=" " class="img-responsive" />
 									</div>
 									<div class="rating-left">
-										<img src=".././images//2.png" alt=" " class="img-responsive" />
+										<img src=".././images/2.png" alt=" " class="img-responsive" />
 									</div>
 									<div class="rating-left">
-										<img src=".././images//1.png" alt=" " class="img-responsive" />
+										<img src=".././images/1.png" alt=" " class="img-responsive" />
 									</div>
 									<div class="rating-left">
-										<img src=".././images//1.png" alt=" " class="img-responsive" />
+										<img src=".././images/1.png" alt=" " class="img-responsive" />
 									</div>
 									<div class="clearfix"> </div>
 								</div>
@@ -285,26 +280,26 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</div>
 					<div class="new-collections-grid1 animated wow slideInUp" data-wow-delay=".5s">
 						<div class="new-collections-grid1-image">
-							<a href="single.html" class="product-image"><img src=".././images//8.jpg" alt=" " class="img-responsive" /></a>
+							<a href="single.html" class="product-image"><img src=".././images/8.jpg" alt=" " class="img-responsive" /></a>
 							<div class="new-collections-grid1-image-pos">
 								<a href="single.html">点击查看详情</a>
 							</div>
 							<div class="new-collections-grid1-right">
 								<div class="rating">
 									<div class="rating-left">
-										<img src=".././images//2.png" alt=" " class="img-responsive" />
+										<img src=".././images/2.png" alt=" " class="img-responsive" />
 									</div>
 									<div class="rating-left">
-										<img src=".././images//2.png" alt=" " class="img-responsive" />
+										<img src=".././images/2.png" alt=" " class="img-responsive" />
 									</div>
 									<div class="rating-left">
-										<img src=".././images//1.png" alt=" " class="img-responsive" />
+										<img src=".././images/1.png" alt=" " class="img-responsive" />
 									</div>
 									<div class="rating-left">
-										<img src=".././images//1.png" alt=" " class="img-responsive" />
+										<img src=".././images/1.png" alt=" " class="img-responsive" />
 									</div>
 									<div class="rating-left">
-										<img src=".././images//1.png" alt=" " class="img-responsive" />
+										<img src=".././images/1.png" alt=" " class="img-responsive" />
 									</div>
 									<div class="clearfix"> </div>
 								</div>
@@ -323,26 +318,26 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="col-md-6 new-collections-grid">
 					<div class="new-collections-grid1 new-collections-grid1-image-width animated wow slideInUp" data-wow-delay=".5s">
 						<div class="new-collections-grid1-image">
-							<a href="single.html" class="product-image"><img src=".././images//5.jpg" alt=" " class="img-responsive" /></a>
+							<a href="single.html" class="product-image"><img src=".././images/5.jpg" alt=" " class="img-responsive" /></a>
 							<div class="new-collections-grid1-image-pos new-collections-grid1-image-pos1">
 								<a href="single.html">点击查看详情</a>
 							</div>
 							<div class="new-collections-grid1-right new-collections-grid1-right-rate">
 								<div class="rating">
 									<div class="rating-left">
-										<img src=".././images//2.png" alt=" " class="img-responsive" />
+										<img src=".././images/2.png" alt=" " class="img-responsive" />
 									</div>
 									<div class="rating-left">
-										<img src=".././images//2.png" alt=" " class="img-responsive" />
+										<img src=".././images/2.png" alt=" " class="img-responsive" />
 									</div>
 									<div class="rating-left">
-										<img src=".././images//2.png" alt=" " class="img-responsive" />
+										<img src=".././images/2.png" alt=" " class="img-responsive" />
 									</div>
 									<div class="rating-left">
-										<img src=".././images//2.png" alt=" " class="img-responsive" />
+										<img src=".././images/2.png" alt=" " class="img-responsive" />
 									</div>
 									<div class="rating-left">
-										<img src=".././images//1.png" alt=" " class="img-responsive" />
+										<img src=".././images/1.png" alt=" " class="img-responsive" />
 									</div>
 									<div class="clearfix"> </div>
 								</div>
@@ -363,26 +358,26 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<div class="new-collections-grid1-sub">
 							<div class="new-collections-grid1 animated wow slideInUp" data-wow-delay=".5s">
 								<div class="new-collections-grid1-image">
-									<a href="single.html" class="product-image"><img src=".././images//6.jpg" alt=" " class="img-responsive" /></a>
+									<a href="single.html" class="product-image"><img src=".././images/6.jpg" alt=" " class="img-responsive" /></a>
 									<div class="new-collections-grid1-image-pos">
 										<a href="single.html">点击查看详情</a>
 									</div>
 									<div class="new-collections-grid1-right">
 										<div class="rating">
 											<div class="rating-left">
-												<img src=".././images//2.png" alt=" " class="img-responsive" />
+												<img src=".././images/2.png" alt=" " class="img-responsive" />
 											</div>
 											<div class="rating-left">
-												<img src=".././images//2.png" alt=" " class="img-responsive" />
+												<img src=".././images/2.png" alt=" " class="img-responsive" />
 											</div>
 											<div class="rating-left">
-												<img src=".././images//2.png" alt=" " class="img-responsive" />
+												<img src=".././images/2.png" alt=" " class="img-responsive" />
 											</div>
 											<div class="rating-left">
-												<img src=".././images//2.png" alt=" " class="img-responsive" />
+												<img src=".././images/2.png" alt=" " class="img-responsive" />
 											</div>
 											<div class="rating-left">
-												<img src=".././images//2.png" alt=" " class="img-responsive" />
+												<img src=".././images/2.png" alt=" " class="img-responsive" />
 											</div>
 											<div class="clearfix"> </div>
 										</div>
@@ -400,26 +395,26 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<div class="new-collections-grid1-sub">
 							<div class="new-collections-grid1 animated wow slideInUp" data-wow-delay=".5s">
 								<div class="new-collections-grid1-image">
-									<a href="single.html" class="product-image"><img src=".././images//9.jpg" alt=" " class="img-responsive" /></a>
+									<a href="single.html" class="product-image"><img src=".././images/9.jpg" alt=" " class="img-responsive" /></a>
 									<div class="new-collections-grid1-image-pos">
 										<a href="single.html">点击查看详情</a>
 									</div>
 									<div class="new-collections-grid1-right">
 										<div class="rating">
 											<div class="rating-left">
-												<img src=".././images//2.png" alt=" " class="img-responsive" />
+												<img src=".././images/2.png" alt=" " class="img-responsive" />
 											</div>
 											<div class="rating-left">
-												<img src=".././images//1.png" alt=" " class="img-responsive" />
+												<img src=".././images/1.png" alt=" " class="img-responsive" />
 											</div>
 											<div class="rating-left">
-												<img src=".././images//1.png" alt=" " class="img-responsive" />
+												<img src=".././images/1.png" alt=" " class="img-responsive" />
 											</div>
 											<div class="rating-left">
-												<img src=".././images//1.png" alt=" " class="img-responsive" />
+												<img src=".././images/1.png" alt=" " class="img-responsive" />
 											</div>
 											<div class="rating-left">
-												<img src=".././images//1.png" alt=" " class="img-responsive" />
+												<img src=".././images/1.png" alt=" " class="img-responsive" />
 											</div>
 											<div class="clearfix"> </div>
 										</div>
@@ -441,26 +436,26 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="col-md-3 new-collections-grid">
 					<div class="new-collections-grid1 animated wow slideInUp" data-wow-delay=".5s">
 						<div class="new-collections-grid1-image">
-							<a href="single.html" class="product-image"><img src=".././images//10.jpg" alt=" " class="img-responsive" /></a>
+							<a href="single.html" class="product-image"><img src=".././images/10.jpg" alt=" " class="img-responsive" /></a>
 							<div class="new-collections-grid1-image-pos">
 								<a href="single.html">点击查看详情</a>
 							</div>
 							<div class="new-collections-grid1-right">
 								<div class="rating">
 									<div class="rating-left">
-										<img src=".././images//2.png" alt=" " class="img-responsive" />
+										<img src=".././images/2.png" alt=" " class="img-responsive" />
 									</div>
 									<div class="rating-left">
-										<img src=".././images//2.png" alt=" " class="img-responsive" />
+										<img src=".././images/2.png" alt=" " class="img-responsive" />
 									</div>
 									<div class="rating-left">
-										<img src=".././images//2.png" alt=" " class="img-responsive" />
+										<img src=".././images/2.png" alt=" " class="img-responsive" />
 									</div>
 									<div class="rating-left">
-										<img src=".././images//1.png" alt=" " class="img-responsive" />
+										<img src=".././images/1.png" alt=" " class="img-responsive" />
 									</div>
 									<div class="rating-left">
-										<img src=".././images//1.png" alt=" " class="img-responsive" />
+										<img src=".././images/1.png" alt=" " class="img-responsive" />
 									</div>
 									<div class="clearfix"> </div>
 								</div>
@@ -478,26 +473,26 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</div>
 					<div class="new-collections-grid1 animated wow slideInUp" data-wow-delay=".5s">
 						<div class="new-collections-grid1-image">
-							<a href="single.html" class="product-image"><img src=".././images//11.jpg" alt=" " class="img-responsive" /></a>
+							<a href="single.html" class="product-image"><img src=".././images/11.jpg" alt=" " class="img-responsive" /></a>
 							<div class="new-collections-grid1-image-pos">
 								<a href="single.html">点击查看详情</a>
 							</div>
 							<div class="new-collections-grid1-right">
 								<div class="rating">
 									<div class="rating-left">
-										<img src=".././images//2.png" alt=" " class="img-responsive" />
+										<img src=".././images/2.png" alt=" " class="img-responsive" />
 									</div>
 									<div class="rating-left">
-										<img src=".././images//2.png" alt=" " class="img-responsive" />
+										<img src=".././images/2.png" alt=" " class="img-responsive" />
 									</div>
 									<div class="rating-left">
-										<img src=".././images//2.png" alt=" " class="img-responsive" />
+										<img src=".././images/2.png" alt=" " class="img-responsive" />
 									</div>
 									<div class="rating-left">
-										<img src=".././images//2.png" alt=" " class="img-responsive" />
+										<img src=".././images/2.png" alt=" " class="img-responsive" />
 									</div>
 									<div class="rating-left">
-										<img src=".././images//1.png" alt=" " class="img-responsive" />
+										<img src=".././images/1.png" alt=" " class="img-responsive" />
 									</div>
 									<div class="clearfix"> </div>
 								</div>

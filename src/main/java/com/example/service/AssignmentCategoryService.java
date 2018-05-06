@@ -13,6 +13,8 @@ public interface AssignmentCategoryService {
 
     List<AssignmentCategory> findAll();
 
+    AssignmentCategory findByCategory(Integer categoryType);
+
     /** 通过集合查找*/
     List<AssignmentCategory> findByCategoryTypeIn(List<Integer> categoryTypeList);
 

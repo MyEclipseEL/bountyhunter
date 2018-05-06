@@ -42,6 +42,10 @@ public interface AssignmentService {
     /** 增加和更新*/
     AssignmentInfo save(AssignmentInfo assignmentInfo);
 
+    List<AssignmentInfo> findOrderByReward();
+
+    List<AssignmentInfo> findTheNWE();
+
 
 
 

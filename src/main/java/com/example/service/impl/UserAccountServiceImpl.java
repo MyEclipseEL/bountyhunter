@@ -39,6 +39,7 @@ public class UserAccountServiceImpl implements UserAccountService {
 
     @Override
     public UserAccount findOne(String accountId) {
+
         return repository.findOne(accountId);
     }
 
