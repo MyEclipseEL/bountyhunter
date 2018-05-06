@@ -59,28 +59,28 @@ public class CategoryController {
     @GetMapping("/list")
     public String category(@RequestParam(value = "categoryType" ,required = false) Integer categoryType,Model model ){
         List<AssignmentInfo> assignmentInfoList = new ArrayList<>();
-        List<Integer> categoryTypeList = new ArrayList<>();
+        AssignmentCategory categoryThis = new AssignmentCategory() ;
         //判断是否传类别
         if (categoryType==null){
             assignmentInfoList = assignmentService.findByAssignmentStatus(AssignmentStatus.NEW.getCode());
-            categoryTypeList = assignmentInfoList.stream()
-                    .map(e ->e.getCategoryType())
-                    .collect(Collectors.toList());
+
         }else {
             assignmentInfoList = assignmentService.findByCategoryTypeAndAssignmentStatus(categoryType,AssignmentStatus.NEW.getCode());
-            categoryTypeList.add(categoryType);
+            categoryThis = categoryService.findByCategory(categoryType);
+
         }
 
 
-        List<AssignmentCategory> categoryList = categoryService.findByCategoryTypeIn(categoryTypeList);
+        List<AssignmentCategory> categoryList = categoryService.findAll();
 
         AssignmentInfoList2VOlistConverter converter = new AssignmentInfoList2VOlistConverter();
         //组装数据
         List<AssignmentInfoVO> resultVOList = converter.converter(assignmentInfoList,accountService,detailService);
 
+        model.addAttribute("categoryThis",categoryThis);
         model.addAttribute("results",resultVOList);
-        model.addAttribute("categoryList",categoryList);
-        return "/products";
+        model.addAttribute("category",categoryList);
+        return "products";
     }
 
     /**

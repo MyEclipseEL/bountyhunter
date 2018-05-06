@@ -11,4 +11,6 @@ import java.util.List;
 public interface CategoryRepository extends JpaRepository<AssignmentCategory,Integer> {
 
     List<AssignmentCategory> findByCategoryTypeIn(List<Integer> categoryTypeList);
+
+    AssignmentCategory findByCategoryType(Integer categoryType);
 }
