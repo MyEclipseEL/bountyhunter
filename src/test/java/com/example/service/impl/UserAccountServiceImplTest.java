@@ -28,9 +28,9 @@ public class UserAccountServiceImplTest {
     public void register() throws Exception {
 
         UserAccount user = new UserAccount();
-        user.setUserName("绅士");
-        user.setUserEmail("22233@qq.com");
-        user.setUserPassword("dsdsd");
+        user.setUserName("ccccc");
+        user.setUserEmail("1342746626@qq.com");
+        user.setUserPassword("dsdsds");
 
         UserAccount result = userAccountService.register(user);
 

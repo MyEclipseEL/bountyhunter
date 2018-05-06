@@ -2,24 +2,24 @@ package com.example.controller;
 
 import com.example.VO.ResultVO;
 import com.example.converter.UserForm2UserAccountConverter;
+import com.example.converter.UserInfo2DetailConverter;
 import com.example.dataobject.UserAccount;
+import com.example.dataobject.UserDetail;
 import com.example.enums.UserEnum;
 import com.example.exception.UserException;
 import com.example.form.LoginForm;
 import com.example.form.UserForm;
+import com.example.form.UserInfoForm;
 import com.example.service.UserAccountService;
 import com.example.util.ResultVOUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.IOException;
@@ -43,8 +43,8 @@ public class LoginController {
 
     @PostMapping("/login")
     public ResultVO<UserAccount> login(@Valid LoginForm loginForm,
-                      BindingResult bindingResult,
-                      HttpServletRequest request) throws ServletException, IOException {
+                                       BindingResult bindingResult,
+                                       HttpServletRequest request) throws ServletException, IOException {
 
         System.out.println("进入--------------------");
 
@@ -59,10 +59,9 @@ public class LoginController {
         userAccount.setUserPassword(loginForm.getPassword());
 
         UserAccount user = userService.login(userAccount);
-        if (user == null) {
-            log.error("【用户名或密码错误】,user={}", user);
-            throw new UserException(UserEnum.PASSWORD_ERROR.getCode()
-                    , bindingResult.getFieldError().getDefaultMessage());
+        if (user == null || user.getState()!=1) {
+            log.error("【用户名或密码错误,或未前往邮箱激活】,user={}", user);
+            throw new UserException(UserEnum.ACCOUNT_ERROR);
         } else {
             request.getSession().setAttribute("userAccount", user);
         }
@@ -71,13 +70,12 @@ public class LoginController {
     }
 
 
-
     /**
      * 用户注册
      */
     @PostMapping("/register")
     public ResultVO<Map<String, String>> register(@Valid UserForm userForm,
-                                  BindingResult bindingResult) {
+                                                  BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             log.error("[注册用户]参数不正确,userForm={}", userForm);
@@ -89,6 +87,8 @@ public class LoginController {
 
         UserAccount registerResult = userService.register(userAccount);
 
+
+
         Map<String, String> map = new HashMap<>();
         map.put("userid", registerResult.getAccountId());
 
@@ -96,28 +96,63 @@ public class LoginController {
     }
 
 
+    /**
+     * 用户详细信息
+     * @param userInfoForm
+     * @param bindingResult
+     * @param session
+     * @return
+     */
+    @PostMapping("/updateInfo")
+    public ResultVO update(@Valid UserInfoForm userInfoForm,
+                           BindingResult bindingResult,
+                           HttpSession session) {
 
-    /*@GetMapping("/test")
-    public String test(Model model, HttpSession session) {
-
-        UserAccount userAccount = new UserAccount();
-
-        Object object = session.getAttribute("userAccount");
-        if (object == null) {
-            System.out.println("空空空");
-        } else {
-             userAccount = (UserAccount) object;
+        if (bindingResult.hasErrors()) {
+            log.error("【用户信息填写】参数不正确,userInfoForm={}", userInfoForm);
+            throw new UserException(UserEnum.PARAM_ERROR.getCode()
+                    , bindingResult.getFieldError().getDefaultMessage());
         }
 
+        Object object = session.getAttribute("userAccount");
 
-        System.out.println("进入测试" + userAccount.getUserName() + "---" + userAccount.getUserEmail() + "----"
-                + userAccount.getActiveCode());
+        if (object != null) {
+            UserAccount userAccount = (UserAccount) object;
+            UserDetail detail = UserInfo2DetailConverter.converter(userInfoForm, userAccount.getDetailId());
 
-        UserAccount user = new UserAccount();
-        user.setUserName("水水水水水");
+            userAccount.setUserName(userInfoForm.getName());
+            userAccount.setUserEmail(userInfoForm.getEmail());
+            userAccount.setUserPassword(userInfoForm.getPassword());
 
-        model.addAttribute("user", user);
 
-        return "index";
+        } else {
+            log.error("[用户信息填写]session中无信息,object={}", object);
+
+        }
+
+/*
+        UserDetail detail = UserInfo2DetailConverter.converter(userInfoForm);
+*/
+
+        return null;
+    }
+
+    /**
+     *  用户激活
+     * @param activeCode
+     */
+    @GetMapping("/activate")
+    public void activate(@RequestParam("activeCode") String activeCode) {
+        System.out.println("进入 激活");
+        UserAccount userAccount = userService.activity(activeCode);
+    }
+
+   /* @GetMapping("/test")
+    public void test() {
+
+        System.out.println("进入测试");
+        UserAccount userAccount = new UserAccount();
+
     }*/
 }
+

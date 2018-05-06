@@ -16,7 +16,9 @@ public enum UserEnum {
 
     EMAIL_IS_EXIST(15,"该邮箱已注册"),
 
-    PASSWORD_ERROR(16, "用户名或密码错误"),
+    ACCOUNT_ERROR(16, "用户名或密码错误,或未前往邮箱激活"),
+
+    SESSION_NOT_EXIST(17,"session中用户信息不存在")
     ;
     private Integer code;
 
