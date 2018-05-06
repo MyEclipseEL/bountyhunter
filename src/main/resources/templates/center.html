@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Login</title>
+    <title>Mail Us</title>
     <!-- for-mobile-apps -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -20,6 +20,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <script src="../js/simpleCart.min.js"> </script>
     <!-- cart -->
     <link rel="stylesheet" type="text/css" href="../css/jquery-ui.css">
+
     <!-- for bootstrap working -->
     <script type="text/javascript" src="../js/bootstrap-3.1.1.min.js"></script>
     <!-- //for bootstrap working -->
@@ -28,10 +29,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!-- animation-effect -->
     <link href="../css/animate.min.css" rel="stylesheet">
     <!--<script src="../js/wow.min.js"></script>-->
-    <!--<script>
-     new WOW().init();
-    </script>-->
+    <script src="../js/jquery-ui.min.js"></script>
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/jquery-3.2.1.min.js"></script>
     <!-- //animation-effect -->
+    <!--<script src="../js/vue.min.js"></script>-->
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
+
+
 </head>
 
 <body>
@@ -45,11 +50,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <ul class="social-icons">
                     <!--<li><a href="#" class="facebook"></a></li>-->
                     <li><a href="#" class="twitter"></a></li>
-                    <!--<li><a href="#" class="g"></a></li>-->
-                    <!--<li><a href="#" class="instagram"></a></li>-->
                     <li>
                         <i class="glyphicon " aria-hidden="true">
-                        </i><a href="../login">登录/</a><a href="../register-01">免费注册</a>
+                        </i><a href="../login.html">登录/</a><a href="../register-01.html">免费注册</a>
                     </li>-->
                 </ul>
             </div>
@@ -73,25 +76,34 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </div>
                     <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
                         <ul class="nav navbar-nav">
-                            <li class="active"><a href="../index" class="act">首页</a></li>
+                            <li class="active"><a href="../index/" >首页</a></li>
                             <!-- Mega Menu -->
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">悬赏任务分类 <b class="caret"></b></a>
+                            <li class="dropdown ">
+
+                                <a href="../products.html" class="dropdown-toggle " data-toggle="dropdown">悬赏任务分类 <b class="caret"></b></a>
                                 <ul class="dropdown-menu multi-column columns-1">
                                     <div class="row"  >
                                         <div class="col-sm-8"  >
                                             <ul class="multi-column-dropdown" style="padding-left: 40px;" th:each="c : ${category}">
                                                 <!--<h6>分类列表</h6>-->
                                                 <li><a th:href="@{'../category/list?categoryType='+${c.categoryType} }" th:text="${c.categoryName}">招聘兼职</a></li>
+                                                <!--<li ><a href="products.html?val=1" >代取任务</a></li>-->
+                                                <!--<li><a href="/category/type" >二手交易</a></li>-->
+                                                <!--<li><a href="products.html">招聘兼职</a></li>-->
+                                                <!--<li><a href="products.html">日租短租</a></li>-->
+                                                <!--<li ><a href="products.html">游戏任务</a></li>-->
+                                                <!--<li><a href="products.html">美容健身</a></li>-->
 
                                             </ul>
                                         </div>
+
+
                                         <div class="clearfix"></div>
                                     </div>
                                 </ul>
                             </li>
                             <li  ><a href="../category/news" >最新任务列表</a></li>
-                            <li><a href="../category/mail">任务发布</a></li>
+                            <li class="active"><a href="../category/mail">任务发布</a></li>
                             <li><a href="../category/check">历史任务</a></li>
                         </ul>
                     </div>
@@ -126,35 +138,57 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <div class="container">
         <ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
             <li><a href="../index/"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
-            <li class="active">登录注册</li>
+            <li class="active">发布任务</li>
         </ol>
     </div>
 </div>
 <!-- //breadcrumbs -->
-<!-- login -->
-<div class="login" style="background-image:url(../images/show-05.jpg);background-repeat: no-repeat;background-size:100% auto;">
-    <div class="container">
-        <h3 class="animated wow zoomIn" data-wow-delay=".5s">欢迎登录</h3>
-        <div class="login-form-grids animated wow slideInUp" data-wow-delay=".5s">
-            <form>
-                <input type="email" placeholder="电子邮箱" required=" " id="email" name="email"   pattern='^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$'>
-                <!--<input type="text" placeholder="用户名" required=" " id="username">-->
-                <input type="password" placeholder="密码" required=" " id="password" name="password">
-                <div class="forgot">
-                    <a href="#">忘记密码?</a>
-                    <a href="../register-01" style="float:right;">免费注册</a>
-                </div>
-                <input type="submit" value="登录" id="postBtn" onclick="infoJumpTo">
+<!-- mail -->
 
+<div class="mail animated wow zoomIn" data-wow-delay=".5s">
+
+    <div class="container"  id="box">
+        <h3>个人中心</h3>
+
+        <div class="col-md-8 mail-grid-left animated wow slideInLeft" data-wow-delay=".5s" >
+            <form id="ajaxsubmit" method="post">
+                <!--<input type="text" value="任务发布者" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '任务发布者';}" required="" id="publisher" name="">-->
+               <input type="text" value="姓名" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '任务地点';}" required="" id="position" name="position">
+                <input type="text" value="联系电话" style="margin-top:20px;">
+                <input type="text" value="家庭地址"  style="margin-top:20px;">
+                <div id="box-01" style="margin-top:20px;">
+                    <input type="submit"  value="完善成功" id="submit">
+                </div>
 
             </form>
-        </div>
-        <h4 class="animated wow slideInUp" data-wow-delay=".5s" ><a href="center.html">去完善个人信息</a></h4>
-        <p class="animated wow slideInUp" data-wow-delay=".5s"><a href="register.html">Register Here</a> (Or) go back to <a href="../index">Home<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></p>
 
+
+        </div>
+
+        <div class="col-md-4 mail-grid-right animated wow slideInRight" data-wow-delay=".5s">
+            <div class="mail-grid-right1">
+
+                <img id="pic" src="../images/111.jpg" style="width:100%;height:300px; " >
+                <input id="upload" name="file" accept="image/*" type="file" style="display: none"/>
+                <h4 >上传头像图片 <span></span></h4>
+                <!--<ul class="phone-mail">-->
+                    <!--<li><i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>Phone: +1234 567 893</li>-->
+                    <!--<li><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i>Email: <a href="mailto:info@example.com">info@example.com</a></li>-->
+                <!--</ul>-->
+                <ul class="social-icons">
+                    <!--<li><a href="#" class="facebook"></a></li>-->
+                    <!--<li><a href="#" class="twitter"></a></li>-->
+                    <!--<li><a href="#" class="g"></a></li>-->
+                    <!--<li><a href="#" class="instagram"></a></li>-->
+                </ul>
+            </div>
+        </div>
+        <div class="clearfix"> </div>
     </div>
+
 </div>
-<!-- //login -->
+</div>
+<!-- //mail -->
 <!-- footer -->
 <div class="footer">
     <div class="container">
@@ -169,56 +203,72 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <div class="footer-logo animated wow " >
             <h2><a href="../index/">Bounty Hunter <span>shop anywhere</span></a></h2>
         </div>
-        <!--<div class="copy-right animated wow slideInUp" data-wow-delay=".5s">-->
-        <!--<p>Copyright &copy; 2016.Company name All rights reserved.More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>-->
-        <!--</div>-->
     </div>
 </div>
 <!-- //footer -->
+
 <script type="text/javascript">
+    (function () {
+        $("#submit").click(function(e){
+            e.preventDefault();
+            console.log("ui");
+//            var formData = new FormData($("ajaxsubmit")[0]);
+            $.ajax({
+                type:'post',
+                url:"/assignment/issue",
+                dataType: "json",
 
-    function checkemail(){
 
-        var obj = document.getElementById("email");
+                data:{
+//                    "publisher": "李明"
+                    name: $('#name').val(),
+                    reward : $('#reward').val(),
+                    type:$('#type').val(),
+                    position: $('#position').val(),
+                    description : $('#description').val(),
+                    icon: $('#icon').val()
+                },
 
-        if(!/^\S+@\S+\.\S{2,}$/.test(obj.value)) alert("Email格式错误!");
+                success:function(data){
+                    if(data.code!="0"){
+                        console.log(data);
+                        alert(data.msg);
+                    }
+                },
+                error:function(jqXHR){
+                    $("#test").html("发生错误:"+jqXHR.status);
+                }
+            });
+        })
+    })()
 
-    }
-
-</script>
-
-<script th:inline="javascript">
-    $("#postBtn").click(function(e){
-        e.preventDefault();
-        $.ajax({
-            type:'POST',
-            dataType: "json",
-            url:"user/login",
-            data:{
-                email:$("#email").val(),
-                password:$("#password").val()
-            },
-
-            success:function(data){
-                alert("23");
-                window.href('/index');
-
-            },
-            error:function(jqXHR){
-                $("#test").html("发生错误:"+jqXHR.status);
-            }
+    $(function() {
+        $("#pic").click(function () {
+            $("#upload").click(); //隐藏了input:file样式后，点击头像就可以本地上传
+            $("#upload").on("change",function(){
+                var objUrl = getObjectURL(this.files[0]) ; //获取图片的路径，该路径不是图片在本地的路径
+                if (objUrl) {
+                    $("#pic").attr("src", objUrl) ; //将图片路径存入src中，显示出图片
+                }
+            });
         });
-    })
+    });
 
-</script>
-<script th:inline="javascript">
-    var msg = [[${msg}]];
-    $(document).ready(function () {
-        if (msg != null){
-            alert(msg);
+    function getObjectURL(file) {
+        var url = null ;
+        if (window.createObjectURL!=undefined) { // basic
+            url = window.createObjectURL(file) ;
+        } else if (window.URL!=undefined) { // mozilla(firefox)
+            url = window.URL.createObjectURL(file) ;
+        } else if (window.webkitURL!=undefined) { // webkit or chrome
+            url = window.webkitURL.createObjectURL(file) ;
         }
-    })
-
+        return url ;
+    }
 </script>
+
+
+
+
 </body>
 </html>
