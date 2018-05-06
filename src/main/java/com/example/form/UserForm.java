@@ -16,6 +16,7 @@ public class UserForm {
     private String name;
 
     /** 登陆密码*/
+    @Size(min=6,max=12,message="密码的长度应该在6和12之间")
     @NotEmpty(message = "登陆密码必填")
     private String password;
 

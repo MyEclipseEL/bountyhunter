@@ -35,8 +35,6 @@ public class UserAccountServiceImpl implements UserAccountService {
     private JavaMailSender javaMailSender;
 
 
-
-
     @Override
     public UserAccount findOne(String accountId) {
 
@@ -52,8 +50,9 @@ public class UserAccountServiceImpl implements UserAccountService {
     @Override
     public UserAccount register(UserAccount user) {
 
-        UserAccount userTest = repository.findOne(user.getUserEmail());
-        if (userTest != null) {
+        List<UserAccount> userTest = repository.findByUserEmail(user.getUserEmail());
+
+        if (userTest != null && !userTest.isEmpty()) {
             throw new UserException(UserEnum.EMAIL_IS_EXIST);
         }
 
@@ -63,35 +62,36 @@ public class UserAccountServiceImpl implements UserAccountService {
         message.setTo(user.getUserEmail());
 
         message.setSubject("用户激活");
-        message.setText("请激活赏金猎人账号"+"http://127.0.0.1/bountyhunter?activityCode="+activityCode);
+        message.setText("请激活赏金猎人账号" + "http://127.0.0.1:8080/user/activate?activeCode=" + activityCode);
 
         String accountId = KeyUtil.getUserKey();
         user.setActiveCode(activityCode);
         user.setAccountId(accountId);
         user.setState(0);
-        user.setDetailId(activityCode);
-
+        user.setDetailId(accountId);
 
         UserDetail userDetail = new UserDetail();
         userDetail.setDetailId(accountId);
-        detailRepository.save(userDetail);
 
         javaMailSender.send(message);
-
+        detailRepository.save(userDetail);
         return repository.save(user);
     }
 
 
     // 用户激活
     @Override
-    public UserAccount activity(UserAccount user) {
+    public UserAccount activity(String activeCode) {
+        List<UserAccount> userAccountList = repository.findByActiveCode(activeCode);
+        UserAccount userAccount;
 
-        UserAccount userAccount = repository.findOne(user.getAccountId());
-        if (userAccount == null) {
+        if (userAccountList != null && !userAccountList.isEmpty()) {
+            userAccount = userAccountList.get(0);
+        } else {
             throw new UserException(UserEnum.USER_NOT_EXIST);
         }
 
-        if (!userAccount.getActiveCode().equals(user.getActiveCode())) {
+        if (!userAccount.getActiveCode().equals(activeCode)) {
             throw new UserException(UserEnum.CODE_NOT_TRUE);
         }
 
@@ -100,6 +100,7 @@ public class UserAccountServiceImpl implements UserAccountService {
         return repository.save(userAccount);
     }
 
+    // 登陆
     @Override
     public UserAccount login(UserAccount user) {
         List<UserAccount> userAccountList = repository.findByUserEmailAndUserPassword(user.getUserEmail(), user.getUserPassword());
@@ -109,6 +110,20 @@ public class UserAccountServiceImpl implements UserAccountService {
         } else {
             return userAccountList.get(0);
         }
-
     }
+
+    // 更新详细用户信息
+    @Override
+    public UserAccount updateInfo(UserAccount user, UserDetail detail) {
+        UserAccount testUser = repository.findOne(user.getAccountId());
+        if (testUser == null) {
+            throw new UserException(UserEnum.USER_NOT_EXIST);
+        }
+
+        UserAccount userAccount = repository.save(user);
+        UserDetail userDetail = detailRepository.save(detail);
+
+        return null;
+    }
+
 }
