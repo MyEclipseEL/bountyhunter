@@ -123,6 +123,7 @@ public class UserAccountServiceImpl implements UserAccountService {
         UserAccount userAccount = repository.save(user);
         UserDetail userDetail = detailRepository.save(detail);
 
+
         return null;
     }
 
