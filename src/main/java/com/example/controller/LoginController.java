@@ -29,8 +29,7 @@ import java.util.Map;
 /**
  * Created by Administrator on 2018/4/14.
  */
-/*@RestController*/
-@Controller
+@RestController
 @RequestMapping("/user")
 @Slf4j
 public class LoginController {
@@ -41,9 +40,7 @@ public class LoginController {
     /**
      * 用户登陆
      */
-    /*@PostMapping("/login")
-    public ResultVO<Map<String, String>> login(@Valid LoginForm loginForm,
-                                               BindingResult bindingResult) {*/
+
     @PostMapping("/login")
     public ResultVO<UserAccount> login(@Valid LoginForm loginForm,
                       BindingResult bindingResult,
@@ -67,7 +64,7 @@ public class LoginController {
             throw new UserException(UserEnum.PASSWORD_ERROR.getCode()
                     , bindingResult.getFieldError().getDefaultMessage());
         } else {
-            request.getSession().setAttribute("user", user);
+            request.getSession().setAttribute("userAccount", user);
         }
 
         return ResultVOUtil.success(user);
@@ -96,23 +93,24 @@ public class LoginController {
         map.put("userid", registerResult.getAccountId());
 
         return ResultVOUtil.success(map);
-
     }
 
 
-    @GetMapping("/test")
+    /*@GetMapping("/test")
     public String test(Model model, HttpSession session) {
 
+        UserAccount userAccount = new UserAccount();
 
-        Object object = session.getAttribute("user");
+        Object object = session.getAttribute("userAccount");
         if (object == null) {
             System.out.println("空空空");
         } else {
-            UserAccount userAccount = (UserAccount) object;
+             userAccount = (UserAccount) object;
         }
 
 
-        System.out.println("进入测试");
+        System.out.println("进入测试" + userAccount.getUserName() + "---" + userAccount.getUserEmail() + "----"
+                + userAccount.getActiveCode());
 
         UserAccount user = new UserAccount();
         user.setUserName("水水水水水");
@@ -120,5 +118,5 @@ public class LoginController {
         model.addAttribute("user", user);
 
         return "index";
-    }
+    }*/
 }
