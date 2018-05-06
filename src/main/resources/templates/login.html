@@ -49,7 +49,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<!--<li><a href="#" class="instagram"></a></li>-->
 					<li>
 						<i class="glyphicon " aria-hidden="true">
-						</i><a href="login.html">登录/免费注册</a>
+						</i><a href="../login.html">登录/</a><a href="../register-01.html">免费注册</a>
 					</li>-->
 				</ul>
 			</div>
@@ -76,7 +76,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<li class="active"><a href="../index/" >首页</a></li>
 							<!-- Mega Menu -->
 							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown">悬赏任务分类 <b class="caret"></b></a>
+								<a href="../products.html" class="dropdown-toggle" data-toggle="dropdown">悬赏任务分类 <b class="caret"></b></a>
 								<ul class="dropdown-menu multi-column columns-1">
 									<div class="row"  >
 										<div class="col-sm-8"  >
@@ -96,14 +96,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									</div>
 								</ul>
 							</li>
-							<li  >
-								<a href="furniture.html" >最新任务列表
-									<!--<b class="caret"></b>-->
-								</a>
-
-							</li>
-							<li><a href="mail.html">任务发布</a></li>
-							<li><a href="checkout.html">历史任务</a></li>
+							<li  ><a href="../category/news" >最新任务列表</a></li>
+							<li><a href="../category/mail">任务发布</a></li>
+							<li><a href="../category/check">历史任务</a></li>
 						</ul>
 					</div>
 				</nav>
@@ -143,23 +138,25 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</div>
 <!-- //breadcrumbs -->
 <!-- login -->
-	<div class="login">
+	<div class="login" style="background-image:url(../images/show-05.jpg);background-repeat: no-repeat;background-size:100% auto;">
 		<div class="container">
-			<h3 class="animated wow zoomIn" data-wow-delay=".5s">登录注册</h3>
+			<h3 class="animated wow zoomIn" data-wow-delay=".5s">欢迎登录</h3>
 			<div class="login-form-grids animated wow slideInUp" data-wow-delay=".5s">
 				<form>
-					<input type="email" placeholder="电子邮箱" required=" " id="email" name="email" >
+					<input type="email" placeholder="电子邮箱" required=" " id="email" name="email"   pattern='^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$'>
 					<!--<input type="text" placeholder="用户名" required=" " id="username">-->
 					<input type="password" placeholder="密码" required=" " id="password" name="password">
 					<div class="forgot">
 						<a href="#">忘记密码?</a>
+						<a href="../register-01.html" style="float:right;">免费注册</a>
 					</div>
 					<input type="submit" value="登录" id="postBtn" onclick="infoJumpTo">
-					<div id="test"></div>
+
+
 				</form>
 			</div>
-			<!--<h4 class="animated wow slideInUp" data-wow-delay=".5s">For New People</h4>-->
-			<!--<p class="animated wow slideInUp" data-wow-delay=".5s"><a hrregister.jsphtml">Register Here</a> (Or) go back to <a hrindex.jsphtml">Home<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></p>-->
+			<h4 class="animated wow slideInUp" data-wow-delay=".5s" ><a href="center.html">去完善个人信息</a></h4>
+			<p class="animated wow slideInUp" data-wow-delay=".5s"><a hrregister.jsphtml">Register Here</a> (Or) go back to <a hrindex.jsphtml">Home<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></p>
 
 		</div>
 	</div>
@@ -184,8 +181,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</div>
 </div>
 <!-- //footer -->
-<script>
+<script type="text/javascript">
 
+    function checkemail(){
+
+        var obj = document.getElementById("email");
+
+        if(!/^\S+@\S+\.\S{2,}$/.test(obj.value)) alert("Email格式错误!");
+
+    }
+
+</script>
+
+<script>
 $("#postBtn").click(function(e){
     e.preventDefault();
     $.ajax({

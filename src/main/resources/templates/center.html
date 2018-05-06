@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Mail Us</title>
+    <!-- for-mobile-apps -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Best Store Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+    function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- //for-mobile-apps -->
+    <link href="../css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="../css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <!-- js -->
+    <script src="../js/jquery.min.js"></script>
+    <!-- //js -->
+    <!-- cart -->
+    <script src="../js/simpleCart.min.js"> </script>
+    <!-- cart -->
+    <link rel="stylesheet" type="text/css" href="../css/jquery-ui.css">
+
+    <!-- for bootstrap working -->
+    <script type="text/javascript" src="../js/bootstrap-3.1.1.min.js"></script>
+    <!-- //for bootstrap working -->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <!-- animation-effect -->
+    <link href="../css/animate.min.css" rel="stylesheet">
+    <!--<script src="../js/wow.min.js"></script>-->
+    <script src="../js/jquery-ui.min.js"></script>
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <!-- //animation-effect -->
+    <!--<script src="../js/vue.min.js"></script>-->
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
+
+
+</head>
+
+<body>
+<!-- header -->
+<div class="header">
+    <div class="container">
+        <div class="header-grid">
+            <div class="header-grid-left animated wow slideInLeft" data-wow-delay=".5s">
+            </div>
+            <div class="header-grid-right animated wow slideInRight" data-wow-delay=".2s">
+                <ul class="social-icons">
+                    <!--<li><a href="#" class="facebook"></a></li>-->
+                    <li><a href="#" class="twitter"></a></li>
+                    <li>
+                        <i class="glyphicon " aria-hidden="true">
+                        </i><a href="../login.html">登录/</a><a href="../register-01.html">免费注册</a>
+                    </li>-->
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+        <div class="logo-nav">
+            <div class="logo-nav-left animated wow zoomIn slideInLeft " data-wow-delay=".5s" >
+                <h1 ><a href="../index/">赏 金 猎 人</a></h1>
+                <span>赏金猎人中小型校园任务发布平台</span>
+            </div>
+            <div class="logo-nav-left1">
+                <nav class="navbar navbar-default">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header nav_2">
+                        <button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse" data-target="#bs-megadropdown-tabs">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="../index/" >首页</a></li>
+                            <!-- Mega Menu -->
+                            <li class="dropdown ">
+
+                                <a href="../products.html" class="dropdown-toggle " data-toggle="dropdown">悬赏任务分类 <b class="caret"></b></a>
+                                <ul class="dropdown-menu multi-column columns-1">
+                                    <div class="row"  >
+                                        <div class="col-sm-8"  >
+                                            <ul class="multi-column-dropdown" style="padding-left: 40px;" th:each="c : ${category}">
+                                                <!--<h6>分类列表</h6>-->
+                                                <li><a th:href="@{'../category/list?categoryType='+${c.categoryType} }" th:text="${c.categoryName}">招聘兼职</a></li>
+                                                <!--<li ><a href="products.html?val=1" >代取任务</a></li>-->
+                                                <!--<li><a href="/category/type" >二手交易</a></li>-->
+                                                <!--<li><a href="products.html">招聘兼职</a></li>-->
+                                                <!--<li><a href="products.html">日租短租</a></li>-->
+                                                <!--<li ><a href="products.html">游戏任务</a></li>-->
+                                                <!--<li><a href="products.html">美容健身</a></li>-->
+
+                                            </ul>
+                                        </div>
+
+
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </ul>
+                            </li>
+                            <li  ><a href="../category/news" >最新任务列表</a></li>
+                            <li class="active"><a href="../category/mail">任务发布</a></li>
+                            <li><a href="../category/check">历史任务</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+            <div class="logo-nav-right">
+                <div class="search-box">
+                    <div id="sb-search" class="sb-search">
+                        <form>
+                            <input class="sb-search-input" placeholder="Enter your search term..." type="search" id="search">
+                            <input class="sb-search-submit" type="submit" value="">
+                            <span class="sb-icon-search"> </span>
+                        </form>
+                    </div>
+                </div>
+                <!-- search-scripts -->
+                <script src="../js/classie.js"></script>
+                <script src="../js/uisearch.js"></script>
+                <script>
+                    new UISearch( document.getElementById( 'sb-search' ) );
+                </script>
+                <!-- //search-scripts -->
+            </div>
+
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+</div>
+<!-- //header -->
+<!-- breadcrumbs -->
+<div class="breadcrumbs">
+    <div class="container">
+        <ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
+            <li><a href="../index/"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
+            <li class="active">发布任务</li>
+        </ol>
+    </div>
+</div>
+<!-- //breadcrumbs -->
+<!-- mail -->
+
+<div class="mail animated wow zoomIn" data-wow-delay=".5s">
+
+    <div class="container"  id="box">
+        <h3>个人中心</h3>
+
+        <div class="col-md-8 mail-grid-left animated wow slideInLeft" data-wow-delay=".5s" >
+            <form id="ajaxsubmit" method="post">
+                <!--<input type="text" value="任务发布者" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '任务发布者';}" required="" id="publisher" name="">-->
+               <input type="text" value="姓名" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '任务地点';}" required="" id="position" name="position">
+                <input type="text" value="联系电话" style="margin-top:20px;">
+                <input type="text" value="家庭地址"  style="margin-top:20px;">
+                <div id="box-01" style="margin-top:20px;">
+                    <input type="submit"  value="完善成功" id="submit">
+                </div>
+
+            </form>
+
+
+        </div>
+
+        <div class="col-md-4 mail-grid-right animated wow slideInRight" data-wow-delay=".5s">
+            <div class="mail-grid-right1">
+
+                <img id="pic" src="../images/111.jpg" style="width:100%;height:300px; " >
+                <input id="upload" name="file" accept="image/*" type="file" style="display: none"/>
+                <h4 >上传头像图片 <span></span></h4>
+                <!--<ul class="phone-mail">-->
+                    <!--<li><i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>Phone: +1234 567 893</li>-->
+                    <!--<li><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i>Email: <a href="mailto:info@example.com">info@example.com</a></li>-->
+                <!--</ul>-->
+                <ul class="social-icons">
+                    <!--<li><a href="#" class="facebook"></a></li>-->
+                    <!--<li><a href="#" class="twitter"></a></li>-->
+                    <!--<li><a href="#" class="g"></a></li>-->
+                    <!--<li><a href="#" class="instagram"></a></li>-->
+                </ul>
+            </div>
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+
+</div>
+</div>
+<!-- //mail -->
+<!-- footer -->
+<div class="footer">
+    <div class="container">
+        <div class="footer-grids">
+            <div class="col-md-11 footer-grid animated wow slideInLeft" data-wow-delay=".5s" style="text-align: center">
+                <h3>About Us</h3>
+                <p>黑龙江科技大学，坐落在北国冰城哈尔滨市，是黑龙江“十二五”期间重点建设的特色应用型本科高校，黑龙江、吉林乃至内蒙古地区唯一一所以矿业工程为特色的高校，黑龙江省人民政府和国家安全生产监督管理总局共建高校  。因坐落于松花江北岸，故有“江畔朝阳”一说。</span></p>
+            </div>
+
+            <div class="clearfix"> </div>
+        </div>
+        <div class="footer-logo animated wow " >
+            <h2><a href="../index/">Bounty Hunter <span>shop anywhere</span></a></h2>
+        </div>
+    </div>
+</div>
+<!-- //footer -->
+
+<script type="text/javascript">
+    (function () {
+        $("#submit").click(function(e){
+            e.preventDefault();
+            console.log("ui");
+//            var formData = new FormData($("ajaxsubmit")[0]);
+            $.ajax({
+                type:'post',
+                url:"/assignment/issue",
+                dataType: "json",
+
+
+                data:{
+//                    "publisher": "李明"
+                    name: $('#name').val(),
+                    reward : $('#reward').val(),
+                    type:$('#type').val(),
+                    position: $('#position').val(),
+                    description : $('#description').val(),
+                    icon: $('#icon').val()
+                },
+
+                success:function(data){
+                    if(data.code!="0"){
+                        console.log(data);
+                        alert(data.msg);
+                    }
+                },
+                error:function(jqXHR){
+                    $("#test").html("发生错误:"+jqXHR.status);
+                }
+            });
+        })
+    })()
+
+    $(function() {
+        $("#pic").click(function () {
+            $("#upload").click(); //隐藏了input:file样式后，点击头像就可以本地上传
+            $("#upload").on("change",function(){
+                var objUrl = getObjectURL(this.files[0]) ; //获取图片的路径，该路径不是图片在本地的路径
+                if (objUrl) {
+                    $("#pic").attr("src", objUrl) ; //将图片路径存入src中，显示出图片
+                }
+            });
+        });
+    });
+
+    function getObjectURL(file) {
+        var url = null ;
+        if (window.createObjectURL!=undefined) { // basic
+            url = window.createObjectURL(file) ;
+        } else if (window.URL!=undefined) { // mozilla(firefox)
+            url = window.URL.createObjectURL(file) ;
+        } else if (window.webkitURL!=undefined) { // webkit or chrome
+            url = window.webkitURL.createObjectURL(file) ;
+        }
+        return url ;
+    }
+</script>
+
+
+
+
+</body>
+</html>

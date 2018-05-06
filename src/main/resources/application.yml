@@ -2,9 +2,9 @@ spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
 #    username: bountyhunter
-#    password: tMYETHedGeiiZrMr #打包时的密码
+#    password: tMYETHedGeiiZrMr
     username: root
-    password: 111111
+    password: 123456
     url: jdbc:mysql://127.0.0.1/bountyhunter?characterEncoding=utf-8&useSSL=false
 
   jpa:
