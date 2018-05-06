@@ -112,7 +112,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
 				<li><a href="../index/"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
 				<li class="active">Products</li>
-				<li class="active" th:text="${categoryThis.categoryName}"></li>
+
+				<li class="active" th:if="${categoryThis!=null}" th:text="${categoryThis.categoryName}"></li>
 			</ol>
 		</div>
 	</div>
@@ -232,19 +233,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
 					<div class="col-md-4 products-right-grids-bottom-grid">
-						<div class="new-collections-grid1 products-right-grid1 animated wow " >
+						<div class="new-collections-grid1 products-right-grid1 animated wow "
+								th:each="r : ${results}">
 							<!--一个-->
 							<div class="new-collections-grid1-image">
-								<a href="../single.html" class="product-image"><img src="../images/food-08.jpg" alt=" " class="img-responsive" style="width:100%;height: 200px"></a>
+								<a th:href="@{'../category/detail?assignmentId='+${r.assignmentId}}" class="product-image"><img src="../images/food-08.jpg" alt=" " class="img-responsive" style="width:100%;height: 200px"></a>
 								<div class="new-collections-grid1-image-pos products-right-grids-pos">
-									<a href="../single.html">点击查看任务</a>
+									<a th:href="@{'../category/detail?assignmentId='+${r.assignmentId}}">点击查看任务</a>
 								</div>
 							</div>
-							<h4><a href="../single.html">美味虾尾</a></h4>
-							<p>营养健康，能量加倍</p>
+							<h4><a th:href="@{'../category/detail?assignmentId='+${r.assignmentId}}" th:text="${r.assignmentName}">美味虾尾</a></h4>
+							<p th:text="${r.assignmentDescription}">营养健康，能量加倍</p>
 							<div class="simpleCart_shelfItem products-right-grid1-add-cart">
-								<p><i>￥325</i> <span class="item_price">￥250</span>
-									<a class="item_add" href="../single.html">详 情 </a>
+								<p> <span class="item_price" th:text="${r.assignmentReward}">￥250</span>
+									<a class="item_add" th:href="@{'../category/detail?assignmentId='+${r.assignmentId}}">详 情 </a>
 								</p>
 							</div>
 						</div>
