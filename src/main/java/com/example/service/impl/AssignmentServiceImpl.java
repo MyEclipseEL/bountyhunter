@@ -1,6 +1,7 @@
 package com.example.service.impl;
 
 import com.example.dataobject.AssignmentInfo;
+import com.example.dataobject.AssignmentQuery;
 import com.example.enums.AssignmentStatus;
 import com.example.enums.PayStatus;
 import com.example.repository.AssignmentRepository;
@@ -8,9 +9,16 @@ import com.example.service.AssignmentService;
 import com.example.util.KeyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -114,6 +122,37 @@ public class AssignmentServiceImpl implements AssignmentService{
             }
         }
         return assignmentInfos;
+
+    }
+
+    @Override
+    public Page<AssignmentInfo> findNoCriteria(Integer page, Integer size) {
+        Pageable pageable = new PageRequest(page,size, Sort.Direction.ASC,"id");
+        return repository.findAll(pageable);
+    }
+
+    @Override
+    public Page<AssignmentInfo> findCriteria(Integer page, Integer size, AssignmentQuery query) {
+        Pageable pageable = new PageRequest(page,size, Sort.Direction.ASC,"id");
+        Page<AssignmentInfo> assignmentInfoPage = repository.findAll(new Specification<AssignmentInfo>(){
+            @Override
+            public Predicate toPredicate(Root<AssignmentInfo> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                List<Predicate> list = new ArrayList<>();
+                if (null!=query.getName()&&!"".equals(query.getName())){
+                    list.add(criteriaBuilder.equal(root.get("name").as(String.class),query.getName()));
+                }
+                if (null!=query.getIsbn()&&!"".equals(query.getIsbn())){
+                    list.add(criteriaBuilder.equal(root.get("isbn").as(String.class),query.getIsbn()));
+                }
+                if (null!=query.getAuthor()&&!"".equals(query.getAuthor())){
+                    list.add(criteriaBuilder.equal(root.get("author").as(String.class),query.getAuthor()));
+                }
+                Predicate[] p = new Predicate[list.size()];
+
+                return criteriaBuilder.and(list.toArray(p));
+            }
+        },pageable);
+        return assignmentInfoPage;
 
     }
 }

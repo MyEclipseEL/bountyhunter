@@ -78,7 +78,14 @@ public class AssignmentController {
         HttpSession session = request.getSession();
 //        String accountId = (String) session.getAttribute("account");
 //        String accountId = (String) session.getValue("account");
+
+        Object object = session.getAttribute("userAccount");
+        UserAccount userAccount = (UserAccount) object;
+
         String accountId = "";
+        accountId = userAccount.getAccountId();
+
+
         Cookie cookies[] = request.getCookies();
         if(cookies!=null){
         for (Cookie cookie : cookies) {
