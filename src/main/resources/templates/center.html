@@ -151,11 +151,45 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <h3>个人中心</h3>
 
         <div class="col-md-8 mail-grid-left animated wow slideInLeft" data-wow-delay=".5s" >
-            <form id="ajaxsubmit" method="post">
-                <!--<input type="text" value="任务发布者" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '任务发布者';}" required="" id="publisher" name="">-->
-               <input type="text" value="姓名" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '任务地点';}" required="" id="position" name="position">
-                <input type="text" value="联系电话" style="margin-top:20px;">
-                <input type="text" value="家庭地址"  style="margin-top:20px;">
+            <form id="ajaxsubmit" method="post"  class="form-search">
+                <input type="text" value="姓名" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '姓名';}" required="" id="name" name="name" style="margin-top:10px;" placeholder="姓名">
+                <input type="text" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" required="" id="reward" name="reward" style="margin-top:10px;" placeholder="Email">
+                <div class="col-md-12" style="border:1px solid gainsboro;margin-top:10px;" >
+                    <input type="password" value="123456" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '密码';}" required="" id="pass" name="type" style="border:none;height:40px;width:80%;background-color: white" placeholder="123456" disabled="true"  class="col-md-10 input-small">
+                    <input type="button" value="修改" id="btn" class="col-md-2 btn"style="width:20%;margin-top:2px;" >
+                </div>
+
+                <input type="text" value="联系电话" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '联系电话';}" required="" id="position" name="position" style="margin-top:10px;" placeholder="联系电话">
+                <input type="text" value="家庭住址" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '家庭住址';}" required="" id="owner" name="owner" style="margin-top:10px;" placeholder="家庭住址">
+                <input type="text" value="生日" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '生日';}" required="" id="owner" name="owner" style="margin-top:10px;" placeholder="生日">
+
+                <div class="row">
+                    <div class='col-sm-6'>
+                        <div class="form-group">
+                            <label>选择日期：</label>
+                            <!--指定 date标记-->
+                            <div class='input-group date' id='datetimepicker1'>
+                                <input type='text' class="form-control" />
+                                <span class="input-group-addon">
+   <span class="glyphicon glyphicon-calendar"></span>
+  </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='col-sm-6'>
+                        <div class="form-group">
+                            <label>选择日期+时间：</label>
+                            <!--指定 date标记-->
+                            <div class='input-group date' id='datetimepicker2'>
+                                <input type='text' class="form-control" />
+                                <span class="input-group-addon">
+   <span class="glyphicon glyphicon-calendar"></span>
+  </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div id="box-01" style="margin-top:20px;">
                     <input type="submit"  value="完善成功" id="submit">
                 </div>
@@ -168,7 +202,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <div class="col-md-4 mail-grid-right animated wow slideInRight" data-wow-delay=".5s">
             <div class="mail-grid-right1">
 
-                <img id="pic" src="../images/111.jpg" style="width:100%;height:300px; " >
+                <img id="pic" src="../images/people.jpg" style="width:100%;height:300px; " >
                 <input id="upload" name="file" accept="image/*" type="file" style="display: none"/>
                 <h4 >上传头像图片 <span></span></h4>
                 <!--<ul class="phone-mail">-->
@@ -206,8 +240,41 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     </div>
 </div>
 <!-- //footer -->
+<script>
+
+    window.onload=function(){
+        var oPass = document.getElementById('pass');
+        var oBtn = document.getElementById('btn');
+        var a =true;
+        oBtn.onclick = function () {
+            if( a ){
+                oPass.type='text';
+                a = false;
+                $("#pass").removeAttr('disabled');
+                oBtn.value = '完成';
+            }else{
+                oPass.type= 'password';
+                a = true;
+
+                oBtn.value = '修改';
+            }
+        }
+
+    }
+</script>
 
 <script type="text/javascript">
+    $(function () {
+    $('#datetimepicker1').datetimepicker({
+        format: 'YYYY-MM-DD',
+        locale: moment.locale('zh-cn')
+    });
+        $('#datetimepicker2').datetimepicker({
+            format: 'YYYY-MM-DD hh:mm',
+            locale: moment.locale('zh-cn')
+        });
+    });
+
     (function () {
         $("#submit").click(function(e){
             e.preventDefault();
@@ -241,6 +308,26 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             });
         })
     })()
+
+//    $( function(){
+//        var oPass = document.getElementById('pass');
+//        var oBtn = document.getElementById('btn');
+//        var a =true;
+//        oBtn.onclick = function () {
+//            if( a ){
+//                oPass.type='text';
+//                a = false;
+//                $("#pass").removeAttr('disabled');
+//                oBtn.value = '完成';
+//            }else{
+//                oPass.type= 'password';
+//                a = true;
+//
+//                oBtn.value = '修改';
+//            }
+//        }
+//    });
+
 
     $(function() {
         $("#pic").click(function () {
