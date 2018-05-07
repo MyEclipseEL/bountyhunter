@@ -24,7 +24,7 @@ public interface UserAccountService {
     UserAccount login(UserAccount user);
 
     //更新
-    UserAccount updateInfo(UserAccount user, UserDetail detail);
+     void updateInfo(UserAccount user, UserDetail detail);
 
 
 }

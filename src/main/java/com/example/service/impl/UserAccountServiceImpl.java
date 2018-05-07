@@ -114,7 +114,7 @@ public class UserAccountServiceImpl implements UserAccountService {
 
     // 更新详细用户信息
     @Override
-    public UserAccount updateInfo(UserAccount user, UserDetail detail) {
+    public void updateInfo(UserAccount user, UserDetail detail) {
         UserAccount testUser = repository.findOne(user.getAccountId());
         if (testUser == null) {
             throw new UserException(UserEnum.USER_NOT_EXIST);
@@ -122,9 +122,6 @@ public class UserAccountServiceImpl implements UserAccountService {
 
         UserAccount userAccount = repository.save(user);
         UserDetail userDetail = detailRepository.save(detail);
-
-
-        return null;
     }
 
 }

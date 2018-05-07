@@ -126,7 +126,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <div class="container">
         <ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
             <li><a href="index.html"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
-            <li class="active">登录注册</li>
+            <li class="active">注册</li>
         </ol>
     </div>
 </div>
@@ -137,7 +137,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <h3 class="animated wow zoomIn" data-wow-delay=".5s">欢迎注册</h3>
         <div class="login-form-grids animated wow slideInUp" data-wow-delay=".5s">
             <form>
-                <input type="text" placeholder="用户名" required=" " id="username" name="name"><br>
+                <input type="text" placeholder="用户名" required=" " id="name" name="name"><br>
                 <input type="email" placeholder="电子邮箱" required=" " id="email" name="email" >
                 <input type="password" placeholder="密码" required=" " id="password" name="password">
                 <div class="forgot">
@@ -206,24 +206,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             success:function(data){
                 console.log(data);
                 alert("success");
-                window.location.href="/inex"
+                window.location.href="/index"
 
             },
             error:function(jqXHR){
                 $("#test").html("发生错误:"+jqXHR.status);
             }
         });
-    })
-
-
-
-</script>
-<script th:inline="javascript">
-    var msg = [[${msg}]];
-    $(document).ready(function () {
-        if (msg != null){
-            alert(msg);
-        }
     })
 
 </script>
