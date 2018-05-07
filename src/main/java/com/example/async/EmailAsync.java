@@ -30,11 +30,5 @@ public class EmailAsync {
         return new AsyncResult<String>(registerResult.getUserEmail());
     }
 
-    @Async
-    public void task2() throws InterruptedException {
-        Thread.sleep(100);
-        System.out.println("---------------sdsdsdsdsd");
-    }
-
 
 }
