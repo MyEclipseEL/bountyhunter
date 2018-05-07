@@ -1,178 +1,178 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+	  xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Login</title>
-    <!-- for-mobile-apps -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="keywords" content="Best Store Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+<title>Login</title>
+<!-- for-mobile-apps -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Best Store Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
-    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
-    function hideURLbar(){ window.scrollTo(0,1); } </script>
-    <!-- //for-mobile-apps -->
-    <link href="../css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-    <link href="../css/style.css" rel="stylesheet" type="text/css" media="all" />
-    <!-- js -->
-    <script src="../js/jquery.min.js"></script>
-    <!-- //js -->
-    <!-- cart -->
-    <script src="../js/simpleCart.min.js"> </script>
-    <!-- cart -->
-    <link rel="stylesheet" type="text/css" href="../css/jquery-ui.css">
-    <!-- for bootstrap working -->
-    <script type="text/javascript" src="../js/bootstrap-3.1.1.min.js"></script>
-    <!-- //for bootstrap working -->
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
-    <!-- animation-effect -->
-    <link href="../css/animate.min.css" rel="stylesheet">
-    <!--<script src="../js/wow.min.js"></script>-->
-    <!--<script>
-     new WOW().init();
-    </script>-->
-    <!-- //animation-effect -->
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+		function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- //for-mobile-apps -->
+<link href="../css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+<link href="../css/style.css" rel="stylesheet" type="text/css" media="all" />
+<!-- js -->
+<script src="../js/jquery.min.js"></script>
+<!-- //js -->
+<!-- cart -->
+	<script src="../js/simpleCart.min.js"> </script>
+<!-- cart -->
+<link rel="stylesheet" type="text/css" href="../css/jquery-ui.css">
+<!-- for bootstrap working -->
+	<script type="text/javascript" src="../js/bootstrap-3.1.1.min.js"></script>
+<!-- //for bootstrap working -->
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+<!-- animation-effect -->
+<link href="../css/animate.min.css" rel="stylesheet"> 
+<!--<script src="../js/wow.min.js"></script>-->
+<!--<script>
+ new WOW().init();
+</script>-->
+<!-- //animation-effect -->
 </head>
-
+	
 <body>
 <!-- header -->
 <div class="header">
-    <div class="container">
-        <div class="header-grid">
-            <div class="header-grid-left animated wow slideInLeft" data-wow-delay=".5s">
-            </div>
-            <div class="header-grid-right animated wow slideInRight" data-wow-delay=".2s">
-                <ul class="social-icons">
-                    <!--<li><a href="#" class="facebook"></a></li>-->
-                    <li><a href="#" class="twitter"></a></li>
-                    <!--<li><a href="#" class="g"></a></li>-->
-                    <!--<li><a href="#" class="instagram"></a></li>-->
-                    <li>
-                        <i class="glyphicon " aria-hidden="true">
-                        </i><a href="../login">登录/</a><a href="../register-01">免费注册</a>
-                    </li>-->
-                </ul>
-            </div>
-            <div class="clearfix"> </div>
-        </div>
-        <div class="logo-nav">
-            <div class="logo-nav-left animated wow zoomIn slideInLeft " data-wow-delay=".5s" >
-                <h1 ><a href="../index/">赏 金 猎 人</a></h1>
-                <span>赏金猎人中小型校园任务发布平台</span>
-            </div>
-            <div class="logo-nav-left1">
-                <nav class="navbar navbar-default">
-                    <!-- Brand and toggle get grouped for better mobile display -->
-                    <div class="navbar-header nav_2">
-                        <button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse" data-target="#bs-megadropdown-tabs">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                    </div>
-                    <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
-                        <ul class="nav navbar-nav">
-                            <li class="active"><a href="../index" class="act">首页</a></li>
-                            <!-- Mega Menu -->
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">悬赏任务分类 <b class="caret"></b></a>
-                                <ul class="dropdown-menu multi-column columns-1">
-                                    <div class="row"  >
-                                        <div class="col-sm-8"  >
-                                            <ul class="multi-column-dropdown" style="padding-left: 40px;" th:each="c : ${category}">
-                                                <!--<h6>分类列表</h6>-->
-                                                <li><a th:href="@{'../category/list?categoryType='+${c.categoryType} }" th:text="${c.categoryName}">招聘兼职</a></li>
+	<div class="container">
+		<div class="header-grid">
+			<div class="header-grid-left animated wow slideInLeft" data-wow-delay=".5s">
+			</div>
+			<div class="header-grid-right animated wow slideInRight" data-wow-delay=".2s">
+				<ul class="social-icons">
+					<!--<li><a href="#" class="facebook"></a></li>-->
+					<li><a href="#" class="twitter"></a></li>
+					<!--<li><a href="#" class="g"></a></li>-->
+					<!--<li><a href="#" class="instagram"></a></li>-->
+					<li>
+						<i class="glyphicon " aria-hidden="true">
+						</i><a href="../login">登录/</a><a href="../register-01">免费注册</a>
+					</li>-->
+				</ul>
+			</div>
+			<div class="clearfix"> </div>
+		</div>
+		<div class="logo-nav">
+			<div class="logo-nav-left animated wow zoomIn slideInLeft " data-wow-delay=".5s" >
+				<h1 ><a href="../index/">赏 金 猎 人</a></h1>
+				<span>赏金猎人中小型校园任务发布平台</span>
+			</div>
+			<div class="logo-nav-left1">
+				<nav class="navbar navbar-default">
+					<!-- Brand and toggle get grouped for better mobile display -->
+					<div class="navbar-header nav_2">
+						<button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse" data-target="#bs-megadropdown-tabs">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+					</div>
+					<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
+						<ul class="nav navbar-nav">
+							<li class="active"><a href="../index" class="act">首页</a></li>
+							<!-- Mega Menu -->
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">悬赏任务分类 <b class="caret"></b></a>
+								<ul class="dropdown-menu multi-column columns-1">
+									<div class="row"  >
+										<div class="col-sm-8"  >
+											<ul class="multi-column-dropdown" style="padding-left: 40px;" th:each="c : ${category}">
+												<!--<h6>分类列表</h6>-->
+												<li><a th:href="@{'../category/list?categoryType='+${c.categoryType} }" th:text="${c.categoryName}">招聘兼职</a></li>
 
-                                            </ul>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                </ul>
-                            </li>
-                            <li  ><a href="../category/news" >最新任务列表</a></li>
-                            <li><a href="../category/mail">任务发布</a></li>
-                            <li><a href="../category/check">历史任务</a></li>
-                        </ul>
-                    </div>
-                </nav>
-            </div>
-            <div class="logo-nav-right">
-                <div class="search-box">
-                    <div id="sb-search" class="sb-search">
-                        <form>
-                            <input class="sb-search-input" placeholder="Enter your search term..." type="search" id="search">
-                            <input class="sb-search-submit" type="submit" value="">
-                            <span class="sb-icon-search"> </span>
-                        </form>
-                    </div>
-                </div>
-                <!-- search-scripts -->
-                <script src="../js/classie.js"></script>
-                <script src="../js/uisearch.js"></script>
-                <script>
+											</ul>
+										</div>
+										<div class="clearfix"></div>
+									</div>
+								</ul>
+							</li>
+							<li  ><a href="../category/news" >最新任务列表</a></li>
+							<li><a href="../category/mail">任务发布</a></li>
+							<li><a href="../category/check">历史任务</a></li>
+						</ul>
+					</div>
+				</nav>
+			</div>
+			<div class="logo-nav-right">
+				<div class="search-box">
+					<div id="sb-search" class="sb-search">
+						<form>
+							<input class="sb-search-input" placeholder="Enter your search term..." type="search" id="search">
+							<input class="sb-search-submit" type="submit" value="">
+							<span class="sb-icon-search"> </span>
+						</form>
+					</div>
+				</div>
+				<!-- search-scripts -->
+				<script src="../js/classie.js"></script>
+				<script src="../js/uisearch.js"></script>
+				<script>
                     new UISearch( document.getElementById( 'sb-search' ) );
-                </script>
-                <!-- //search-scripts -->
-            </div>
+				</script>
+				<!-- //search-scripts -->
+			</div>
 
-            <div class="clearfix"> </div>
-        </div>
-    </div>
+			<div class="clearfix"> </div>
+		</div>
+	</div>
 </div>
 <!-- //header -->
 <!-- breadcrumbs -->
-<div class="breadcrumbs">
-    <div class="container">
-        <ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
-            <li><a href="../index/"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
-            <li class="active">登录注册</li>
-        </ol>
-    </div>
-</div>
+	<div class="breadcrumbs">
+		<div class="container">
+			<ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
+				<li><a href="../index/"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
+				<li class="active">登录注册</li>
+			</ol>
+		</div>
+	</div>
 <!-- //breadcrumbs -->
 <!-- login -->
-<div class="login" style="background-image:url(../images/show-05.jpg);background-repeat: no-repeat;background-size:100% auto;">
-    <div class="container">
-        <h3 class="animated wow zoomIn" data-wow-delay=".5s">欢迎登录</h3>
-        <div class="login-form-grids animated wow slideInUp" data-wow-delay=".5s">
-            <form>
-                <input type="email" placeholder="电子邮箱" required=" " id="email" name="email"   pattern='^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$'>
-                <!--<input type="text" placeholder="用户名" required=" " id="username">-->
-                <input type="password" placeholder="密码" required=" " id="password" name="password">
-                <div class="forgot">
-                    <a href="#">忘记密码?</a>
-                    <a href="../register-01" style="float:right;">免费注册</a>
-                </div>
-                <input type="submit" value="登录" id="postBtn" onclick="infoJumpTo">
+	<div class="login" style="background-image:url(../images/show-05.jpg);background-repeat: no-repeat;background-size:100% auto;">
+		<div class="container">
+			<h3 class="animated wow zoomIn" data-wow-delay=".5s">欢迎登录</h3>
+			<div class="login-form-grids animated wow slideInUp" data-wow-delay=".5s">
+				<form>
+					<input type="email" placeholder="电子邮箱" required=" " id="email" name="email"   pattern='^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$'>
+					<!--<input type="text" placeholder="用户名" required=" " id="username">-->
+					<input type="password" placeholder="密码" required=" " id="password" name="password">
+					<div class="forgot">
+						<a href="#">忘记密码?</a>
+						<a href="../register-01" style="float:right;">免费注册</a>
+					</div>
+					<input type="submit" value="登录" id="postBtn" onclick="infoJumpTo">
 
 
-            </form>
-        </div>
-        <h4 class="animated wow slideInUp" data-wow-delay=".5s" ><a href="center.html">去完善个人信息</a></h4>
-        <p class="animated wow slideInUp" data-wow-delay=".5s"><a href="register.html">Register Here</a> (Or) go back to <a href="../index">Home<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></p>
+				</form>
+			</div>
+			<h4 class="animated wow slideInUp" data-wow-delay=".5s" ><a href="center.html">去完善个人信息</a></h4>
+			<p class="animated wow slideInUp" data-wow-delay=".5s"><a href="register.html">Register Here</a> (Or) go back to <a href="../index">Home<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></p>
 
-    </div>
-</div>
+		</div>
+	</div>
 <!-- //login -->
 <!-- footer -->
 <div class="footer">
-    <div class="container">
-        <div class="footer-grids">
-            <div class="col-md-11 footer-grid animated wow slideInLeft" data-wow-delay=".5s" style="text-align: center">
-                <h3>About Us</h3>
-                <p>黑龙江科技大学，坐落在北国冰城哈尔滨市，是黑龙江“十二五”期间重点建设的特色应用型本科高校，黑龙江、吉林乃至内蒙古地区唯一一所以矿业工程为特色的高校，黑龙江省人民政府和国家安全生产监督管理总局共建高校  。因坐落于松花江北岸，故有“江畔朝阳”一说。</span></p>
-            </div>
+	<div class="container">
+		<div class="footer-grids">
+			<div class="col-md-11 footer-grid animated wow slideInLeft" data-wow-delay=".5s" style="text-align: center">
+				<h3>About Us</h3>
+				<p>黑龙江科技大学，坐落在北国冰城哈尔滨市，是黑龙江“十二五”期间重点建设的特色应用型本科高校，黑龙江、吉林乃至内蒙古地区唯一一所以矿业工程为特色的高校，黑龙江省人民政府和国家安全生产监督管理总局共建高校  。因坐落于松花江北岸，故有“江畔朝阳”一说。</span></p>
+			</div>
 
-            <div class="clearfix"> </div>
-        </div>
-        <div class="footer-logo animated wow " >
-            <h2><a href="../index/">Bounty Hunter <span>shop anywhere</span></a></h2>
-        </div>
-        <!--<div class="copy-right animated wow slideInUp" data-wow-delay=".5s">-->
-        <!--<p>Copyright &copy; 2016.Company name All rights reserved.More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>-->
-        <!--</div>-->
-    </div>
+			<div class="clearfix"> </div>
+		</div>
+		<div class="footer-logo animated wow " >
+			<h2><a href="../index/">Bounty Hunter <span>shop anywhere</span></a></h2>
+		</div>
+		<!--<div class="copy-right animated wow slideInUp" data-wow-delay=".5s">-->
+		<!--<p>Copyright &copy; 2016.Company name All rights reserved.More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>-->
+		<!--</div>-->
+	</div>
 </div>
 <!-- //footer -->
 <script type="text/javascript">
@@ -184,36 +184,37 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         if(!/^\S+@\S+\.\S{2,}$/.test(obj.value)) alert("Email格式错误!");
 
     }
-
 </script>
 
 <script th:inline="javascript">
-    $("#postBtn").click(function(e){
-        e.preventDefault();
-        $.ajax({
-            type:'POST',
-            dataType: "json",
-            url:"user/login",
-            data:{
-                email:$("#email").val(),
-                password:$("#password").val()
-            },
+	var user = [[${session.userAccount}]].userName;
+$("#postBtn").click(function(e){
+    e.preventDefault();
+    $.ajax({
+        type:'POST',
+        dataType: "json",
+        url:"../user/login",
+        data:{
+            email:$("#email").val(),
+            password:$("#password").val()
+        },
 
-            success:function(data){
-                alert("23");
-                window.href('/index');
+        success:function(data){
+                alert("登陆成功! 欢迎您:"+user);
+                window.location.href="/index";
 
-            },
-            error:function(jqXHR){
-                $("#test").html("发生错误:"+jqXHR.status);
-            }
-        });
-    })
+        },
+        error:function(){
+//            $("#test").html("发生错误:"+jqXHR.status);
+			alert("发生错误");
+        }
+    });
+})
 
 </script>
 <script th:inline="javascript">
-    var msg = [[${msg}]];
-    $(document).ready(function () {
+	var msg = [[${msg}]];
+	$(document).ready(function () {
         if (msg != null){
             alert(msg);
         }

@@ -1,6 +1,7 @@
 package com.example.service;
 
 import com.example.dataobject.AssignmentInfo;
+import com.example.dataobject.AssignmentQuery;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -45,6 +46,10 @@ public interface AssignmentService {
     List<AssignmentInfo> findOrderByReward();
 
     List<AssignmentInfo> findTheNWE();
+
+    Page<AssignmentInfo> findNoCriteria(Integer page,Integer size);
+
+    Page<AssignmentInfo> findCriteria(Integer page, Integer size, AssignmentQuery query);
 
 
 

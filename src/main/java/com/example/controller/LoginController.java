@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import com.example.VO.ResultVO;
+import com.example.async.EmailAsync;
 import com.example.converter.UserForm2UserAccountConverter;
 import com.example.converter.UserInfo2DetailConverter;
 import com.example.dataobject.UserAccount;
@@ -25,6 +26,7 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.Future;
 
 /**
  * Created by Administrator on 2018/4/14.
@@ -36,6 +38,9 @@ public class LoginController {
 
     @Autowired
     private UserAccountService userService;
+
+    @Autowired
+    private EmailAsync emailAsync;
 
     /**
      * 用户登陆
@@ -75,7 +80,8 @@ public class LoginController {
      */
     @PostMapping("/register")
     public ResultVO<Map<String, String>> register(@Valid UserForm userForm,
-                                                  BindingResult bindingResult) {
+                                                  BindingResult bindingResult)
+            throws InterruptedException {
 
         if (bindingResult.hasErrors()) {
             log.error("[注册用户]参数不正确,userForm={}", userForm);
@@ -85,12 +91,12 @@ public class LoginController {
 
         UserAccount userAccount = UserForm2UserAccountConverter.converter(userForm);
 
-        UserAccount registerResult = userService.register(userAccount);
+        /*UserAccount registerResult = userService.register(userAccount);*/
 
-
+        Future<String> future = emailAsync.task1(userAccount);
 
         Map<String, String> map = new HashMap<>();
-        map.put("userid", registerResult.getAccountId());
+        map.put("show", "若三分钟后未收到邮件请重新注册");
 
         return ResultVOUtil.success(map);
     }
@@ -124,6 +130,7 @@ public class LoginController {
             userAccount.setUserEmail(userInfoForm.getEmail());
             userAccount.setUserPassword(userInfoForm.getPassword());
 
+            userService.updateInfo(userAccount, detail);
 
         } else {
             log.error("[用户信息填写]session中无信息,object={}", object);
