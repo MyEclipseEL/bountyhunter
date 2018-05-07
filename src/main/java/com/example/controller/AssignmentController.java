@@ -63,30 +63,18 @@ public class AssignmentController {
     public ResultVO<Map<String,String>> issue(
                                               @Valid AssignmentForm assignmentForm,
                                               BindingResult bindingResult,
-//            @RequestParam("name") String name,
-//                                                @RequestParam("reward") BigDecimal reward,
-                                                HttpServletRequest request,
-                                              HttpServletResponse response
-
-    ) {
+                                                HttpServletRequest request) {
         log.info("assignment={}",assignmentForm);
         if (bindingResult.hasErrors()){
             log.error("【发布任务】参数错误 assignmentForm={}",assignmentForm);
             throw new HunterException(ResultEnum.PARAM_ERROR.getCode(),
                     bindingResult.getFieldError().getDefaultMessage());
         }
+
         HttpSession session = request.getSession();
-//        String accountId = (String) session.getAttribute("account");
-//        String accountId = (String) session.getValue("account");
-        String accountId = "";
-        Cookie cookies[] = request.getCookies();
-        if(cookies!=null){
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("account")) {
-                accountId = cookie.getValue();
-                break;
-            }
-        }}
+        UserAccount userAccount = (UserAccount) session.getAttribute("userAccount");
+        String accountId = userAccount.getAccountId();
+
         if (accountId==null||accountId.isEmpty()){
             log.error("【发布任务】用户信息为空");
             throw new HunterException(ResultEnum.ACCOUNT_EMPTY);
@@ -104,10 +92,10 @@ public class AssignmentController {
         AssignmentInfo result = assignmentService.save(assignmentInfo);
         Map<String,String> map = new HashMap<>();
         map.put("assignmentId",result.getAssignmentId());
-        response.setHeader( "Access-Control-Allow-Headers","Origin, X-Requested-With, Content-Type, Accept");//
-        response.addHeader( "Access-Control-Allow-Origin", "*" ); //可以访问此域资源的域。*为所有
-        response.addHeader( "Access-Control-Allow-Methods", "POST" ); //可以访问此域的脚本方法类型
-        response.addHeader( "Access-Control-Max-Age", "1000" ); //
+//        response.setHeader( "Access-Control-Allow-Headers","Origin, X-Requested-With, Content-Type, Accept");//
+//        response.addHeader( "Access-Control-Allow-Origin", "*" ); //可以访问此域资源的域。*为所有
+//        response.addHeader( "Access-Control-Allow-Methods", "POST" ); //可以访问此域的脚本方法类型
+//        response.addHeader( "Access-Control-Max-Age", "1000" ); //
         return ResultVOUtil.success(map);
     }
 

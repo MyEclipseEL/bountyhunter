@@ -20,6 +20,7 @@ import com.example.util.ResultVOUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -197,9 +198,16 @@ public class CategoryController {
 
         AssignmentInfo result = assignmentService.save(assignmentInfo);
 
-        return "redirect:/single.html";
+        return "single";
     }
 
-
+    @RequestMapping("/infoPage")
+    public String findAssignmentNoQuery(Model model,
+                                        @RequestParam(value = "page" ,defaultValue = "0") Integer page,
+                                        @RequestParam(value = "size" ,defaultValue = "9") Integer size){
+        Page<AssignmentInfo>  infoPage = assignmentService.findNoCriteria(page,size);
+        model.addAttribute("datas",infoPage);
+        return "products";
+    }
 
 }

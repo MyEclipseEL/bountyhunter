@@ -221,7 +221,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 //            var formData = new FormData($("ajaxsubmit")[0]);
             $.ajax({
                 type:'post',
-                url:"/assignment/issue",
+                url:"../assignment/issue",
                 dataType: "json",
 
 
@@ -241,8 +241,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                        alert(data.msg);
 				   }
                 },
-                error:function(jqXHR){
-                    $("#test").html("发生错误:"+jqXHR.status);
+                error:function(){
+//                    $("#test").html("发生错误:"+jqXHR.status);
+                	alert("发生错误！");
                 }
             });
         })
