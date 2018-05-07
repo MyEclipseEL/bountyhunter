@@ -1,6 +1,7 @@
 package com.example.service;
 
 import com.example.dataobject.UserAccount;
+import com.example.dataobject.UserDetail;
 
 import java.util.List;
 
@@ -17,9 +18,13 @@ public interface UserAccountService {
     UserAccount register(UserAccount user);
 
     // 激活
-    UserAccount activity(UserAccount user);
+    UserAccount activity(String activeCode);
 
+    //登陆
     UserAccount login(UserAccount user);
+
+    //更新
+    UserAccount updateInfo(UserAccount user, UserDetail detail);
 
 
 }

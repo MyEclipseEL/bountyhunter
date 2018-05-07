@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Login</title>
     <!-- for-mobile-apps -->
@@ -48,7 +49,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <!--<li><a href="#" class="instagram"></a></li>-->
                     <li>
                         <i class="glyphicon " aria-hidden="true">
-                        </i><a href="login.html">登录/</a><a href="register-01.html">免费注册</a>
+                        </i><a href="../login">登录/</a><a href="../register-01">免费注册</a>
                     </li>-->
                 </ul>
             </div>
@@ -56,7 +57,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         </div>
         <div class="logo-nav">
             <div class="logo-nav-left animated wow zoomIn slideInLeft " data-wow-delay=".5s" >
-                <h1 ><a href="index.html">赏 金 猎 人</a></h1>
+                <h1 ><a href="../index">赏 金 猎 人</a></h1>
                 <span>赏金猎人中小型校园任务发布平台</span>
             </div>
             <div class="logo-nav-left1">
@@ -72,20 +73,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </div>
                     <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
                         <ul class="nav navbar-nav">
-                            <li class="active"><a href="index.html" >首页</a></li>
+                            <li class="active"><a href="../index" >首页</a></li>
                             <!-- Mega Menu -->
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">悬赏任务分类 <b class="caret"></b></a>
                                 <ul class="dropdown-menu multi-column columns-1">
                                     <div class="row"  >
                                         <div class="col-sm-8"  >
-                                            <ul class="multi-column-dropdown" style="padding-left: 40px;font-size：30px;" >
-                                                <li ><a href="products.html" >跑腿任务</a></li>
-                                                <li><a href="products.html" >二手交易</a></li>
-                                                <li><a href="products.html">招聘兼职</a></li>
-                                                <li><a href="products.html">日租短租</a></li>
-                                                <li ><a href="products.html">游戏任务</a></li>
-                                                <li><a href="products.html">美容健身</a></li>
+                                            <ul class="multi-column-dropdown" style="padding-left: 40px;" th:each="c : ${category}">
+                                                <!--<h6>分类列表</h6>-->
+                                                <li><a th:href="@{'../category/list?categoryType='+${c.categoryType} }" th:text="${c.categoryName}">招聘兼职</a></li>
 
                                             </ul>
                                         </div>
@@ -93,14 +90,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                     </div>
                                 </ul>
                             </li>
-                            <li  >
-                                <a href="furniture.html" >最新任务列表
-                                    <!--<b class="caret"></b>-->
-                                </a>
-
-                            </li>
-                            <li><a href="mail.html">任务发布</a></li>
-                            <li><a href="checkout.html">历史任务</a></li>
+                            <li  ><a href="../category/news" >最新任务列表</a></li>
+                            <li><a href="../category/mail">任务发布</a></li>
+                            <li><a href="../category/check">历史任务</a></li>
                         </ul>
                     </div>
                 </nav>
@@ -140,23 +132,23 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </div>
 <!-- //breadcrumbs -->
 <!-- login -->
-<div class="login" style="background-image:url(./images/banner-17-01.jpg);background-repeat: no-repeat;background-size:100% auto;">
+<div class="login" style="background-image:url(../images/banner-17-01.jpg);background-repeat: no-repeat;background-size:100% auto;">
     <div class="container">
         <h3 class="animated wow zoomIn" data-wow-delay=".5s">欢迎注册</h3>
         <div class="login-form-grids animated wow slideInUp" data-wow-delay=".5s">
             <form>
-                <input type="text" placeholder="用户名" required=" " id="name" name="name"><br>
+                <input type="text" placeholder="用户名" required=" " id="username"><br>
                 <input type="email" placeholder="电子邮箱" required=" " id="email" name="email" >
                 <input type="password" placeholder="密码" required=" " id="password" name="password">
                 <div class="forgot">
-                    <a href="#">忘记密码?</a>
+                    <a href="../login">欢迎登录</a>
                 </div>
                 <input type="submit" value="登录" id="postBtn" onclick="infoJumpTo">
                 <div id="test"></div>
             </form>
         </div>
         <h4 class="animated wow slideInUp" data-wow-delay=".5s">For New People</h4>
-        <p class="animated wow slideInUp" data-wow-delay=".5s"><a href="register.html">Register Here</a> (Or) go back to <a href="index.html">Home<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></p>
+        <p class="animated wow slideInUp" data-wow-delay=".5s"><a href="../register">Register Here</a> (Or) go back to <a href="../index">Home<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></p>
 
     </div>
 </div>
@@ -173,7 +165,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <div class="clearfix"> </div>
         </div>
         <div class="footer-logo animated wow " >
-            <h2><a href="index.html">Bounty Hunter <span>shop anywhere</span></a></h2>
+            <h2><a href="../index">Bounty Hunter <span>shop anywhere</span></a></h2>
         </div>
         <!--<div class="copy-right animated wow slideInUp" data-wow-delay=".5s">-->
         <!--<p>Copyright &copy; 2016.Company name All rights reserved.More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>-->
@@ -214,6 +206,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             success:function(data){
                 console.log(data);
                 alert("success");
+                window.location.href="/inex"
 
             },
             error:function(jqXHR){
@@ -223,6 +216,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     })
 
 
+
+</script>
+<script th:inline="javascript">
+    var msg = [[${msg}]];
+    $(document).ready(function () {
+        if (msg != null){
+            alert(msg);
+        }
+    })
 
 </script>
 </body>
