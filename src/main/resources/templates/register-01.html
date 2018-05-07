@@ -197,19 +197,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         $.ajax({
             type:'POST',
             dataType: "json",
-            url:"user/register",
+            url:"../user/register",
             data:{
                 name:$("#name").val(),
                 email:$("#email").val(),
                 password:$("#password").val()
             },
-            success:function(data){
-                console.log(data);
+            success:function(){
                 alert("success");
                 window.location.href="/index"
 
             },
             error:function(jqXHR){
+                alert("发生错误");
                 $("#test").html("发生错误:"+jqXHR.status);
             }
         });

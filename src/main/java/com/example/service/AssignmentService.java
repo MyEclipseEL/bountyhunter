@@ -1,8 +1,10 @@
 package com.example.service;
 
+import com.example.VO.AssignmentInfoVO;
 import com.example.dataobject.AssignmentInfo;
 import com.example.dataobject.AssignmentQuery;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
@@ -50,6 +52,8 @@ public interface AssignmentService {
     Page<AssignmentInfo> findNoCriteria(Integer page,Integer size);
 
     Page<AssignmentInfo> findCriteria(Integer page, Integer size, AssignmentQuery query);
+
+    Page<AssignmentInfoVO> findList(Integer categoryType, Pageable pageable);
 
 
 
