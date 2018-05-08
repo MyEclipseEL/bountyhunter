@@ -111,24 +111,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</div>
 				</nav>
 			</div>
-			<div class="logo-nav-right">
-				<div class="search-box">
-					<div id="sb-search" class="sb-search">
-						<form>
-							<input class="sb-search-input" placeholder="Enter your search term..." type="search" id="search">
-							<input class="sb-search-submit" type="submit" value="">
-							<span class="sb-icon-search"> </span>
-						</form>
-					</div>
-				</div>
-				<!-- search-scripts -->
-				<script src="../js/classie.js"></script>
-				<script src="../js/uisearch.js"></script>
-				<script>
-                    new UISearch( document.getElementById( 'sb-search' ) );
-				</script>
-				<!-- //search-scripts -->
-			</div>
+			<!--<div class="logo-nav-right">-->
+				<!--<div class="search-box">-->
+					<!--<div id="sb-search" class="sb-search">-->
+						<!--<form>-->
+							<!--<input class="sb-search-input" placeholder="Enter your search term..." type="search" id="search">-->
+							<!--<input class="sb-search-submit" type="submit" value="">-->
+							<!--<span class="sb-icon-search"> </span>-->
+						<!--</form>-->
+					<!--</div>-->
+				<!--</div>-->
+				<!--&lt;!&ndash; search-scripts &ndash;&gt;-->
+				<!--<script src="../js/classie.js"></script>-->
+				<!--<script src="../js/uisearch.js"></script>-->
+				<!--<script>-->
+                    <!--new UISearch( document.getElementById( 'sb-search' ) );-->
+				<!--</script>-->
+				<!--&lt;!&ndash; //search-scripts &ndash;&gt;-->
+			<!--</div>-->
 
 			<div class="clearfix"> </div>
 		</div>
@@ -155,12 +155,22 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="col-md-8 mail-grid-left animated wow slideInLeft" data-wow-delay=".5s" >
 					<form id="ajaxsubmit" method="post">
 						<!--<input type="text" value="任务发布者" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '任务发布者';}" required="" id="publisher" name="">-->
-						<input type="text" value="任务名称" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '任务名称';}" required="" id="name" name="name" style="margin-top:10px;">
-						<input type="text" value="任务价格" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '任务价格';}" required="" id="reward" name="reward" style="margin-top:10px;">
-						<input type="text" value="任务分类" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '任务分类';}" required="" id="type" name="type" style="margin-top:10px;">
+						<input type="text" value="任务名称" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '任务名称';}" required="" id="name" name="name" placeholder="任务名称" style="margin-top:10px;">
+						<input type="text" value="任务价格" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '任务价格';}" required="" id="reward" name="reward" placeholder="任务价格" style="margin-top:10px;">
+						<div class="col-md-12" style="border:1px solid gainsboro;margin-top:10px;float:left;background-color: #f5f5f5;" >
+							<input type="text" value="任务分类" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '任务分类';}" required=""  id="classID"  name="type" placeholder="任务分类"  style="width:80%;border:none;float:left;background-color: #f5f5f5;" >
+							<select  style="width:20%;float:left;height:30px;margin-top:5px;"  id="selectKK" onChange="onChangeSelect();">
+								<option value="跑腿代取">跑腿代取</option>
+								<option value="二手交易">二手交易</option>
+								<option value="游戏代练">游戏代练</option>
+								<option value="招聘兼职">招聘兼职</option>
+								<option value="日租短租">日租短租</option>
+							</select>
+						</div>
+
 						<!--<input type="text" value="任务小图" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '任务小图';}" required="" id="icon" name="icon">-->
-						<input type="text" value="配送地点" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '任务地点';}" required="" id="position" name="position" style="margin-top:10px;">
-						<input type="text" value="联系电话" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '联系电话';}" required="" id="owner" name="owner" style="margin-top:10px;">
+						<input type="text" value="配送地点" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '任务地点';}" required="" id="position" name="position" placeholder="配送地点 "  style="margin-top:10px;">
+						<input type="text" value="联系电话" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '联系电话';}" required="" id="owner" name="owner" placeholder="联系电话"  style="margin-top:10px;">
 						<textarea type="text"  onfocus="this.value = '任务描述';" onblur="if (this.value == '') {this.value = '任务描述';}" required="" id="description" name="description">任务描述：</textarea>
 
 						<div id="box-01">
@@ -272,10 +282,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         }
         return url ;
     }
+
+
+    function onChangeSelect(){
+        document.getElementById("classID").value=document.getElementById("selectKK").value;
+    }
+
 </script>
-
-
-
 
 </body>
 </html>
