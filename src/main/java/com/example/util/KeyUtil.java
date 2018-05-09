@@ -1,6 +1,7 @@
 package com.example.util;
 
 import java.util.Random;
+import java.util.UUID;
 
 /**
  * Created by Administrator on 2018/4/7.
@@ -40,6 +41,8 @@ public class KeyUtil {
         return System.currentTimeMillis() + sb.toString();
     }
 
-
+    public static String getUUID() {
+        return UUID.randomUUID().toString();
+    }
 
 }

@@ -11,18 +11,25 @@ import com.example.exception.UserException;
 import com.example.form.LoginForm;
 import com.example.form.UserForm;
 import com.example.form.UserInfoForm;
+import com.example.repository.DetailRepository;
+import com.example.service.DetailService;
 import com.example.service.UserAccountService;
+import com.example.service.impl.DetailServiceImpl;
+import com.example.util.ImageUtil;
 import com.example.util.ResultVOUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -41,6 +48,18 @@ public class LoginController {
 
     @Autowired
     private EmailAsync emailAsync;
+
+    /*@Autowired
+    private DetailService detailService;*/
+
+    @Autowired
+    private DetailRepository detailRepository;
+
+    /**
+     * 在配置文件中配置的图片保存路径
+     */
+    @Value("${img.location}")
+    private String location;
 
     /**
      * 用户登陆
@@ -101,6 +120,16 @@ public class LoginController {
         return ResultVOUtil.success(map);
     }
 
+    /**
+     *  用户激活
+     * @param activeCode
+     */
+    @GetMapping("/activate")
+    public void activate(@RequestParam("activeCode") String activeCode) {
+        System.out.println("进入 激活");
+        UserAccount userAccount = userService.activity(activeCode);
+    }
+
 
     /**
      * 用户详细信息
@@ -144,14 +173,63 @@ public class LoginController {
         return null;
     }
 
-    /**
-     *  用户激活
-     * @param activeCode
-     */
-    @GetMapping("/activate")
-    public void activate(@RequestParam("activeCode") String activeCode) {
-        System.out.println("进入 激活");
-        UserAccount userAccount = userService.activity(activeCode);
+
+    @PostMapping("/uploadFile")
+    public ResultVO<Map<String, String>> uploadFile(@RequestParam("photo") MultipartFile multipartFile,
+                                                    HttpSession session) {
+
+        Object object = session.getAttribute("userAccount");
+        UserAccount user;
+        if (object != null) {
+            user = (UserAccount) object;
+        } else {
+            throw new UserException(UserEnum.USER_NOT_EXIST);
+        }
+
+
+        if (multipartFile.isEmpty() || multipartFile.getOriginalFilename()==null||
+                multipartFile.getOriginalFilename().length()<=0) {
+            throw new UserException(UserEnum.IMG_NOT_EMPTY);
+        }
+        String contentType = multipartFile.getContentType();
+        if (!contentType.contains("")) {
+            throw new UserException(UserEnum.IMG_FORMAT_ERROR);
+        }
+        String root_fileName = multipartFile.getOriginalFilename();
+        log.info("上传图片:name={},type={}", root_fileName, contentType);
+        //处理图片
+        //User currentUser = userService.getCurrentUser();
+        //获取路径
+        String return_path = ImageUtil.getFilePath(user);
+        String filePath = location + return_path;
+        log.info("图片保存路径={}", filePath);
+        String file_name = null;
+        try {
+            file_name = ImageUtil.saveImg(multipartFile, filePath);
+            /*MarkDVo markDVo = new MarkDVo();
+            markDVo.setSuccess(0);
+            if(StringUtils.isNotBlank(file_name)){
+                markDVo.setSuccess(1);
+                markDVo.setMessage("上传成功");
+                markDVo.setUrl(return_path+ File.separator+file_name);
+                markDVo.setCallback(callback);
+            }*/
+
+            if (StringUtils.isNotBlank(file_name)) {
+                UserDetail detail = detailRepository.findOne(user.getDetailId());
+                detail.setUserIcon(return_path + File.separator + file_name);
+                detailRepository.save(detail);
+
+                Map<String, String> map = new HashMap<>();
+                map.put("img", detail.getUserIcon());
+
+                return ResultVOUtil.success(map);
+            }
+            return null;
+
+        } catch (IOException e) {
+            throw new UserException(UserEnum.SAVE_IMG_ERROE);
+        }
     }
 
    /* @GetMapping("/test")
@@ -159,7 +237,6 @@ public class LoginController {
 
         System.out.println("进入测试");
         UserAccount userAccount = new UserAccount();
-
     }*/
 }
 

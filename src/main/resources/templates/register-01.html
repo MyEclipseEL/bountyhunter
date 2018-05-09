@@ -137,13 +137,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <h3 class="animated wow zoomIn" data-wow-delay=".5s">欢迎注册</h3>
         <div class="login-form-grids animated wow slideInUp" data-wow-delay=".5s">
             <form>
-                <input type="text" placeholder="用户名" required=" " id="name" name="name"><br>
+                <input type="text" placeholder="用户名" required=" " id="name" name="name" ><br>
                 <input type="email" placeholder="电子邮箱" required=" " id="email" name="email" >
                 <input type="password" placeholder="密码" required=" " id="password" name="password">
                 <div class="forgot">
                     <a href="../login">欢迎登录</a>
                 </div>
-                <input type="submit" value="登录" id="postBtn" onclick="infoJumpTo">
+                <input type="submit" value="注册" id="postBtn" onclick="infoJumpTo">
                 <div id="test"></div>
             </form>
         </div>
@@ -206,16 +206,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             success:function(data){
                 console.log(data);
                 alert("success");
-                window.location.href="/index"
-
+                window.location.href="/login.html";
             },
             error:function(jqXHR){
                 $("#test").html("发生错误:"+jqXHR.status);
             }
         });
     })
-
-
 
 </script>
 </body>
