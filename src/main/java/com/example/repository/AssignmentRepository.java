@@ -1,6 +1,8 @@
 package com.example.repository;
 
 import com.example.dataobject.AssignmentInfo;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -29,4 +31,6 @@ public interface AssignmentRepository extends JpaRepository<AssignmentInfo,Strin
 
 
     List<AssignmentInfo> findByAssignmentReceive(String AssignmentReceive);
+
+    Page<AssignmentInfo> findByAssignmentStatusAndCategoryType(Integer status, Integer categoryType, Pageable pageable);
 }

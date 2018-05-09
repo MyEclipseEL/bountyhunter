@@ -21,8 +21,13 @@ import com.example.util.ResultVOUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpRequest;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,7 +46,7 @@ import java.util.stream.Collectors;
 /**
  * Created by Administrator on 2018/4/2.
  */
-@RestController
+@Controller
 @RequestMapping("/assignment")
 @Slf4j
 @CrossOrigin
@@ -60,6 +65,7 @@ public class AssignmentController {
     private DetailService detailService;
 
     @RequestMapping("/issue")
+    @ResponseBody
     public ResultVO<Map<String,String>> issue(
                                               @Valid AssignmentForm assignmentForm,
                                               BindingResult bindingResult,
@@ -144,5 +150,37 @@ public class AssignmentController {
      * 完结任务
      * */
 
+    /**
+     *分类任务列表
+     */
+
+    @GetMapping("/list")
+    public String list(@RequestParam(value = "categoryType") Integer categoryType,
+                       @RequestParam(value = "page" ,defaultValue = "0") Integer page,
+                       @RequestParam(value = "size" ,defaultValue = "9") Integer size,
+                       Model model){
+
+
+
+        List<AssignmentCategory> categoryList = categoryService.findAll();
+        model.addAttribute("category",categoryList);
+        if (StringUtils.isEmpty(categoryType)){
+            log.error("【查询任务】没有收到categoryType");
+            model.addAttribute("msg","出错了");
+            return "index";
+
+        }
+        PageRequest request = new PageRequest(page,size);
+        Page<AssignmentInfoVO> infoVOPage = assignmentService.findList(categoryType,request);
+        log.info("infoPage={}",infoVOPage);
+        AssignmentCategory categoryThis = categoryService.findByCategory(categoryType);
+        Integer indexPage = page;
+        Integer totalPages = infoVOPage.getTotalPages();
+        model.addAttribute("totalPages",totalPages);
+        model.addAttribute("indexPage",indexPage);
+        model.addAttribute("categoryThis",categoryThis);
+        model.addAttribute("infoPage",infoVOPage);
+        return "products";
+    }
 
 }

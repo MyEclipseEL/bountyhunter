@@ -1,17 +1,18 @@
 package com.example.service.impl;
 
+import com.example.VO.AssignmentInfoVO;
+import com.example.converter.AssignmentInfoList2VOlistConverter;
 import com.example.dataobject.AssignmentInfo;
 import com.example.dataobject.AssignmentQuery;
 import com.example.enums.AssignmentStatus;
 import com.example.enums.PayStatus;
 import com.example.repository.AssignmentRepository;
 import com.example.service.AssignmentService;
+import com.example.service.DetailService;
+import com.example.service.UserAccountService;
 import com.example.util.KeyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +34,12 @@ public class AssignmentServiceImpl implements AssignmentService{
 
     @Autowired
     private AssignmentRepository repository;
+
+    @Autowired
+    private UserAccountService accountService;
+
+    @Autowired
+    private DetailService detailService;
 
     @Override
     public AssignmentInfo findOne(String assignmentId) {
@@ -154,5 +161,14 @@ public class AssignmentServiceImpl implements AssignmentService{
         },pageable);
         return assignmentInfoPage;
 
+    }
+
+    @Override
+    public Page<AssignmentInfoVO> findList(Integer categoryType, Pageable pageable) {
+        Page<AssignmentInfo> infoPage = repository.findByAssignmentStatusAndCategoryType(AssignmentStatus.NEW.getCode(),
+                categoryType,pageable);
+        AssignmentInfoList2VOlistConverter converter = new AssignmentInfoList2VOlistConverter();
+        List<AssignmentInfoVO> infoVOList = converter.converter(infoPage.getContent(),accountService,detailService);
+        return new PageImpl<AssignmentInfoVO>(infoVOList,pageable,infoPage.getTotalElements());
     }
 }

@@ -49,7 +49,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <!--<li><a href="#" class="instagram"></a></li>-->
                     <li>
                         <i class="glyphicon " aria-hidden="true">
-                        </i><a href="../login">登录/</a><a href="../register-01">免费注册</a>
+                        </i><a href="../login">登录/</a><a href="../register-01" style="color:#dd703e">免费注册</a>
                     </li>-->
                 </ul>
             </div>
@@ -147,8 +147,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <div id="test"></div>
             </form>
         </div>
-        <h4 class="animated wow slideInUp" data-wow-delay=".5s">For New People</h4>
-        <p class="animated wow slideInUp" data-wow-delay=".5s"><a href="../register">Register Here</a> (Or) go back to <a href="../index">Home<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></p>
+        <h4 class="animated wow slideInUp" data-wow-delay=".5s" ><a href="center.html" style="color:orangered">去完善个人信息</a></h4>
 
     </div>
 </div>
@@ -197,18 +196,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         $.ajax({
             type:'POST',
             dataType: "json",
-            url:"user/register",
+            url:"../user/register",
             data:{
                 name:$("#name").val(),
                 email:$("#email").val(),
                 password:$("#password").val()
             },
-            success:function(data){
-                console.log(data);
+            success:function(){
                 alert("success");
                 window.location.href="/login.html";
             },
             error:function(jqXHR){
+                alert("发生错误");
                 $("#test").html("发生错误:"+jqXHR.status);
             }
         });

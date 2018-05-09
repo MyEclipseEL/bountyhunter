@@ -3,8 +3,10 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
 #    username: bountyhunter
 #    password: tMYETHedGeiiZrMr
+#    username: root
+
     username: root
-    password: kira
+    password: 123456
     url: jdbc:mysql://127.0.0.1/bountyhunter?characterEncoding=utf-8&useSSL=false
 
   jpa:
