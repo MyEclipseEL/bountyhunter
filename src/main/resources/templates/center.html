@@ -190,10 +190,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
         <div class="col-md-4 mail-grid-right animated wow slideInRight" data-wow-delay=".5s">
             <div class="mail-grid-right1">
-
-                <img id="pic" src="../images/people.jpg" style="width:100%;height:300px; " >
-                <input id="upload" name="file" accept="image/*" type="file" style="display: none"/>
-                <h4 >上传头像图片 <span></span></h4>
+                <img id="picture" src="../images/people.jpg"  style="width:100%;height:300px; " >
+                <form id="upload" method="" enctype="multipart/form-data">
+                    <input id="pic"  name="file" accept="image/*"  value="选择图片" type="file"/><!--style="display: none"-->
+                    <h4 ><input id="upload_button" type="button" value="上传头像"/><span></span></h4>
+                </form>
             </div>
         </div>
         <div class="clearfix"> </div>
@@ -288,11 +289,36 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 }
             });
         })
-    })()
+    })();
+
+    $("#upload_button").click(function () {
+        alert("提交");
+        var formData = new FormData($("#upload")[0]);
+
+        alert(formData);
+        uploadFile(formData).then(function (res) {
+            if (res.code == 200) {
+                var imageName = res.data;
+                //        var imageUrl  = HOST_IMAGES + imageName;
+                // 给封面 赋值
+                //$("#picture").val(imageUrl);
+            }
+        })
+    });
+
+     function uploadFile(formData) {
+        return $.ajax({
+            url : "/user/uploadFile",
+            type: 'post',
+            data : formData,
+            //dataType:'jsonp'
+            processData:false,
+            contentType:false
+        })
+    }
 
 
-
-    $(function() {
+   /* $(function() {
         $("#pic").click(function () {
             $("#upload").click(); //隐藏了input:file样式后，点击头像就可以本地上传
             $("#upload").on("change",function(){
@@ -302,9 +328,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 }
             });
         });
-    });
+    });*/
 
-    function getObjectURL(file) {
+    /*function getObjectURL(file) {
         var url = null ;
         if (window.createObjectURL!=undefined) { // basic
             url = window.createObjectURL(file) ;
@@ -314,7 +340,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             url = window.webkitURL.createObjectURL(file) ;
         }
         return url ;
-    }
+    }*/
 </script>
 
 
