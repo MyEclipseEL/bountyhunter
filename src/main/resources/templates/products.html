@@ -247,7 +247,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					  <li th:if="${indexPage+3 <totalPages}">
 						  <a th:href="@{'/assignment/list?categoryType='+${categoryThis.categoryType}+'&page='+${indexPage + 3}}" th:text="${indexPage + 4}">1</a>
 					  </li>
-					  <li th:class="${indexPage==totalPages -1}?'disabled':''"><a th:href="@{'/assignment/list?categoryType='+${categoryThis.categoryType}+'&page='+${indexPage + 1}}">下一页</a></li>
+					  <li th:class="${indexPage>=totalPages -1}?'disabled':''"><a th:href="@{'/assignment/list?categoryType='+${categoryThis.categoryType}+'&page='+${indexPage + 1}}">下一页</a></li>
 
 				  </ul>
 				</nav>
