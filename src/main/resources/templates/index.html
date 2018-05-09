@@ -1,7 +1,7 @@
 <!DOCTYPE html >
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-	  xmlns:th="http://www.thymeleaf.org">
+	  xmlns:th="http://www.thymeleaf.org" xmlns:border-radius="http://www.w3.org/1999/xhtml">
 <head>
 <title>Home</title>
 <!-- for-mobile-apps -->
@@ -36,12 +36,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link rel="stylesheet" href="../css/jquery.countdown.css" />
 <!-- //timer -->
 <!-- animation-effect -->
-<link href="../css/animate.min.css" rel="stylesheet"> 
+<link href="../css/animate.min.css" rel="stylesheet">
+	<!--<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>-->
+	<!--<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
 <!-- //animation-effect -->
 </head>
 	
 <body>
 <!-- header -->
+
 	<div class="header">
 		<div class="container">
 			<div class="header-grid">
@@ -49,7 +52,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 				</div>
 				<div class="header-grid-right animated wow slideInRight" data-wow-delay=".2s">
-					<ul class="social-icons">
+					<ul class="social-icons" th:if="${session.userAccount == null}">
 						<!--<li><a href="#" class="facebook"></a></li>-->
 						<li><a href="#" class="twitter"></a></li>
 							<i class="glyphicon " aria-hidden="true"></i>
@@ -57,6 +60,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<li class="glyphicon " aria-hidden="true">
 
 							</li>
+					</ul>
+					<ul th:if="${session.userAccount != null}">
+						<i>
+							<a href="#"><img style="width: 50px;height: 50px;" class="img-circle" src="../images/food-01.jpg" alt="头像"/></a>
+							<i><a href="#" th:text="${session.userAccount.userName}" style="font-size: larger"></a></i>
+							<i><a href="#">注销</a></i>
+
+						</i>
 					</ul>
 				</div>
 				<div class="clearfix"> </div>
@@ -81,8 +92,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</div>
 					<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
 						<ul class="nav navbar-nav">
-							<li class="active"><a th:href="@{'/index'}" class="act">首页</a></li>
+							<li class="active"><a href="../index" class="act">首页</a></li>
 							<!-- Mega Menu -->
+
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">悬赏任务分类 <b class="caret"></b></a>
 								<ul class="dropdown-menu multi-column columns-1">
@@ -94,14 +106,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 											</ul>
 										</div>
-
 										<div class="clearfix"></div>
 									</div>
 								</ul>
 							</li>
 							<li  ><a href="../category/news" >最新任务列表</a></li>
 							<li><a href="../category/mail">任务发布</a></li>
-							<li><a href="../category/check">历史任务</a></li>
+							<li th:if="${session.userAccount==null}"><a href="../login">历史任务</a></li>
+							<li th:if="${session.userAccount!=null}"><a href="../assignment/history">历史任务</a></li>
 						</ul>
 					</div>
 					</nav>
@@ -171,7 +183,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="banner-bottom-grid-left animated wow slideInLeft" data-wow-delay=".2s">
 					<div class="grid">
 						<figure class="effect-julia">
-							<img src=".././images/ps-01/p-01.jpg" alt=" " class="img-responsive" style="height:480px;width:100%;"/>
+							<a th:href="@{''}"><img src=".././images/ps-01/p-01.jpg" alt=" " class="img-responsive" style="height:480px;width:100%;"/></a>
 							<figcaption>
 								<h3 th:text="${category[0].categoryName}">aaa <span></span><i> 拼购炸鸡电影</i></h3>
 							</figcaption>
@@ -216,7 +228,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- collections -->
 	<div class="new-collections">
 		<div style="margin-left:15%;margin-right:15%;" >
-			<h3 class="animated wow zoomIn" data-wow-delay=".5s" >最新任务发布</h3>
+			<h3 class="animated wow zoomIn" data-wow-delay=".5s" >悬赏任务排行榜TOP8</h3>
 			<div class="col-md-3"  th:each=" r : ${results}" >
 				<div class="new-collections-grid1-image">
 					<a th:href="@{'/category/detail?assignmentId='+${r.assignmentId}}" class="product-image">
@@ -321,7 +333,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 //        interval :1000,
 //    });
 </script>
+<script th:inline="javascript">
+    var msg = [[${msg}]];
+    $(document).ready(function () {
+        if (msg != null){
+            alert(msg);
+        }
+    })
 
+</script>
 
 </body>
 </html>

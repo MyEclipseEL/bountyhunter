@@ -3,8 +3,10 @@ package com.example.VO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * Created by Administrator on 2018/4/3.
@@ -48,7 +50,9 @@ public class AssignmentInfoVO {
     @JsonProperty("position")
     private String assignmentPosition;
 
-    /** */
+    /** 任务发布时间*/
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    private Date createTime;
 
 
 }

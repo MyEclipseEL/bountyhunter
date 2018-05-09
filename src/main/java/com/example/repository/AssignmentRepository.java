@@ -33,4 +33,6 @@ public interface AssignmentRepository extends JpaRepository<AssignmentInfo,Strin
     List<AssignmentInfo> findByAssignmentReceive(String AssignmentReceive);
 
     Page<AssignmentInfo> findByAssignmentStatusAndCategoryType(Integer status, Integer categoryType, Pageable pageable);
+
+    Page<AssignmentInfo> findByAssignmentOwner(String account,Pageable pageable);
 }

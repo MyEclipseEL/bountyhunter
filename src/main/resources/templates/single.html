@@ -88,7 +88,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										<div class="col-sm-8"  >
 											<ul class="multi-column-dropdown" style="padding-left: 40px;" th:each="c : ${category}">
 												<!--<h6>分类列表</h6>-->
-												<li><a th:href="@{'../category/list?categoryType='+${c.categoryType} }" th:text="${c.categoryName}">招聘兼职</a></li>
+												<li><a th:href="@{'../assignment/list?categoryType='+${c.categoryType} }" th:text="${c.categoryName}">招聘兼职</a></li>
 
 											</ul>
 										</div>
@@ -205,7 +205,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<h5><i >任务描述</i></h5>
 						<p style="font-size: 20px;" th:text="${result.assignmentDescription}">研运一体解决方案，Unity3D专业游戏引擎开发。营养可口，健康可靠</p>
 					</div>
-
+					<div style="font-size:30px;">
+						<h5><i>发布时间</i></h5>
+						<p style="font-size: 20px;" th:text="${result.createTime}"></p>
+					</div>
 					<!--<div class="occasional">-->
 						<!--<h5>套餐选择 :</h5>-->
 						<!--<div class="colr ert">-->

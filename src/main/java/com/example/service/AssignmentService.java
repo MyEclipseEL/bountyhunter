@@ -55,6 +55,8 @@ public interface AssignmentService {
 
     Page<AssignmentInfoVO> findList(Integer categoryType, Pageable pageable);
 
+    Page<AssignmentInfoVO> findUserHistoryAssignment(String account,Pageable pageable);
+
 
 
 

@@ -70,14 +70,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<li class="active"><a href="../index/" >首页</a></li>
 							<!-- Mega Menu -->
 							<li class="dropdown active">
-
 								<a href="../products.html" class="dropdown-toggle act" data-toggle="dropdown">悬赏任务分类 <b class="caret"></b></a>
 								<ul class="dropdown-menu multi-column columns-1">
 									<div class="row"  >
 										<div class="col-sm-8"  >
 											<ul class="multi-column-dropdown" style="padding-left: 40px;" th:each="c : ${category}">
 												<!--<h6>分类列表</h6>-->
-												<li><a th:href="@{'../category/list?categoryType='+${c.categoryType} }" th:text="${c.categoryName}">招聘兼职</a></li>
+												<li><a th:href="@{'../assignment/list?categoryType='+${c.categoryType} }" th:text="${c.categoryName}">招聘兼职</a></li>
 												<!--<li ><a href="products.html?val=1" >代取任务</a></li>-->
 												<!--<li><a href="/category/type" >二手交易</a></li>-->
 												<!--<li><a href="products.html">招聘兼职</a></li>-->
@@ -201,7 +200,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</div>
 
 				<div class="products-right-grids-bottom"  >
-					<div class="col-md-4" th:each="list : ${infoPage.content}">
+					<div class="col-md-4" th:each="list : ${infoPage}">
 						<div class="new-collections-grid1-image">
 							<a th:href="@{'/category/detail?assignmentId='+${list.assignmentId}}" class="product-image"><img src="../images/food-08.jpg" alt=" " class="img-responsive" style="width:100%;height: 210px;padding-top:10px;"></a>
 							<div class="new-collections-grid1-image-pos products-right-grids-pos">
@@ -228,13 +227,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<span aria-hidden="true">上一页</span>
 					  </a>
 					</li>
-					  <li th:if="${indexPage-3 >=0}">
-						  <a th:href="@{'/assignment/list?categoryType='+${categoryThis.categoryType}+'&page='+${indexPage - 3}}" th:text="${indexPage-2}">1</a>
+
+					  <li th:if="${indexPage -3 >=0}">
+						  <a th:href="@{'/assignment/list?categoryType='+${categoryThis.categoryType}+'&page='+${indexPage - 3}}" th:text="${indexPage -2}">1</a>
 					  </li>
-					  <li th:if="${indexPage-2 >=0}">
-						  <a th:href="@{'/assignment/list?categoryType='+${categoryThis.categoryType}+'&page='+${indexPage - 2}}" th:text="${indexPage-1}">1</a>
+					  <li th:if="${indexPage -2 >=0}">
+						  <a th:href="@{'/assignment/list?categoryType='+${categoryThis.categoryType}+'&page='+${indexPage - 2}}" th:text="${indexPage -1}">1</a>
 					  </li>
-					  <li th:if="${indexPage-1 >=0}">
+					  <li th:if="${indexPage -1 >=0}">
 						  <a th:href="@{'/assignment/list?categoryType='+${categoryThis.categoryType}+'&page='+${indexPage - 1}}" th:text="${indexPage}">1</a>
 					  </li>
 					  <li class="action"><a href="#" th:text="${indexPage+1}">1</a></li>
@@ -247,7 +247,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					  <li th:if="${indexPage+3 <totalPages}">
 						  <a th:href="@{'/assignment/list?categoryType='+${categoryThis.categoryType}+'&page='+${indexPage + 3}}" th:text="${indexPage + 4}">1</a>
 					  </li>
-					  <li th:class="${indexPage==totalPages-1}?'disabled':''"><a th:href="@{'/assignment/list?categoryType='+${categoryThis.categoryType}+'&page='+${indexPage + 1}}">下一页</a></li>
+					  <li th:class="${indexPage==totalPages -1}?'disabled':''"><a th:href="@{'/assignment/list?categoryType='+${categoryThis.categoryType}+'&page='+${indexPage + 1}}">下一页</a></li>
 
 				  </ul>
 				</nav>
