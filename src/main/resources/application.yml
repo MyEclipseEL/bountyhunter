@@ -6,7 +6,7 @@ spring:
 #    username: root
 
     username: root
-    password: 123456
+    password: kira
     url: jdbc:mysql://127.0.0.1/bountyhunter?characterEncoding=utf-8&useSSL=false
 
   jpa:
@@ -35,8 +35,11 @@ spring:
   mvc:
     static-path-pattern: /**
   resources:
-    static-locations: classpath:/templates/,classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/ #
+    static-locations: classpath:/templates/,classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,file:${img.location} #
 server:
 #    context-path: /bountyhunter
     port: 8080
 
+#  图片上传保存路径
+img:
+  location: D:/test

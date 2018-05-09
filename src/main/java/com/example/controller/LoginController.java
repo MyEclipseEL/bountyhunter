@@ -175,8 +175,10 @@ public class LoginController {
 
 
     @PostMapping("/uploadFile")
-    public ResultVO<Map<String, String>> uploadFile(@RequestParam("photo") MultipartFile multipartFile,
+    public ResultVO<String> uploadFile(@RequestParam("file") MultipartFile multipartFile,
                                                     HttpSession session) {
+
+        System.out.println("进入图片上传");
 
         Object object = session.getAttribute("userAccount");
         UserAccount user;
@@ -201,6 +203,7 @@ public class LoginController {
         //User currentUser = userService.getCurrentUser();
         //获取路径
         String return_path = ImageUtil.getFilePath(user);
+
         String filePath = location + return_path;
         log.info("图片保存路径={}", filePath);
         String file_name = null;
@@ -220,10 +223,13 @@ public class LoginController {
                 detail.setUserIcon(return_path + File.separator + file_name);
                 detailRepository.save(detail);
 
-                Map<String, String> map = new HashMap<>();
-                map.put("img", detail.getUserIcon());
+                /*Map<String, String> map = new HashMap<>();
+                map.put("img", location+File.separator+ detail.getUserIcon());*/
 
-                return ResultVOUtil.success(map);
+                // 图片访问路径
+                String imgurl = location + File.separator + detail.getUserIcon();
+
+                return ResultVOUtil.success(imgurl);
             }
             return null;
 
