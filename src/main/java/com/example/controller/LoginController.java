@@ -169,8 +169,8 @@ public class LoginController {
     }
 
 
-    @GetMapping("/center")
-    public ModelAndView center(HttpSession session,Map<String,Object> map) {
+    @GetMapping("/personal")
+    public ModelAndView personal(HttpSession session,Map<String,Object> map) {
         Object object = session.getAttribute("userAccount");
 
         if (object != null) {
@@ -187,7 +187,7 @@ public class LoginController {
 
         } else {
             log.error("[用户信息填写]session中无信息,object={}", object);
-            return new ModelAndView("center", map);
+            return new ModelAndView("personal", map);
         }
 
     }

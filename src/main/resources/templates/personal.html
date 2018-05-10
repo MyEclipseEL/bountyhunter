@@ -47,15 +47,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <div class="header-grid-left animated wow slideInLeft" data-wow-delay=".5s">
             </div>
             <div class="header-grid-right animated wow slideInRight" data-wow-delay=".2s">
-                <ul class="social-icons">
+                <ul class="social-icons" th:if="${session.userAccount == null}">
                     <!--<li><a href="#" class="facebook"></a></li>-->
                     <li><a href="#" class="twitter"></a></li>
-                    <!--<li><a href="#" class="g"></a></li>-->
-                    <!--<li><a href="#" class="instagram"></a></li>-->
-                    <li>
-                        <i class="glyphicon " aria-hidden="true">
-                        </i><a href="../login">登录/</a><a href="../register-01">免费注册</a>
-                    </li>-->
+                    <i class="glyphicon " aria-hidden="true"></i>
+                    <a href="../login">登录/</a><a href="../register-01">免费注册</a>
+                    <li class="glyphicon " aria-hidden="true">
+
+                    </li>
+                </ul>
+                <ul th:if="${session.userAccount != null}">
+                    <i>
+                        <a href="../user/personal"><img style="width: 50px;height: 50px;" class="img-circle" th:src="${session.userAccount.icon}" alt="头像"/></a>
+                        <i><a href="#" th:text="${session.userAccount.userName}" style="font-size: larger"></a></i>
+                        <i><a href="javascript:void(0)" onclick="logoff()">注销</a></i>
+                    </i>
                 </ul>
             </div>
             <div class="clearfix"> </div>
@@ -138,36 +144,30 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
                 <div class="col-md-8 mail-grid-left animated wow slideInLeft" data-wow-delay=".5s" >
                     <form id="ajaxsubmit" method="post"  class="form-search">
-                        <input type="text" value="姓名" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '姓名';}" required="" id="name" name="name" style="margin-top:10px;" placeholder="姓名">
-                        <input type="text" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" required="" id="reward" name="reward" style="margin-top:10px;" placeholder="Email">
+                        <input type="text" th:value="${info.name}" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '姓名';}" required="" id="name" name="name" style="margin-top:10px;" placeholder="姓名">
+                        <input type="text" th:value="${info.email}" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" required="" id="email" name="email" style="margin-top:10px;" placeholder="Email">
                         <div class="col-md-12" style="border:1px solid gainsboro;margin-top:10px;" >
-                            <input type="password" value="123456" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '密码';}" required="" id="pass" name="type" style="border:none;height:40px;width:80%;background-color: white" placeholder="123456" disabled="true"  class="col-md-10 input-small">
+                            <input type="password" th:value="${info.password}" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '密码';}" required="" id="password" name="password" style="border:none;height:40px;width:80%;background-color: white" placeholder="123456" disabled="true"  class="col-md-10 input-small">
                             <input type="button" value="修改" id="btn" class="col-md-2 btn"style="width:20%;margin-top:2px;" >
                         </div>
 
-                        <input type="text" value="联系电话" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '联系电话';}" required="" id="position" name="position" style="margin-top:10px;" placeholder="联系电话">
-                        <input type="text" value="家庭住址" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '家庭住址';}" required="" id="owner" name="owner" style="margin-top:10px;" placeholder="家庭住址">
+                        <input type="text" th:value="${info.phone}" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '联系电话';}" required="" id="phone" name="phone" style="margin-top:10px;" placeholder="联系电话">
+                        <input type="text" th:value="${info.address}" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '家庭住址';}" required="" id="address" name="address" style="margin-top:10px;" placeholder="家庭住址">
+
+                        <div style="margin-top:10px;border:1px solid lightgrey;height:40px;background-color: #f5f5f5;line-height:40px;"  class="col-md-12">
+                            <span class="col-md-3" style="padding-left:0;">出生年月：</span>
+                            <input type="date" id="birthday" th:value="${info.birthday}"/>
+                        </div>
+                        <div id="box-01" >
+                            <input type="submit"  value="完善成功" id="submit" style="margin-top:30px;">
+                        </div>
 
                     </form>
-                    <div style="margin-top:10px;border:1px solid lightgrey;height:40px;background-color: #f5f5f5;line-height:40px;"  class="col-md-12">
-                        <span class="col-md-3" style="padding-left:0;">出生年月：</span>
-                        <form name="form1" method="post" action="" class="col-md-9">
-                            <select name="year" style="width:100px;" >
-                            </select>年
-                            <select name="month" style="width:100px;" >
-                            </select>月
-                            <select name="day" style="width:100px;" >
-                            </select>日
-                        </form>
-                    </div>
-                    <div id="box-01" >
-                        <input type="submit"  value="完善成功" id="submit" style="margin-top:30px;">
-                    </div>
                 </div>
 
                 <div class="col-md-4 mail-grid-right animated wow slideInRight" data-wow-delay=".5s" >
                     <div class="mail-grid-right1">
-                        <img id="picture" src="../images/people.jpg"  style="width:100%;height:300px; " >
+                        <img id="picture" th:src="${info.icon}"  style="width:100%;height:300px; " >
                         <form id="upload" method="" enctype="multipart/form-data" style="text-align: center;height:100px;padding-top:20px;padding-left:10px;padding-right:10px;">
                             <input id="pic"  name="file" accept="image/*"  value="选择图片" type="file"  style="border: 1px solid white;margin-left:20px;height:30px;line-height:30px;width:100%;border-radius:20px;"/><!--style="display: none"-->
                             <h4  style="text-align: center"><input id="upload_button" type="button" value="上传头像" style="border: 1px solid white;background-color: #d9703e;color:white;height:30px;line-height:30px;width:100px;border-radius:20px;"/></h4>
