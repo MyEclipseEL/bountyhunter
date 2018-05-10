@@ -159,10 +159,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 							<!--<input type="text" value="任务小图" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '任务小图';}" required="" id="icon" name="icon">-->
 							<input type="text" value="配送地点" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '任务地点';}" required="" id="position" name="position" placeholder="配送地点 "  style="margin-top:10px;">
-							<!--<input type="text" value="联系电话" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '联系电话';}" required="" id="owner" name="owner" placeholder="联系电话"  style="margin-top:10px;">-->
+							<input type="text" value="联系电话" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '联系电话';}" required="" id="phone" name="phone" placeholder="联系电话"  style="margin-top:10px;">
 							<textarea type="text"  onfocus="this.value = '任务描述';" onblur="if (this.value == '') {this.value = '任务描述';}" required="" id="description" name="description">任务描述：</textarea>
 							<div id="box-01" >
-								<input type="submit"  value="提交任务" onclick="submitFunction()" >
+								<input  type="submit" id="submit1"  value="提交任务"  />
 							</div>
 						</div>
 
@@ -221,7 +221,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         $("#submit").click(function(e){
             e.preventDefault();
             $.ajax({
-                type:'post',
+                type:'get',
                 url:"../assignment/issue",
                 dataType: "json",
                 data:{
@@ -230,6 +230,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					type:$('#type').val(),
                     position: $('#position').val(),
                     description : $('#description').val(),
+					phone:$('#phone').val(),
 //                    icon: $('#icon').val(),
 					file: $('#file').val()
                 },
@@ -277,30 +278,39 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         document.getElementById("classID").value=document.getElementById("selectKK").value;
     };
 
-    function submitFunction() {
+    $('#submit1').click(function (e) {
+        e.preventDefault();
         //这里唯一需要注意的就是这个form-add的id
         var formData = new FormData($("#form-add")[0]);
+        console.log(formData);
         $.ajax({
             //接口地址
             url: '../assignment/issue' ,
-            type: 'POST',
+            type: 'post',
             data: formData,
             cache: false,
             contentType: false,
             processData: false,
             success: function (data) {
+                console.log(111)
+                console.log(data);
                 //成功的回调
-                if(data.code == 300){
-
+                if (data.code==0){
+                    alert("成功");
+                }else {
+                    alert(data.msg);
                 }
 
             },
-            error: function (returndata) {
+            error: function () {
                 //请求异常的回调
                 // modals.warn("网络访问失败，请稍后重试!");
+				alert("错误");
             }
         });
-    }
+    });
+
+
 </script>
 <script type="text/javascript">
 

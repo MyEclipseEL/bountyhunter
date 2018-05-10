@@ -10,6 +10,7 @@ import com.example.dataobject.AssignmentInfo;
 import com.example.dataobject.UserAccount;
 import com.example.dataobject.UserDetail;
 import com.example.enums.AssignmentStatus;
+import com.example.enums.ReceiveStatus;
 import com.example.enums.ResultEnum;
 import com.example.exception.HunterException;
 import com.example.form.AssignmentForm;
@@ -62,32 +63,32 @@ public class CategoryController {
     /**
      *
      * */
-    @GetMapping("/list")
-    public String category(@RequestParam(value = "categoryType" ,required = false) Integer categoryType,Model model ){
-        List<AssignmentInfo> assignmentInfoList = new ArrayList<>();
-        AssignmentCategory categoryThis = new AssignmentCategory() ;
-        //判断是否传类别
-        if (categoryType==null){
-            assignmentInfoList = assignmentService.findByAssignmentStatus(AssignmentStatus.NEW.getCode());
-
-        }else {
-            assignmentInfoList = assignmentService.findByCategoryTypeAndAssignmentStatus(categoryType,AssignmentStatus.NEW.getCode());
-            categoryThis = categoryService.findByCategory(categoryType);
-
-        }
-
-
-        List<AssignmentCategory> categoryList = categoryService.findAll();
-
-        AssignmentInfoList2VOlistConverter converter = new AssignmentInfoList2VOlistConverter();
-        //组装数据
-        List<AssignmentInfoVO> resultVOList = converter.converter(assignmentInfoList,accountService,detailService);
-
-        model.addAttribute("categoryThis",categoryThis);
-        model.addAttribute("results",resultVOList);
-        model.addAttribute("category",categoryList);
-        return "products";
-    }
+//    @GetMapping("/list")
+//    public String category(@RequestParam(value = "categoryType" ,required = false) Integer categoryType,Model model ){
+//        List<AssignmentInfo> assignmentInfoList = new ArrayList<>();
+//        AssignmentCategory categoryThis = new AssignmentCategory() ;
+//        //判断是否传类别
+//        if (categoryType==null){
+//            assignmentInfoList = assignmentService.findByAssignmentStatus(AssignmentStatus.NEW.getCode());
+//
+//        }else {
+//            assignmentInfoList = assignmentService.findByCategoryTypeAndAssignmentStatus(categoryType,AssignmentStatus.NEW.getCode());
+//            categoryThis = categoryService.findByCategory(categoryType);
+//
+//        }
+//
+//
+//        List<AssignmentCategory> categoryList = categoryService.findAll();
+//
+//        AssignmentInfoList2VOlistConverter converter = new AssignmentInfoList2VOlistConverter();
+//        //组装数据
+//        List<AssignmentInfoVO> resultVOList = converter.converter(assignmentInfoList,accountService,detailService);
+//
+//        model.addAttribute("categoryThis",categoryThis);
+//        model.addAttribute("results",resultVOList);
+//        model.addAttribute("category",categoryList);
+//        return "products";
+//    }
 
 
 
@@ -193,6 +194,7 @@ public class CategoryController {
             throw new HunterException(ResultEnum.RECEIVE_EXIST);
         }
         assignmentInfo.setAssignmentStatus(AssignmentStatus.RECEIVED.getCode());
+        assignmentInfo.setReceiveStatus(ReceiveStatus.RECEIVED.getCode());
         assignmentInfo.setAssignmentReceive(account.getAccountId());
 
         AssignmentInfo result = assignmentService.save(assignmentInfo);

@@ -94,7 +94,7 @@ public class AssignmentServiceImpl implements AssignmentService{
     }
 
     @Override
-    public List<AssignmentInfo> findOrderByReward() {
+    public List<AssignmentInfo> findOrderByReward(int index) {
         List<AssignmentInfo> assignmentInfoList = repository.findByAssignmentStatus(AssignmentStatus.NEW.getCode());
         for (int i=0;i<assignmentInfoList.size();i++){
             for (int j=1;j<assignmentInfoList.size();j++){
@@ -106,9 +106,32 @@ public class AssignmentServiceImpl implements AssignmentService{
                 }
             }
         }
-       while (assignmentInfoList.size()>8){
-           assignmentInfoList.remove(8);
+       while (assignmentInfoList.size()>index){
+           assignmentInfoList.remove(index);
        }
+        return assignmentInfoList;
+    }
+
+    @Override
+    public List<AssignmentInfo> findOrderByReward(int index, Integer categoryType) {
+        List<AssignmentInfo> assignmentInfoList = repository.findByAssignmentStatus(AssignmentStatus.NEW.getCode());
+        for (int i=0;i<assignmentInfoList.size();i++){
+            if (assignmentInfoList.get(i).getCategoryType() .compareTo(categoryType)==0 ){
+                assignmentInfoList.remove(i);
+            }
+            for (int j=1;j<assignmentInfoList.size();j++){
+                if (assignmentInfoList.get(j-1).getAssignmentReward().
+                        compareTo(assignmentInfoList.get(j).getAssignmentReward())==-1) {
+                    AssignmentInfo assignmentInfo = assignmentInfoList.get(j - 1);
+                    assignmentInfoList.set(j - 1, assignmentInfoList.get(j));
+                    assignmentInfoList.set(j, assignmentInfo);
+                }
+            }
+        }
+        while (assignmentInfoList.size()>index){
+            assignmentInfoList.remove(index);
+        }
+
         return assignmentInfoList;
     }
 
@@ -133,6 +156,17 @@ public class AssignmentServiceImpl implements AssignmentService{
         }
         return assignmentInfos;
 
+    }
+
+    @Override
+    public List<AssignmentInfoVO> findOrderByTime(int index) {
+        List<AssignmentInfo> infoList = repository.findByAssignmentStatusOrderByCreateTime(AssignmentStatus.NEW.getCode());
+        AssignmentInfoList2VOlistConverter converter = new AssignmentInfoList2VOlistConverter();
+        List<AssignmentInfoVO> voList = converter.converter(infoList,accountService,detailService);
+        while (voList.size()>index){
+            voList.remove(index);
+        }
+        return voList;
     }
 
     @Override
@@ -176,10 +210,19 @@ public class AssignmentServiceImpl implements AssignmentService{
     }
 
     @Override
-    public Page<AssignmentInfoVO> findUserHistoryAssignment(String account, Pageable pageable) {
+    public Page<AssignmentInfoVO> findUserHistoryAssignmentO(String account, Pageable pageable) {
         Page<AssignmentInfo> infoPage = repository.findByAssignmentOwner(account, pageable);
         AssignmentInfoList2VOlistConverter converter = new AssignmentInfoList2VOlistConverter();
         List<AssignmentInfoVO> infoVOList = converter.converter(infoPage.getContent(),accountService,detailService);
         return new PageImpl<AssignmentInfoVO>(infoVOList,pageable,infoPage.getTotalElements());
+    }
+
+    @Override
+    public Page<AssignmentInfoVO> findUserHistoryAssignmentR(String account, Pageable pageable) {
+        Page<AssignmentInfo> infoPage = repository.findByAssignmentReceive(account,pageable);
+        AssignmentInfoList2VOlistConverter converter = new AssignmentInfoList2VOlistConverter();
+        List<AssignmentInfoVO> voList =  converter.converter(infoPage.getContent(),accountService,detailService);
+
+        return new PageImpl<AssignmentInfoVO>(voList,pageable,infoPage.getTotalElements());
     }
 }

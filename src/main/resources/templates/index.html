@@ -234,7 +234,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="col-md-3"  th:each=" r : ${results}" style="padding-top:50px;" >
 				<div class="new-collections-grid1-image">
 					<a th:href="@{'/category/detail?assignmentId='+${r.assignmentId}}" class="product-image">
-						<img src="../images/home/one.jpg" alt=" " class="img-responsive" />
+						<img style="width: 200px;height: 200px" th:src="@{${r.assignmentIcon}}" alt=" " class="img-responsive" />
 					</a>
 					<div class="new-collections-grid1-image-pos">
 						<a th:href="@{'/category/detail?assignmentId='+${r.assignmentId}}">点击查看详情</a>

@@ -29,8 +29,6 @@ public class AssignmentInfoList2VOlistConverter {
     /**
      * 在配置文件中配置的图片保存路径
      */
-    @Value("${img.location}")
-    private String location;
 
     public  List<AssignmentInfoVO> converter(List<AssignmentInfo> assignmentInfoList,
                                          UserAccountService accountService,

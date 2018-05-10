@@ -3,21 +3,23 @@ package com.example.enums;
 import lombok.Getter;
 
 /**
- * Created by Administrator on 2018/4/7.
+ * Created by Administrator on 2018/5/10.
  */
 @Getter
-public enum AssignmentStatus implements CodeEnum {
+public enum ReceiveStatus implements CodeEnum {
 
-    NEW(0,"新发布"),
+    NEW(0,"新任务"),
     RECEIVED(1,"被接取"),
-    CANCEL(-1,"取消"),
-    FINISHED(2,"已完结")
+    CANCELED(-1,"已取消"),
+    FINISHED(2,"已完结"),
+
     ;
+
     private Integer code;
 
     private String message;
 
-    AssignmentStatus(Integer code, String message) {
+    ReceiveStatus(Integer code, String message) {
         this.code = code;
         this.message = message;
     }
