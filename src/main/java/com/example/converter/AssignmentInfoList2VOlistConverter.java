@@ -13,6 +13,7 @@ import com.example.service.impl.DetailServiceImpl;
 import com.example.service.impl.UserAccountServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,12 @@ import java.util.List;
  */
 @Service
 public class AssignmentInfoList2VOlistConverter {
+
+    /**
+     * 在配置文件中配置的图片保存路径
+     */
+    @Value("${img.location}")
+    private String location;
 
     public  List<AssignmentInfoVO> converter(List<AssignmentInfo> assignmentInfoList,
                                          UserAccountService accountService,
@@ -39,7 +46,6 @@ public class AssignmentInfoList2VOlistConverter {
             for (AssignmentInfo assignmentInfo:assignmentInfoList){
 //                if (assignmentInfo.getCategoryType().equals(category.getCategoryType())){
                     AssignmentInfoVO assignmentInfoVO = new AssignmentInfoVO();
-
                     UserAccount account =  accountService.findOne(assignmentInfo.getAssignmentOwner());
                     UserAccountVO accountVO = new UserAccountVO();
                     BeanUtils.copyProperties(account,accountVO);
@@ -48,7 +54,6 @@ public class AssignmentInfoList2VOlistConverter {
 
                     BeanUtils.copyProperties(assignmentInfo,assignmentInfoVO);
                     assignmentInfoVO.setAssignmentOwner(accountVO);
-
                     assignmentInfoVOList.add(assignmentInfoVO);
                 }
 //            }

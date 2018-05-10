@@ -42,7 +42,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <div class="header-grid-left animated wow slideInLeft" data-wow-delay=".5s">
             </div>
             <div class="header-grid-right animated wow slideInRight" data-wow-delay=".2s">
-                <ul class="social-icons">
+                <ul class="social-icons" th:if="${session.userAccount == null}">
                     <!--<li><a href="#" class="facebook"></a></li>-->
                     <li><a href="#" class="twitter"></a></li>
                     <i class="glyphicon " aria-hidden="true"></i>
@@ -65,7 +65,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <div class="logo-nav">
             <div class="logo-nav-left animated wow zoomIn slideInLeft " data-wow-delay=".5s" >
                 <h1 ><a href="../index/">赏 金 猎 人</a></h1>
-                <span>赏金猎人中小型校园任务发布平台</span>
+                <span>中小型校园任务发布平台</span>
             </div>
             <div class="logo-nav-left1">
                 <nav class="navbar navbar-default">
@@ -210,7 +210,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             },
 
         success:function(data){
-                alert("登陆成功! 欢迎您:"+user);
+                alert("登陆成功! 欢迎您");
                 window.location.href="/index";
 
         },
