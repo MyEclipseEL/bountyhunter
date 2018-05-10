@@ -45,9 +45,13 @@ public interface AssignmentService {
     /** 增加和更新*/
     AssignmentInfo save(AssignmentInfo assignmentInfo);
 
-    List<AssignmentInfo> findOrderByReward();
+    List<AssignmentInfo> findOrderByReward(int index);
+
+    List<AssignmentInfo> findOrderByReward(int index,Integer categoryType);
 
     List<AssignmentInfo> findTheNWE();
+
+    List<AssignmentInfoVO> findOrderByTime(int index);
 
     Page<AssignmentInfo> findNoCriteria(Integer page,Integer size);
 
@@ -55,9 +59,9 @@ public interface AssignmentService {
 
     Page<AssignmentInfoVO> findList(Integer categoryType, Pageable pageable);
 
-    Page<AssignmentInfoVO> findUserHistoryAssignment(String account,Pageable pageable);
+    Page<AssignmentInfoVO> findUserHistoryAssignmentO(String account,Pageable pageable);
 
-
+    Page<AssignmentInfoVO> findUserHistoryAssignmentR(String account,Pageable pageable);
 
 
 }

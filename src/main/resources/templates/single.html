@@ -163,15 +163,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="col-md-5 single-right-left animated wow slideInUp" data-wow-delay=".5s">
 					<div class="flexslider">
 						<ul class="slides">
-							<li data-thumb="../images/food-02.jpg">
-								<div class="thumb-image"> <img src="../images/food-02.jpg" data-imagezoom="true" class="img-responsive"> </div>
+							<li th:data-thumb="@{${result.assignmentIcon}}">
+								<div class="thumb-image"> <img th:src="@{${result.assignmentIcon}}" data-imagezoom="true" class="img-responsive"> </div>
 							</li>
-							<li data-thumb="../images/food-01.jpg">
-								 <div class="thumb-image"> <img src="../images/food-01.jpg" data-imagezoom="true" class="img-responsive"> </div>
+							<li th:data-thumb="@{${result.assignmentIcon}}" >
+								 <div class="thumb-image"> <img th:src="@{${result.assignmentIcon}}" data-imagezoom="true" class="img-responsive"> </div>
 							</li>
-							<li data-thumb="../images/food-04.jpg">
-							   <div class="thumb-image"> <img src="../images/food-04.jpg" data-imagezoom="true" class="img-responsive"> </div>
-							</li> 
+							<!--<li data-thumb="../images/food-04.jpg">-->
+							   <!--<div class="thumb-image"> <img src="../images/food-04.jpg" data-imagezoom="true" class="img-responsive"> </div>-->
+							<!--</li> -->
 						</ul>
 					</div>
 					<!-- flixslider -->

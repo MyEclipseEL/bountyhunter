@@ -18,6 +18,7 @@ public class AssignmentForm2InfoConverter {
         assignmentInfo.setAssignmentDescription(assignmentForm.getDescription());
         assignmentInfo.setAssignmentPosition(assignmentForm.getPosition());
         assignmentInfo.setAssignmentReward(assignmentForm.getReward());
+        assignmentInfo.setUserPhone(assignmentForm.getPhone());
 
         return assignmentInfo;
     }

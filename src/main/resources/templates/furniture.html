@@ -39,7 +39,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 			</div>
 			<div class="header-grid-right animated wow slideInRight" data-wow-delay=".2s">
-				<ul class="social-icons" th:if="${session.userAccount == null}">
+				<ul class="social-icons">
 					<!--<li><a href="#" class="facebook"></a></li>-->
 					<li><a href="#" class="twitter"></a></li>
 					<i class="glyphicon " aria-hidden="true"></i>
@@ -95,7 +95,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<li  ><a href="../category/news" style="color:#dd703e">最新任务列表</a></li>
 							<li><a href="../category/mail">任务发布</a></li>
 							<li><a href="../category/check">历史任务</a></li>
-
 						</ul>
 					</div>
 				</nav>
@@ -150,7 +149,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 				<div class="col-md-4" th:each=" r :${results}">
 					<div class="new-collections-grid1-image">
-						<a th:href="@{'../category/detail?assignmentId='+${r.assignmentId}}" class="product-image"><img src="../images/food-08.jpg" alt=" " class="img-responsive" style="width:100%;height: 350px;padding-top:50px;"></a>
+						<a th:href="@{'../category/detail?assignmentId='+${r.assignmentId}}" class="product-image"><img th:src="@{${r.assignmentIcon}}" alt=" " class="img-responsive" style="width:100%;height: 350px;padding-top:50px;"></a>
 						<div class="new-collections-grid1-image-pos products-right-grids-pos">
 							<a th:href="@{'../category/detail?assignmentId='+${r.assignmentId}}">点击查看任务</a>
 						</div>
