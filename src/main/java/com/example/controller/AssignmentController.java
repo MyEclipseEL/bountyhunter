@@ -79,12 +79,13 @@ public class AssignmentController {
 
         HttpSession session = request.getSession();
         UserAccount userAccount = (UserAccount) session.getAttribute("userAccount");
-        String accountId = userAccount.getAccountId();
 
-        if (accountId==null||accountId.isEmpty()){
+
+        if (userAccount==null){
             log.error("【发布任务】用户信息为空");
             throw new HunterException(ResultEnum.ACCOUNT_EMPTY);
         }
+        String accountId = userAccount.getAccountId();
         UserAccount account = accountService.findOne(accountId);
         if (account==null){
             log.error("【发布任务】用户不存在 accountId={}",accountId);
@@ -159,15 +160,12 @@ public class AssignmentController {
                        @RequestParam(value = "page" ,defaultValue = "0") Integer page,
                        @RequestParam(value = "size" ,defaultValue = "9") Integer size,
                        Model model){
-
-
-
         List<AssignmentCategory> categoryList = categoryService.findAll();
         model.addAttribute("category",categoryList);
         if (StringUtils.isEmpty(categoryType)){
             log.error("【查询任务】没有收到categoryType");
             model.addAttribute("msg","出错了");
-            return "index";
+            return "redirect:/index";
 
         }
         PageRequest request = new PageRequest(page,size);
@@ -181,6 +179,27 @@ public class AssignmentController {
         model.addAttribute("categoryThis",categoryThis);
         model.addAttribute("infoPage",infoVOPage);
         return "products";
+    }
+
+    @GetMapping("/history")
+    public String history(@RequestParam(value = "page" ,defaultValue = "0") Integer page,
+                          @RequestParam(value = "size" ,defaultValue = "10") Integer size,
+                          HttpServletRequest request,
+                          Model model){
+
+        HttpSession session = request.getSession();
+        UserAccount account = (UserAccount) session.getAttribute("userAccount");
+        if (account == null){
+            return "redirect:/index";
+        }
+        PageRequest pageRequest = new PageRequest(page,size);
+        Page<AssignmentInfoVO> voPage = assignmentService.findUserHistoryAssignment(account.getAccountId(),pageRequest);
+        Integer indexPage = page;
+        Integer totalPages = voPage.getTotalPages();
+        model.addAttribute("totalPages",totalPages);
+        model.addAttribute("indexPage",indexPage);
+        model.addAttribute("infoPage",voPage);
+        return "checkout";
     }
 
 }

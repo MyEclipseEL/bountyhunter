@@ -45,12 +45,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <ul class="social-icons">
                     <!--<li><a href="#" class="facebook"></a></li>-->
                     <li><a href="#" class="twitter"></a></li>
-                    <!--<li><a href="#" class="g"></a></li>-->
-                    <!--<li><a href="#" class="instagram"></a></li>-->
-                    <li>
-                        <i class="glyphicon " aria-hidden="true">
-                        </i><a href="../login" style="color:#dd703e">登录/</a><a href="../register-01">免费注册</a>
-                    </li>-->
+                    <i class="glyphicon " aria-hidden="true"></i>
+                    <a href="../login">登录/</a><a href="../register-01">免费注册</a>
+                    <li class="glyphicon " aria-hidden="true">
+
+                    </li>
+                </ul>
+                <ul th:if="${session.userAccount != null}">
+                    <i>
+                        <a href="#"><img style="width: 50px;height: 50px;" class="img-circle" src="../images/food-01.jpg" alt="头像"/></a>
+                        <i><a href="#" th:text="${session.userAccount.userName}" style="font-size: larger"></a></i>
+                        <i><a href="#">注销</a></i>
+
+                    </i>
                 </ul>
             </div>
             <div class="clearfix"> </div>
@@ -82,7 +89,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                         <div class="col-sm-8"  >
                                             <ul class="multi-column-dropdown" style="padding-left: 40px;" th:each="c : ${category}">
                                                 <!--<h6>分类列表</h6>-->
-                                                <li><a th:href="@{'../category/list?categoryType='+${c.categoryType} }" th:text="${c.categoryName}">招聘兼职</a></li>
+                                                <li><a th:href="@{'../assignment/list?categoryType='+${c.categoryType} }" th:text="${c.categoryName}">招聘兼职</a></li>
 
                                             </ul>
                                         </div>
@@ -151,6 +158,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         </div>
         <h4 class="animated wow slideInUp" data-wow-delay=".5s" ><a href="center.html" style="color:white">去完善个人信息</a></h4>
 
+
+
     </div>
 </div>
 <!-- //login -->
@@ -201,8 +210,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             },
 
         success:function(data){
-                alert("登陆成功! 欢迎你");
+                alert("登陆成功! 欢迎您:"+user);
                 window.location.href="/index";
+
         },
         error:function(){
 //            $("#test").html("发生错误:"+jqXHR.status);

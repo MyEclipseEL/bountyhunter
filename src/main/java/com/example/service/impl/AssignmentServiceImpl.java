@@ -106,6 +106,9 @@ public class AssignmentServiceImpl implements AssignmentService{
                 }
             }
         }
+       while (assignmentInfoList.size()>8){
+           assignmentInfoList.remove(8);
+       }
         return assignmentInfoList;
     }
 
@@ -121,7 +124,7 @@ public class AssignmentServiceImpl implements AssignmentService{
             try {
                 Date This = format.parse(assignmentInfo.getCreateTime().toString());
                 Date Now = format.parse(format.format(System.currentTimeMillis()));
-                if (Now.getTime() - This.getTime() < 1000*3600*3){
+                if (Now.getTime() - This.getTime() < 1000*3600*24*15){
                     assignmentInfos.add(assignmentInfo);
                 }
             } catch (ParseException e) {
@@ -167,6 +170,14 @@ public class AssignmentServiceImpl implements AssignmentService{
     public Page<AssignmentInfoVO> findList(Integer categoryType, Pageable pageable) {
         Page<AssignmentInfo> infoPage = repository.findByAssignmentStatusAndCategoryType(AssignmentStatus.NEW.getCode(),
                 categoryType,pageable);
+        AssignmentInfoList2VOlistConverter converter = new AssignmentInfoList2VOlistConverter();
+        List<AssignmentInfoVO> infoVOList = converter.converter(infoPage.getContent(),accountService,detailService);
+        return new PageImpl<AssignmentInfoVO>(infoVOList,pageable,infoPage.getTotalElements());
+    }
+
+    @Override
+    public Page<AssignmentInfoVO> findUserHistoryAssignment(String account, Pageable pageable) {
+        Page<AssignmentInfo> infoPage = repository.findByAssignmentOwner(account, pageable);
         AssignmentInfoList2VOlistConverter converter = new AssignmentInfoList2VOlistConverter();
         List<AssignmentInfoVO> infoVOList = converter.converter(infoPage.getContent(),accountService,detailService);
         return new PageImpl<AssignmentInfoVO>(infoVOList,pageable,infoPage.getTotalElements());

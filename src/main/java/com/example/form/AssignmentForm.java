@@ -3,6 +3,7 @@ package com.example.form;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.URL;
 
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
@@ -36,7 +37,8 @@ public class AssignmentForm {
     private String description;
 
     /** 任务图片*/
-    @NotEmpty(message = "请配图")
+   @URL(message = "请上传图片")
+    @NotNull(message = "请上传图片")
     private String icon;
 
     /** 任务发布位置*/
