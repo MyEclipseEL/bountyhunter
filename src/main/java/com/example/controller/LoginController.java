@@ -169,11 +169,11 @@ public class LoginController {
 /*
         UserDetail detail = UserInfo2DetailConverter.converter(userInfoForm);
 */
-
         return null;
     }
 
 
+    // 上传 图片 并返回 图片路径
     @PostMapping("/uploadFile")
     public ResultVO<String> uploadFile(@RequestParam("file") MultipartFile multipartFile,
                                                     HttpSession session) {
