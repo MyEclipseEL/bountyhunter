@@ -39,20 +39,22 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="header">
 		<div class="container">
 			<div class="header-grid">
-				<div class="header-grid-left animated wow slideInLeft" data-wow-delay=".5s">
-					<ul>
-						<li><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i><a href="mailto:info@example.com">@example.com</a></li>
-						<li><i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>+1234 <span>567</span> 892</li>
-						<li><i class="glyphicon glyphicon-log-in" aria-hidden="true"></i><a href="login.html">Login</a></li>
-						<li><i class="glyphicon glyphicon-book" aria-hidden="true"></i><a href="register.html">Register</a></li>
-					</ul>
-				</div>
-				<div class="header-grid-right animated wow slideInRight" data-wow-delay=".5s">
-					<ul class="social-icons">
-						<li><a href="#" class="facebook"></a></li>
+				<div class="header-grid-right animated wow slideInRight" data-wow-delay=".2s">
+					<ul class="social-icons" th:if="${session.userAccount == null}">
+						<!--<li><a href="#" class="facebook"></a></li>-->
 						<li><a href="#" class="twitter"></a></li>
-						<li><a href="#" class="g"></a></li>
-						<li><a href="#" class="instagram"></a></li>
+						<i class="glyphicon " aria-hidden="true"></i>
+						<a href="../login">登录/</a><a href="../register-01">免费注册</a>
+						<li class="glyphicon " aria-hidden="true">
+
+						</li>
+					</ul>
+					<ul th:if="${session.userAccount != null}">
+						<i>
+							<a href="#"><img style="width: 50px;height: 50px;" class="img-circle" th:src="${session.userAccount.icon}" alt="头像"/></a>
+							<i><a href="#" th:text="${session.userAccount.userName}" style="font-size: larger"></a></i>
+							<i><a href="javascript:void(0)" onclick="logoff()">注销</a></i>
+						</i>
 					</ul>
 				</div>
 				<div class="clearfix"> </div>
@@ -800,6 +802,28 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<!--</div>-->
 	</div>
 </div>
+<script>
+    function logoff(){
+        $.ajax({
+            type:'POST',
+            dataType: "json",
+            url:"../user/logoff",
+			/* data:{
+			 email:$("#email").val(),
+			 password:$("#password").val()
+			 },*/
+            success:function(data){
+                alert("注销完成");
+                window.location.href="/index";
+
+            },
+            error:function(){
+//            $("#test").html("发生错误:"+jqXHR.status);
+                alert("发生错误");
+            }
+        });
+    }
+</script>
 <!-- //footer -->
 </body>
 </html>

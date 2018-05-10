@@ -254,10 +254,11 @@ public class LoginController {
      *
      * @return
      */
-    @DeleteMapping("/logoff")
-    public void logoff(HttpSession session) {
+    @PostMapping("/logoff")
+    public ResultVO<String> logoff(HttpSession session) {
         session.removeAttribute("userAccount");
         System.out.println("进入注销");
+        return ResultVOUtil.success("注销完成");
     }
 
    /* @GetMapping("/test")

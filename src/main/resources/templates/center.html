@@ -46,11 +46,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 <script type="text/javascript">
     $(function(){
-        loadInit("初始化方法进入");
+        initData("初始化方法进入");
     });
 
     //加载初始化数据
-    function loadInit(){
+    function initData(){
         $.ajax({
             type:'GET',
             dataType: "json",
@@ -66,16 +66,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     alert(res.msg);
                     var info = res.data;
 
-
                     $("#name").attr("value", info.name);
-
                     $("#email").attr("value", info.email);
                     $("#password").attr("value", info.password);
                     $("#phone").attr("value", info.phone);
                     $("#address").attr("value", info.address);
                     $("#birthday").attr("value", info.birthday);
                     $("#picture").attr("src", info.icon);
-
                 }else{
                     alert("用户信息不合法，或邮箱已被占用");
                 }
@@ -88,6 +85,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     }
 </script>
 
+
 <body>
 <!-- header -->
 <div class="header">
@@ -96,13 +94,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <div class="header-grid-left animated wow slideInLeft" data-wow-delay=".5s">
             </div>
             <div class="header-grid-right animated wow slideInRight" data-wow-delay=".2s">
-                <ul class="social-icons">
+                <ul class="social-icons" th:if="${session.userAccount == null}">
                     <!--<li><a href="#" class="facebook"></a></li>-->
                     <li><a href="#" class="twitter"></a></li>
-                    <li>
-                        <i class="glyphicon " aria-hidden="true">
-                        </i><a href="../login.html">登录/</a><a href="../register-01.html">免费注册</a>
-                    </li>-->
+                    <i class="glyphicon " aria-hidden="true"></i>
+                    <a href="../login">登录/</a><a href="../register-01">免费注册</a>
+                    <li class="glyphicon " aria-hidden="true">
+
+                    </li>
+                </ul>
+                <ul th:if="${session.userAccount != null}">
+                    <i>
+                        <a href="#"><img style="width: 50px;height: 50px;" class="img-circle" th:src="${session.userAccount.icon}" alt="头像"/></a>
+                        <i><a href="#" th:text="${session.userAccount.userName}" style="font-size: larger"></a></i>
+                        <i><a href="javascript:void(0)" onclick="logoff()">注销</a></i>
+                    </i>
                 </ul>
             </div>
             <div class="clearfix"> </div>
@@ -214,16 +220,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <div style="margin-top:10px;border:1px solid lightgrey;height:40px;background-color: #f5f5f5;line-height:40px;"  class="col-md-12">
                     <span class="col-md-3" style="padding-left:0;">出生年月：</span>
                     <input type="date" id="birthday"/>
-                    <!--<form name="form1" method="post" action="" class="col-md-9">
-                        <select name="year" style="width:100px;" >
-                        </select>年
-                        <select name="month" style="width:100px;" >
-                        </select>月
-                        <select name="day" style="width:100px;" >
-                        </select>日
-                    </form>-->
                 </div>
-
                 <div id="box-01" >
                     <input type="submit"  value="完善成功" id="submit" style="margin-top:30px;">
                 </div>
@@ -301,8 +298,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 type:'post',
                 url:"/user/updateInfo",
                 dataType: "json",
-
-
                 data:{
 //                    "publisher": "李明"
                     name: $('#name').val(),
@@ -380,7 +375,28 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     }*/
 </script>
 
+<script>
+    function logoff(){
+        $.ajax({
+            type:'POST',
+            dataType: "json",
+            url:"../user/logoff",
+            /* data:{
+             email:$("#email").val(),
+             password:$("#password").val()
+             },*/
+            success:function(data){
+                alert("注销完成");
+                window.location.href="/index";
 
+            },
+            error:function(){
+//            $("#test").html("发生错误:"+jqXHR.status);
+                alert("发生错误");
+            }
+        });
+    }
+</script>
 
 
 </body>

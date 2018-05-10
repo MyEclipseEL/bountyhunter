@@ -37,10 +37,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- //timer -->
 <!-- animation-effect -->
 <link href="../css/animate.min.css" rel="stylesheet">
-	<!--<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>-->
-	<!--<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
-<!-- //animation-effect -->
+
 </head>
+
 	
 <body>
 <!-- header -->
@@ -63,10 +62,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</ul>
 					<ul th:if="${session.userAccount != null}">
 						<i>
-							<a href="#"><img style="width: 50px;height: 50px;" class="img-circle" src="../images/food-01.jpg" alt="头像"/></a>
+							<a href="#"><img style="width: 50px;height: 50px;" class="img-circle" th:src="${session.userAccount.icon}" alt="头像"/></a>
 							<i><a href="#" th:text="${session.userAccount.userName}" style="font-size: larger"></a></i>
-							<i><a href="user/logoff">注销</a></i>
-
+							<i><a href="javascript:void(0)" onclick="logoff()">注销</a></i>
 						</i>
 					</ul>
 				</div>
@@ -119,21 +117,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</nav>
 				</div>
 				<div class="logo-nav-right">
-					<!--<div class="search-box">-->
-						<!--<div id="sb-search" class="sb-search">-->
-							<!--<form>-->
-								<!--<input class="sb-search-input" placeholder="Enter your search term..." type="search" id="search">-->
-								<!--<input class="sb-search-submit" type="submit" value="">-->
-								<!--<span class="sb-icon-search"> </span>-->
-							<!--</form>-->
-						<!--</div>-->
-					<!--</div>-->
-
-					<!--<script src="../js/classie.js"></script>-->
-						<!--<script src="../js/uisearch.js"></script>-->
-							<!--<script>-->
-								<!--new UISearch( document.getElementById( 'sb-search' ) );-->
-							<!--</script>-->
 
 				</div>
 
@@ -258,15 +241,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<h3>欢迎进入 <span></span></h3>
 				</div>
 			</div>
-			<!--<div class="newsletter animated wow slideInUp" data-wow-delay=".5s">-->
-				<!--<h3>Bounty Hunter</h3>-->
-				<!--<p>Join us now to get all news and special offers.</p>-->
-				<!--<form>-->
-					<!--<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>-->
-					<!--<input type="email" value="Enter your email address" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Enter your email address';}" required="">-->
-					<!--<input type="submit" value="Join Us" >-->
-				<!--</form>-->
-			<!--</div>-->
+
 		</div>
 	</div>
 <!-- //collections-bottom -->
@@ -284,54 +259,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="footer-logo animated wow " >
 				<h2><a href="../index">Bounty Hunter <span>shop anywhere</span></a></h2>
 			</div>
-			<!--<div class="copy-right animated wow slideInUp" data-wow-delay=".5s">-->
-				<!--<p>Copyright &copy; 2016.Company name All rights reserved.More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>-->
-			<!--</div>-->
+
 		</div>
 	</div>
 <!-- //footer -->
 
 <script>
-//    $(document).ready(function(){
-//        $.ajax({
-//            type:'get',
-//            dataType: "json",
-//            url:"/bountyhunter/category/list",
-//
-//            success:function(data){
-////                var jsonReturn = data.data[0];
-////                var name = jsonReturn.name;
-////                $("#name1").innerHTML(name);
-//                console.log(data);
-//                return data.data;
-//
-//
-//            },
-//            error:function(jqXHR){
-//                $("#test").html("发生错误:"+jqXHR.status);
-//            }
-//        });
-//        $.ajax({
-//			type:'get',
-//			dataType:'json',
-//			url:'/bountyhunter/category/type',
-//			success:function (data) {
-//
-//				console.log(data);
-//            },
-//			error:function (jqXHR) {
-//
-//                $("#test").html("发生错误:"+jqXHR.status);
-//            }
-//
-//		});
-//
-//        $('#circleContent').carousel({interval:5000});//每隔5秒自动轮播
-//    });
 
-    //    $("#myCarousel").carousel({
-//        interval :1000,
-//    });
 </script>
 <script th:inline="javascript">
     var msg = [[${msg}]];
@@ -342,6 +276,27 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     })
 
 </script>
+<script>
+    function logoff(){
+        $.ajax({
+            type:'POST',
+            dataType: "json",
+            url:"user/logoff",
+			/* data:{
+			 email:$("#email").val(),
+			 password:$("#password").val()
+			 },*/
+            success:function(data){
+                alert("注销完成");
+                window.location.href="/index";
 
+            },
+            error:function(){
+//            $("#test").html("发生错误:"+jqXHR.status);
+                alert("发生错误");
+            }
+        });
+    }
+</script>
 </body>
 </html>
