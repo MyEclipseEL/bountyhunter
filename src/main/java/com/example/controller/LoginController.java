@@ -169,26 +169,6 @@ public class LoginController {
     }
 
 
-   /* @GetMapping("/center")
-    public ResultVO<UserInfoVO> center(HttpSession session) {
-        Object object = session.getAttribute("userAccount");
-
-        if (object != null) {
-            UserAccount userAccount = (UserAccount) object;
-
-            UserAccount user = userService.findOne(userAccount.getAccountId());
-            UserDetail detail = detailRepository.findOne(userAccount.getDetailId());
-
-            UserInfoVO userInfoVO = UserAccount2UserInfoVO.converter(user, detail);
-
-            return ResultVOUtil.success(userInfoVO);
-        } else {
-            log.error("[用户信息填写]session中无信息,object={}", object);
-            return ResultVOUtil.error(UserEnum.SESSION_NOT_EXIST.getCode(), UserEnum.SESSION_NOT_EXIST.getMessage());
-        }
-
-    }*/
-
     @GetMapping("/center")
     public ModelAndView center(HttpSession session,Map<String,Object> map) {
         Object object = session.getAttribute("userAccount");
@@ -285,11 +265,5 @@ public class LoginController {
         return ResultVOUtil.success("注销完成");
     }
 
-   /* @GetMapping("/test")
-    public void test() {
-
-        System.out.println("进入测试");
-        UserAccount userAccount = new UserAccount();
-    }*/
 }
 
