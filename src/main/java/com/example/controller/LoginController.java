@@ -183,7 +183,7 @@ public class LoginController {
 
             map.put("info", userInfoVO);
 
-            return new ModelAndView("center", map);
+            return new ModelAndView("personal", map);
 
         } else {
             log.error("[用户信息填写]session中无信息,object={}", object);
