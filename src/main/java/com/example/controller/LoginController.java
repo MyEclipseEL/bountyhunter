@@ -51,9 +51,6 @@ public class LoginController {
     @Autowired
     private EmailAsync emailAsync;
 
-    /*@Autowired
-    private DetailService detailService;*/
-
     @Autowired
     private DetailRepository detailRepository;
 
@@ -229,22 +226,18 @@ public class LoginController {
 
 
             if (StringUtils.isNotBlank(file_name)) {
-                UserDetail detail = detailRepository.findOne(user.getDetailId());
+                UserAccount resultUser = userService.findOne(user.getAccountId());
 
                 /** Windows下
-                 * detail.setUserIcon(return_path + File.separator + file_name);
+                 * userAccount.setIcon(return_path + File.separator + file_name);
                   */
                 //Linux下
-                detail.setUserIcon(return_path + "/" + file_name);
+                resultUser.setIcon(return_path + "/" + file_name);
 
-
-                detailRepository.save(detail);
-
-                /*Map<String, String> map = new HashMap<>();
-                map.put("img", location+File.separator+ detail.getUserIcon());*/
-
+                userService.save(resultUser);
+                session.setAttribute("userAccount", resultUser);
                 // 图片访问路径
-                String userIcon = detail.getUserIcon();
+                String userIcon = resultUser.getIcon();
 
                 return ResultVOUtil.success(userIcon);
             }
@@ -253,6 +246,18 @@ public class LoginController {
         } catch (IOException e) {
             throw new UserException(UserEnum.SAVE_IMG_ERROE);
         }
+    }
+
+
+    /**
+     * 注销
+     *
+     * @return
+     */
+    @DeleteMapping("/logoff")
+    public void logoff(HttpSession session) {
+        session.removeAttribute("userAccount");
+        System.out.println("进入注销");
     }
 
    /* @GetMapping("/test")
