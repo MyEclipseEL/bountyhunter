@@ -124,4 +124,14 @@ public class UserAccountServiceImpl implements UserAccountService {
         UserDetail userDetail = detailRepository.save(detail);
     }
 
+    @Override
+    public void save(UserAccount user) {
+        UserAccount testUser = repository.findOne(user.getAccountId());
+        if (testUser == null) {
+            throw new UserException(UserEnum.USER_NOT_EXIST);
+        }
+
+        UserAccount userAccount = repository.save(user);
+    }
+
 }

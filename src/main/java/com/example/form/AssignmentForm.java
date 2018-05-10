@@ -37,9 +37,9 @@ public class AssignmentForm {
     private String description;
 
     /** 任务图片*/
-   @URL(message = "请上传图片")
-    @NotNull(message = "请上传图片")
-    private String icon;
+//   @URL(message = "请上传图片")
+//    @NotNull(message = "请上传图片")
+//    private String icon;
 
     /** 任务发布位置*/
     @NotEmpty(message = "位置为空")

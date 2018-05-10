@@ -26,4 +26,6 @@ public interface UserAccountService {
     //更新
      void updateInfo(UserAccount user, UserDetail detail);
 
+
+     void save(UserAccount user);
 }

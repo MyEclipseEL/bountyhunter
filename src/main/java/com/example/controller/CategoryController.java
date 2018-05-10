@@ -12,6 +12,7 @@ import com.example.dataobject.UserDetail;
 import com.example.enums.AssignmentStatus;
 import com.example.enums.ResultEnum;
 import com.example.exception.HunterException;
+import com.example.form.AssignmentForm;
 import com.example.service.AssignmentCategoryService;
 import com.example.service.AssignmentService;
 import com.example.service.DetailService;
@@ -23,11 +24,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -149,42 +154,34 @@ public class CategoryController {
     }
 
     @GetMapping("/receive{assignmentId}")
-    public String receive(@RequestParam("assignmentId") String assignmentId,
+    public ResultVO<AssignmentInfo> receive(@RequestParam("assignmentId") String assignmentId,
                                             HttpServletRequest request,
                                             Model model) {
         HttpSession session = request.getSession();
-//        String accountId = (String) session.getAttribute("account");
-//        String accountId = (String) session.getValue("account");
-        String accountId = "";
-        Cookie cookies[] = request.getCookies();
-        List<AssignmentCategory> categoryList = categoryService.findAll();
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("account")) {
-                accountId = cookie.getValue();
-                break;
-            }
+        UserAccount userAccount = (UserAccount) session.getAttribute("userAccount");
+        if (userAccount == null){
+            throw  new HunterException(ResultEnum.ACCOUNT_EMPTY);
         }
+        List<AssignmentCategory> categoryList = categoryService.findAll();
+        String accountId = userAccount.getAccountId();
         model.addAttribute("category",categoryList);
         log.info(accountId);
         if (accountId==null||accountId.isEmpty()){
             log.error("【接取任务】用户信息为空 session={}",session.getAttributeNames());
             model.addAttribute("msg","尚未登陆或登陆失效，请重新登陆！");
-            return "login";
-//            throw new HunterException(ResultEnum.ACCOUNT_EMPTY);
+            throw new HunterException(ResultEnum.ACCOUNT_EMPTY);
         }
         UserAccount account = accountService.findOne(accountId);
         if (account==null){
             model.addAttribute("msg","尚未登陆或登陆失效，请重新登陆！");
             log.error("【接取任务】用户不存在 accountId={}",accountId);
-            return "login";
-//            throw new HunterException(ResultEnum.ACCOUNT_NOT_EXIST);
+            throw new HunterException(ResultEnum.ACCOUNT_NOT_EXIST);
         }
         if (assignmentId.isEmpty()){
             log.error("【接取任务】参数错误 assignmentId={}",assignmentId);
             model.addAttribute("code",-1);
             model.addAttribute("msg","出错了，稍后试试");
-            return "redirect:single";
-//            throw new HunterException(ResultEnum.PARAM_ERROR);
+            throw new HunterException(ResultEnum.PARAM_ERROR);
         }
         AssignmentInfo assignmentInfo = assignmentService.findOne(assignmentId);
         if (assignmentInfo==null){
@@ -200,7 +197,7 @@ public class CategoryController {
 
         AssignmentInfo result = assignmentService.save(assignmentInfo);
 
-        return "single";
+        return ResultVOUtil.success(result);
     }
 
     @RequestMapping("/infoPage")
@@ -212,4 +209,61 @@ public class CategoryController {
         return "products";
     }
 
+    @PostMapping("/issue")
+    public String issue(
+                        HttpServletRequest request,
+                        @Valid AssignmentForm assignmentForm,
+                        BindingResult bindingResult,
+                        @RequestParam("file") MultipartFile file){
+        HttpSession session = request.getSession();
+        UserAccount account = (UserAccount) session.getAttribute("userAccount");
+        if (account == null){
+            return "redirect:/index";
+        }
+        if (bindingResult.hasErrors()){
+
+        }
+//        if (!file.isEmpty()){
+//            try{
+//                BufferedOutputStream out = new BufferedOutputStream(
+//                        new FileOutputStream(new File("src/mian/resource/static/images/assignments"+".jpg"))
+//                );
+//                out.write(file.getBytes());
+//                out.flush();
+//                out.close();
+//                String filename = "\\/images\\/assignments/"+".jpg";
+//            } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+
+        return "";
+    }
+    public String fileUpload(@RequestParam("file") MultipartFile file){
+
+        if(file.isEmpty()){
+            return "false";
+        }
+        String fileName = file.getOriginalFilename();
+
+        String path = System.getProperty("user.dir") + "/uploadFile" ;
+        File dest = new File(path + "/" + fileName);
+        if(!dest.getParentFile().exists()){ //判断文件父目录是否存在
+            dest.getParentFile().mkdir();
+        }
+        try {
+            file.transferTo(dest); //保存文件
+            return dest.getPath();
+        } catch (IllegalStateException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return "false";
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return "false";
+        }
+    }
 }

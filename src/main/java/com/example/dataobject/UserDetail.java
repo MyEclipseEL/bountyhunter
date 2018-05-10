@@ -11,7 +11,6 @@ import java.util.Date;
  * Created by Administrator on 2018/4/2.
  */
 @Entity
-@Data
 @DynamicUpdate
 public class UserDetail {
 
@@ -25,12 +24,52 @@ public class UserDetail {
     /** 用户地址*/
     private String userAddress;
 
-    /** 用户头像*/
-    private String userIcon;
 
     /** 用户生日*/
     private String userBirthday;
 
     /** 更新时间*/
     private Date updateTime;
+
+    public String getDetailId() {
+        return detailId;
+    }
+
+    public void setDetailId(String detailId) {
+        this.detailId = detailId;
+    }
+
+    public String getUserPhone() {
+        return userPhone;
+    }
+
+    public void setUserPhone(String userPhone) {
+        this.userPhone = userPhone;
+    }
+
+    public String getUserAddress() {
+        return userAddress;
+    }
+
+    public void setUserAddress(String userAddress) {
+        this.userAddress = userAddress;
+    }
+
+    public String getUserBirthday() {
+        return userBirthday;
+    }
+
+    public void setUserBirthday(String userBirthday) {
+        this.userBirthday = userBirthday;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+
 }
