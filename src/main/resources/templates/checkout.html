@@ -12,6 +12,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- //for-mobile-apps -->
 <link href="../css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="../css/bootstrap/min.css" rel="stylesheet" type="text/css" media="all" />
 <link href="../css/style.css" rel="stylesheet" type="text/css" media="all" />
 <!-- js -->
 <script src="../js/jquery.min.js"></script>
@@ -47,15 +48,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<!--</ul>-->
 			</div>
 			<div class="header-grid-right animated wow slideInRight" data-wow-delay=".2s">
-				<ul class="social-icons">
+				<ul class="social-icons" th:if="${session.userAccount == null}">
 					<!--<li><a href="#" class="facebook"></a></li>-->
 					<li><a href="#" class="twitter"></a></li>
-					<!--<li><a href="#" class="g"></a></li>-->
-					<!--<li><a href="#" class="instagram"></a></li>-->
-					<li>
-						<i class="glyphicon " aria-hidden="true">
-						</i><a href="../login">登录/</a><a href="../register-01">免费注册</a>
-					</li>-->
+					<i class="glyphicon " aria-hidden="true"></i>
+					<a href="../login">登录/</a><a href="../register-01">免费注册</a>
+					<li class="glyphicon " aria-hidden="true">
+
+					</li>
+				</ul>
+				<ul th:if="${session.userAccount != null}">
+					<i>
+						<a href="#"><img style="width: 50px;height: 50px;" class="img-circle" th:src="${session.userAccount.icon}" alt="头像"/></a>
+						<i><a href="#" th:text="${session.userAccount.userName}" style="font-size: larger"></a></i>
+						<i><a href="javascript:void(0)" onclick="logoff()">注销</a></i>
+					</i>
 				</ul>
 			</div>
 			<div class="clearfix"> </div>
@@ -101,6 +108,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</div>
 				</nav>
 			</div>
+
+
 			<div class="logo-nav-right">
 				<div class="search-box">
 					<div id="sb-search" class="sb-search">
@@ -135,28 +144,34 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</div>
 <!-- //breadcrumbs -->
 <!-- checkout -->
-	<div class="checkout">
-		<div class="container">
-			<!--<h3 class="animated wow slideInLeft" data-wow-delay=".5s">您的购物清单包括： <span>3 件产品</span></h3>-->
+<div style="padding-left:10%;padding-right:10%;padding-top:50px;">
+	<ul id="myTab" class="nav nav-tabs">
+		<li class="active"><a href="#home" data-toggle="tab">
+			已接任务</a>
+		</li>
+		<li><a href="#ios" data-toggle="tab">已发布任务</a></li>
+	</ul>
+	<div id="myTabContent" class="tab-content">
+		<div class="tab-pane fade in active" id="home">
 			<div class="checkout-right animated wow slideInUp" data-wow-delay=".5s">
 				<table class="timetable_sub">
 					<thead>
-						<tr>
-							<th>序号</th>
-							<th>任务</th>
-							<th>件数</th>
-							<th>任务名字</th>
-							<th>任务价格</th>
-							<!--<th>Price</th>-->
-							<th>移除</th>
-						</tr>
+					<tr>
+						<th>序号</th>
+						<th style="width:300px;">任务</th>
+						<th>件数</th>
+						<th>任务名字</th>
+						<th>任务价格</th>
+						<!--<th>Price</th>-->
+						<th>移除</th>
+					</tr>
 					</thead>
 					<tr class="rem1">
 						<td class="invert">1</td>
 						<td class="invert-image"><a href="single.html"><img src="../images/22.jpg" alt=" " class="img-responsive" /></a></td>
 						<td class="invert">
-							 <div class="quantity"> 
-								<div class="quantity-select">                           
+							<div class="quantity">
+								<div class="quantity-select">
 									<div class="entry value-minus">&nbsp;</div>
 									<div class="entry value"><span>1</span></div>
 									<div class="entry value-plus active">&nbsp;</div>
@@ -171,21 +186,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<div class="close1"> </div>
 							</div>
 							<script>$(document).ready(function(c) {
-								$('.close1').on('click', function(c){
-									$('.rem1').fadeOut('slow', function(c){
-										$('.rem1').remove();
-									});
-									});	  
-								});
-						   </script>
+                                $('.close1').on('click', function(c){
+                                    $('.rem1').fadeOut('slow', function(c){
+                                        $('.rem1').remove();
+                                    });
+                                });
+                            });
+							</script>
 						</td>
 					</tr>
 					<tr class="rem2">
 						<td class="invert">2</td>
 						<td class="invert-image"><a href="single.html"><img src="../images/30.jpg" alt=" " class="img-responsive" /></a></td>
 						<td class="invert">
-							 <div class="quantity"> 
-								<div class="quantity-select">                           
+							<div class="quantity">
+								<div class="quantity-select">
 									<div class="entry value-minus">&nbsp;</div>
 									<div class="entry value"><span>1</span></div>
 									<div class="entry value-plus active">&nbsp;</div>
@@ -200,21 +215,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<div class="close2"> </div>
 							</div>
 							<script>$(document).ready(function(c) {
-								$('.close2').on('click', function(c){
-									$('.rem2').fadeOut('slow', function(c){
-										$('.rem2').remove();
-									});
-									});	  
-								});
-						   </script>
+                                $('.close2').on('click', function(c){
+                                    $('.rem2').fadeOut('slow', function(c){
+                                        $('.rem2').remove();
+                                    });
+                                });
+                            });
+							</script>
 						</td>
 					</tr>
 					<tr class="rem3">
 						<td class="invert">3</td>
 						<td class="invert-image"><a href="single.html"><img src="../images/11.jpg" alt=" " class="img-responsive" /></a></td>
 						<td class="invert">
-							 <div class="quantity"> 
-								<div class="quantity-select">                           
+							<div class="quantity">
+								<div class="quantity-select">
 									<div class="entry value-minus">&nbsp;</div>
 									<div class="entry value"><span>1</span></div>
 									<div class="entry value-plus active">&nbsp;</div>
@@ -229,43 +244,156 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<div class="close3"> </div>
 							</div>
 							<script>$(document).ready(function(c) {
-								$('.close3').on('click', function(c){
-									$('.rem3').fadeOut('slow', function(c){
-										$('.rem3').remove();
-									});
-									});	  
-								});
-						   </script>
+                                $('.close3').on('click', function(c){
+                                    $('.rem3').fadeOut('slow', function(c){
+                                        $('.rem3').remove();
+                                    });
+                                });
+                            });
+							</script>
 						</td>
 					</tr>
-								<!--quantity-->
-									<script>
-									$('.value-plus').on('click', function(){
-										var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10)+1;
-										divUpd.text(newVal);
-									});
+					<!--quantity-->
+					<script>
+                        $('.value-plus').on('click', function(){
+                            var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10)+1;
+                            divUpd.text(newVal);
+                        });
 
-									$('.value-minus').on('click', function(){
-										var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10)-1;
-										if(newVal>=1) divUpd.text(newVal);
-									});
-									</script>
-								<!--quantity-->
+                        $('.value-minus').on('click', function(){
+                            var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10)-1;
+                            if(newVal>=1) divUpd.text(newVal);
+                        });
+					</script>
+					<!--quantity-->
 				</table>
 			</div>
-			<div class="checkout-left">	
-				<!--<div class="checkout-left-basket animated wow slideInLeft" data-wow-delay=".5s">-->
-					<!--<h4>Continue to basket</h4>-->
-					<!--<ul>-->
-						<!--<li>Product1 <i>-</i> <span>$250.00 </span></li>-->
-						<!--<li>Product2 <i>-</i> <span>$290.00 </span></li>-->
-						<!--<li>Product3 <i>-</i> <span>$299.00 </span></li>-->
-						<!--<li>Total Service Charges <i>-</i> <span>$15.00</span></li>-->
-						<!--<li>Total <i>-</i> <span>$854.00</span></li>-->
-					<!--</ul>-->
-				<!--</div>-->
+		</div>
+		<div class="tab-pane fade" id="ios">
+			<div class="checkout-right animated wow slideInUp" data-wow-delay=".5s">
+				<table class="timetable_sub">
+					<thead>
+					<tr>
+						<th>序号</th>
+						<th style="width:300px;">任务</th>
+						<th>件数</th>
+						<th>任务名字</th>
+						<th>任务价格</th>
+						<!--<th>Price</th>-->
+						<th>移除</th>
+					</tr>
+					</thead>
+					<tr class="rem1">
+						<td class="invert">1</td>
+						<td class="invert-image"><a href="single.html"><img src="../images/22.jpg" alt=" " class="img-responsive" /></a></td>
+						<td class="invert">
+							<div class="quantity">
+								<div class="quantity-select">
+									<div class="entry value-minus">&nbsp;</div>
+									<div class="entry value"><span>1</span></div>
+									<div class="entry value-plus active">&nbsp;</div>
+								</div>
+							</div>
+						</td>
+						<td class="invert">Black Shoe</td>
+						<!--<td class="invert">$5.00</td>-->
+						<td class="invert">$290.00</td>
+						<td class="invert">
+							<div class="rem">
+								<div class="close1"> </div>
+							</div>
+							<script>$(document).ready(function(c) {
+                                $('.close1').on('click', function(c){
+                                    $('.rem1').fadeOut('slow', function(c){
+                                        $('.rem1').remove();
+                                    });
+                                });
+                            });
+							</script>
+						</td>
+					</tr>
+					<tr class="rem2">
+						<td class="invert">2</td>
+						<td class="invert-image"><a href="single.html"><img src="../images/30.jpg" alt=" " class="img-responsive" /></a></td>
+						<td class="invert">
+							<div class="quantity">
+								<div class="quantity-select">
+									<div class="entry value-minus">&nbsp;</div>
+									<div class="entry value"><span>1</span></div>
+									<div class="entry value-plus active">&nbsp;</div>
+								</div>
+							</div>
+						</td>
+						<td class="invert">Centre Table</td>
+						<!--<td class="invert">$5.00</td>-->
+						<td class="invert">$250.00</td>
+						<td class="invert">
+							<div class="rem">
+								<div class="close2"> </div>
+							</div>
+							<script>$(document).ready(function(c) {
+                                $('.close2').on('click', function(c){
+                                    $('.rem2').fadeOut('slow', function(c){
+                                        $('.rem2').remove();
+                                    });
+                                });
+                            });
+							</script>
+						</td>
+					</tr>
+					<tr class="rem3">
+						<td class="invert">3</td>
+						<td class="invert-image"><a href="single.html"><img src="../images/11.jpg" alt=" " class="img-responsive" /></a></td>
+						<td class="invert">
+							<div class="quantity">
+								<div class="quantity-select">
+									<div class="entry value-minus">&nbsp;</div>
+									<div class="entry value"><span>1</span></div>
+									<div class="entry value-plus active">&nbsp;</div>
+								</div>
+							</div>
+						</td>
+						<td class="invert">Stone Bangles</td>
+						<!--<td class="invert">$5.00</td>-->
+						<td class="invert">$299.00</td>
+						<td class="invert">
+							<div class="rem">
+								<div class="close3"> </div>
+							</div>
+							<script>$(document).ready(function(c) {
+                                $('.close3').on('click', function(c){
+                                    $('.rem3').fadeOut('slow', function(c){
+                                        $('.rem3').remove();
+                                    });
+                                });
+                            });
+							</script>
+						</td>
+					</tr>
+					<!--quantity-->
+					<script>
+                        $('.value-plus').on('click', function(){
+                            var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10)+1;
+                            divUpd.text(newVal);
+                        });
+
+                        $('.value-minus').on('click', function(){
+                            var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10)-1;
+                            if(newVal>=1) divUpd.text(newVal);
+                        });
+					</script>
+					<!--quantity-->
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+	<div class="checkout">
+		<div class="container">
+			<div class="checkout-left">
 				<div class="checkout-right-basket animated wow slideInRight " data-wow-delay=".3s" >
-					<a href="products.html" style="background: #ff9f37;"><span class="glyphicon glyphicon-menu-left " aria-hidden="true" ></span>返回任务列表</a>
+					<a href="../index/" style="background: #ff9f37;"><span class="glyphicon glyphicon-menu-left " aria-hidden="true" ></span>返回首页</a>
 				</div>
 				<div class="clearfix"> </div>
 			</div>
@@ -291,6 +419,34 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<!--</div>-->
 	</div>
 </div>
+<script>
+    function logoff(){
+        $.ajax({
+            type:'POST',
+            dataType: "json",
+            url:"../user/logoff",
+			/* data:{
+			 email:$("#email").val(),
+			 password:$("#password").val()
+			 },*/
+            success:function(data){
+                alert("注销完成");
+                window.location.href="/index";
+
+            },
+            error:function(){
+//            $("#test").html("发生错误:"+jqXHR.status);
+                alert("发生错误");
+            }
+        });
+    }
+</script>
 <!-- //footer -->
+
+<script>
+    $(function () {
+        $('#myTab li:eq(1) a').tab('show');
+    });
+</script>
 </body>
 </html>

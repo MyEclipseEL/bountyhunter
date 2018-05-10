@@ -1,7 +1,7 @@
 <!DOCTYPE html >
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-	  xmlns:th="http://www.thymeleaf.org" xmlns:border-radius="http://www.w3.org/1999/xhtml">
+	  xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>Home</title>
 <!-- for-mobile-apps -->
@@ -37,14 +37,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- //timer -->
 <!-- animation-effect -->
 <link href="../css/animate.min.css" rel="stylesheet">
-	<!--<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>-->
-	<!--<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
-<!-- //animation-effect -->
+
 </head>
-	
+
+
 <body>
 <!-- header -->
-
 	<div class="header">
 		<div class="container">
 			<div class="header-grid">
@@ -63,10 +61,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</ul>
 					<ul th:if="${session.userAccount != null}">
 						<i>
-							<a href="#"><img style="width: 50px;height: 50px;" class="img-circle" src="../images/food-01.jpg" alt="头像"/></a>
+							<a href="#"><img style="width: 50px;height: 50px;" class="img-circle" th:src="${session.userAccount.icon}" alt="头像"/></a>
 							<i><a href="#" th:text="${session.userAccount.userName}" style="font-size: larger"></a></i>
-							<i><a href="user/logoff">注销</a></i>
-
+							<i><a href="javascript:void(0)" onclick="logoff()">注销</a></i>
 						</i>
 					</ul>
 				</div>
@@ -92,7 +89,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</div>
 					<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
 						<ul class="nav navbar-nav">
-							<li class="active"><a href="../index" class="act">首页</a></li>
+							<li class="active"><a th:href="@{'/index'}" class="act">首页</a></li>
 							<!-- Mega Menu -->
 
 							<li class="dropdown">
@@ -106,34 +103,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 											</ul>
 										</div>
+
 										<div class="clearfix"></div>
 									</div>
 								</ul>
 							</li>
 							<li  ><a href="../category/news" >最新任务列表</a></li>
 							<li><a href="../category/mail">任务发布</a></li>
-							<li th:if="${session.userAccount==null}"><a href="../login">历史任务</a></li>
-							<li th:if="${session.userAccount!=null}"><a href="../assignment/history">历史任务</a></li>
+							<!--<li th:if="${session.userAccount==null}"><a href="../login">历史任务</a></li>-->
+							<li><a href="../category/check">历史任务</a></li>
 						</ul>
 					</div>
 					</nav>
 				</div>
 				<div class="logo-nav-right">
-					<!--<div class="search-box">-->
-						<!--<div id="sb-search" class="sb-search">-->
-							<!--<form>-->
-								<!--<input class="sb-search-input" placeholder="Enter your search term..." type="search" id="search">-->
-								<!--<input class="sb-search-submit" type="submit" value="">-->
-								<!--<span class="sb-icon-search"> </span>-->
-							<!--</form>-->
-						<!--</div>-->
-					<!--</div>-->
-
-					<!--<script src="../js/classie.js"></script>-->
-						<!--<script src="../js/uisearch.js"></script>-->
-							<!--<script>-->
-								<!--new UISearch( document.getElementById( 'sb-search' ) );-->
-							<!--</script>-->
 
 				</div>
 
@@ -173,8 +156,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<span class="sr-only">Next</span>
 	</a>
 </div>
-
-
 <!-- //banner -->
 <!-- banner-bottom -->
 	<div class="banner-bottom">
@@ -183,9 +164,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="banner-bottom-grid-left animated wow slideInLeft" data-wow-delay=".2s">
 					<div class="grid">
 						<figure class="effect-julia">
-							<a th:href="@{''}"><img src=".././images/ps-01/p-01.jpg" alt=" " class="img-responsive" style="height:480px;width:100%;"/></a>
+							<img src=".././images/ps-01/p-01.jpg" alt=" " class="img-responsive" style="height:480px;width:100%;"/>
 							<figcaption>
-								<h3 th:text="${category[0].categoryName}">aaa <span></span><i> 拼购炸鸡电影</i></h3>
+								<a th:href="@{'../assignment/list?categoryType='+${category[0].categoryType} }">
+									跑腿代取
+								</a>
+									<h3 th:text="${category[0].categoryName}"><i> 跑腿代取</i></h3>
 							</figcaption>
 						</figure>
 					</div>
@@ -193,19 +177,31 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="banner-bottom-grid-left1 animated wow slideInUp" data-wow-delay=".2s">
 					<div class="banner-bottom-grid-left-grid left1-grid grid-left-grid1" >
 						<div class="banner-bottom-grid-left-grid1" style="height:230px;background-size:100% auto;" >
-							<img src=".././images/ps-02/flower-06.jpg" alt=" " class="img-responsive" />
+							<a  th:href="@{'../assignment/list?categoryType='+${category[1].categoryType} }">
+								<img src=".././images/ps-02/flower-06.jpg" alt=" " class="img-responsive" />
+							</a>
+
 						</div>
 						<div class="banner-bottom-grid-left1-pos">
-							<p th:text="${category[1].categoryName}">说走就走的旅行</p>
+							<a  th:href="@{'../assignment/list?categoryType='+${category[1].categoryType} }">
+								<p th:text="${category[1].categoryName}">二手交易</p>
+							</a>
+
 						</div>
 					</div>
 					<div class="banner-bottom-grid-left-grid left1-grid grid-left-grid1">
 						<div class="banner-bottom-grid-left-grid1" style="height:230px">
-							<img src=".././images/ps-03/game-01.jpg" alt=" " class="img-responsive"   />
+							<a  th:href="@{'../assignment/list?categoryType='+${category[2].categoryType} }">
+								<img src=".././images/ps-03/game-01.jpg" alt=" " class="img-responsive"   />
+							</a>
+
 						</div>
 						<div class="banner-bottom-grid-left1-position">
 							<div class="banner-bottom-grid-left1-pos1">
-								<p th:text="${category[2].categoryName}">任务：代购咖啡花语豆</p>
+								<a  th:href="@{'../assignment/list?categoryType='+${category[2].categoryType} }">
+									<p th:text="${category[2].categoryName}">任务：游戏代练</p>
+								</a>
+
 							</div>
 						</div>
 					</div>
@@ -213,10 +209,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="banner-bottom-grid-right animated wow slideInRight" data-wow-delay=".2s">
 					<div class="banner-bottom-grid-left-grid grid-left-grid1">
 						<div class="banner-bottom-grid-left-grid1" >
-							<img src=".././images/ps-04/introduce-01.jpg" alt=" " class="img-responsive" style="height:480px;" >
+							<a th:href="@{'../assignment/list?categoryType='+${category[3].categoryType} }">
+								<img src=".././images/ps-04/introduce-01.jpg" alt=" " class="img-responsive" style="height:480px;" >
+							</a>
+
 						</div>
 						<div class="grid-left-grid1-pos">
-							<p th:text="${category[3].categoryName}">任务：大量招募街头艺人 <span></span></p>
+							 <a th:href="@{'../assignment/list?categoryType='+${category[3].categoryType} }">
+								 <p th:text="${category[3].categoryName}">任务：招聘兼职 <span></span></p>
+							 </a>
+
 						</div>
 					</div>
 				</div>
@@ -228,8 +230,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- collections -->
 	<div class="new-collections">
 		<div style="margin-left:15%;margin-right:15%;" >
-			<h3 class="animated wow zoomIn" data-wow-delay=".5s" >悬赏任务排行榜TOP8</h3>
-			<div class="col-md-3"  th:each=" r : ${results}" >
+			<h3 class="animated wow zoomIn" data-wow-delay=".5s" >最新任务发布</h3>
+			<div class="col-md-3"  th:each=" r : ${results}" style="padding-top:50px;" >
 				<div class="new-collections-grid1-image">
 					<a th:href="@{'/category/detail?assignmentId='+${r.assignmentId}}" class="product-image">
 						<img style="width: 200px;height: 200px" th:src="@{${r.assignmentIcon}}" alt=" " class="img-responsive" />
@@ -238,10 +240,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<a th:href="@{'/category/detail?assignmentId='+${r.assignmentId}}">点击查看详情</a>
 					</div>
 				</div>
-				<h4><a th:href="@{'/category/detail?assignmentId='+${r.assignmentId}}" th:text="${r.assignmentName}">任务：代购美国Gucci衬衫</a></h4>
-				<div class="new-collections-grid1-left simpleCart_shelfItem">
+				<h4 style="text-align: center;padding-top:20px;"><a th:href="@{'/category/detail?assignmentId='+${r.assignmentId}}" th:text="${r.assignmentName}" style="color:black">任务：代购美国Gucci衬衫</a></h4>
+				<div class="new-collections-grid1-left simpleCart_shelfItem" style="text-align: center">
 					<p><span class="item_price" th:text="${r.assignmentReward}">￥500</span>
-						<a class="item_add" th:href="@{'/category/detail?assignmentId='+${r.assignmentId}}">详 情</a></p>
+					<a class="item_add" th:href="@{'/category/detail?assignmentId='+${r.assignmentId}}">详 情</a>
+					</p>
+
 				</div>
 			</div>
 		</div>
@@ -258,15 +262,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<h3>欢迎进入 <span></span></h3>
 				</div>
 			</div>
-			<!--<div class="newsletter animated wow slideInUp" data-wow-delay=".5s">-->
-				<!--<h3>Bounty Hunter</h3>-->
-				<!--<p>Join us now to get all news and special offers.</p>-->
-				<!--<form>-->
-					<!--<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>-->
-					<!--<input type="email" value="Enter your email address" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Enter your email address';}" required="">-->
-					<!--<input type="submit" value="Join Us" >-->
-				<!--</form>-->
-			<!--</div>-->
+
 		</div>
 	</div>
 <!-- //collections-bottom -->
@@ -284,54 +280,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="footer-logo animated wow " >
 				<h2><a href="../index">Bounty Hunter <span>shop anywhere</span></a></h2>
 			</div>
-			<!--<div class="copy-right animated wow slideInUp" data-wow-delay=".5s">-->
-				<!--<p>Copyright &copy; 2016.Company name All rights reserved.More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>-->
-			<!--</div>-->
+
 		</div>
 	</div>
 <!-- //footer -->
 
 <script>
-//    $(document).ready(function(){
-//        $.ajax({
-//            type:'get',
-//            dataType: "json",
-//            url:"/bountyhunter/category/list",
-//
-//            success:function(data){
-////                var jsonReturn = data.data[0];
-////                var name = jsonReturn.name;
-////                $("#name1").innerHTML(name);
-//                console.log(data);
-//                return data.data;
-//
-//
-//            },
-//            error:function(jqXHR){
-//                $("#test").html("发生错误:"+jqXHR.status);
-//            }
-//        });
-//        $.ajax({
-//			type:'get',
-//			dataType:'json',
-//			url:'/bountyhunter/category/type',
-//			success:function (data) {
-//
-//				console.log(data);
-//            },
-//			error:function (jqXHR) {
-//
-//                $("#test").html("发生错误:"+jqXHR.status);
-//            }
-//
-//		});
-//
-//        $('#circleContent').carousel({interval:5000});//每隔5秒自动轮播
-//    });
 
-    //    $("#myCarousel").carousel({
-//        interval :1000,
-//    });
 </script>
 <script th:inline="javascript">
     var msg = [[${msg}]];
@@ -342,6 +297,27 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     })
 
 </script>
+<script>
+    function logoff(){
+        $.ajax({
+            type:'POST',
+            dataType: "json",
+            url:"user/logoff",
+			/* data:{
+			 email:$("#email").val(),
+			 password:$("#password").val()
+			 },*/
+            success:function(data){
+                alert("注销完成");
+                window.location.href="/index";
 
+            },
+            error:function(){
+//            $("#test").html("发生错误:"+jqXHR.status);
+                alert("发生错误");
+            }
+        });
+    }
+</script>
 </body>
 </html>

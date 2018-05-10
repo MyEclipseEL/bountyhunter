@@ -42,12 +42,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<ul class="social-icons">
 					<!--<li><a href="#" class="facebook"></a></li>-->
 					<li><a href="#" class="twitter"></a></li>
-					<!--<li><a href="#" class="g"></a></li>-->
-					<!--<li><a href="#" class="instagram"></a></li>-->
-					<li>
-						<i class="glyphicon " aria-hidden="true">
-						</i><a href="../login">登录/</a><a href="../register-01">免费注册</a>
-					</li>-->
+					<i class="glyphicon " aria-hidden="true"></i>
+					<a href="../login">登录/</a><a href="../register-01">免费注册</a>
+					<li class="glyphicon " aria-hidden="true">
+
+					</li>
+				</ul>
+				<ul th:if="${session.userAccount != null}">
+					<i>
+						<a href="#"><img style="width: 50px;height: 50px;" class="img-circle" th:src="${session.userAccount.icon}" alt="头像"/></a>
+						<i><a href="#" th:text="${session.userAccount.userName}" style="font-size: larger"></a></i>
+						<i><a href="javascript:void(0)" onclick="logoff()">注销</a></i>
+					</i>
 				</ul>
 			</div>
 			<div class="clearfix"> </div>
@@ -183,6 +189,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</div>
 <!-- //breadcrumbs -->
 <!-- footer -->
+<a name="tips"></a>
 <div class="footer">
 	<div class="container">
 		<div class="footer-grids">
@@ -201,6 +208,28 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<!--</div>-->
 	</div>
 </div>
+<script>
+    function logoff(){
+        $.ajax({
+            type:'POST',
+            dataType: "json",
+            url:"../user/logoff",
+			/* data:{
+			 email:$("#email").val(),
+			 password:$("#password").val()
+			 },*/
+            success:function(data){
+                alert("注销完成");
+                window.location.href="/index";
+
+            },
+            error:function(){
+//            $("#test").html("发生错误:"+jqXHR.status);
+                alert("发生错误");
+            }
+        });
+    }
+</script>
 <!-- //footer -->
 </body>
 </html>

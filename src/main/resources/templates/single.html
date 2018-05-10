@@ -53,10 +53,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</ul>
 				<ul th:if="${session.userAccount != null}">
 					<i>
-						<a href="#"><img style="width: 50px;height: 50px;" class="img-circle" src="../images/food-01.jpg" alt="头像"/></a>
+						<a href="#"><img style="width: 50px;height: 50px;" class="img-circle" th:src="${session.userAccount.icon}" alt="头像"/></a>
 						<i><a href="#" th:text="${session.userAccount.userName}" style="font-size: larger"></a></i>
-						<i><a href="#">注销</a></i>
-
+						<i><a href="javascript:void(0)" onclick="logoff()">注销</a></i>
 					</i>
 				</ul>
 			</div>
@@ -105,6 +104,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<li  ><a href="../category/news" >最新任务列表</a></li>
 							<li><a href="../category/mail">任务发布</a></li>
 							<li><a href="../category/check">历史任务</a></li>
+
 						</ul>
 					</div>
 				</nav>
@@ -149,7 +149,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="breadcrumbs">
 		<div class="container">
 			<ol class="breadcrumb breadcrumb1 animated wow " >
-				<li><a href="../index/"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
+				<li><a href="../index/"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>首页</a></li>
 				<li class="active">商品详情</li>
 			</ol>
 		</div>
@@ -231,7 +231,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</div>
 					<div class="social">
 						<div class="social-left;padding-left:10px;color:grey;">
-							<p>服务商已经缴纳保证金20000元，承诺交易出问题，保证金赔付</p>
+							<p>服务商已经缴纳保证金200元，承诺交易出问题，保证金赔付</p>
 						</div>
 						<div style="float:right;">
 							<a href="#" class="instagram">关于任务发布者 关于详情</a>
@@ -245,6 +245,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<!--</ul>-->
 						<!--</div>-->
 						<div class="clearfix"> </div>
+						<div class="checkout-right-basket animated wow slideInRight " data-wow-delay=".3s" >
+							<a href="../index/" style="background: #ff9f37;"><span class="glyphicon glyphicon-menu-left " aria-hidden="true" ></span>返回首页</a>
+						</div>
 					</div>
 				</div>
 				<div class="clearfix"> </div>
@@ -409,6 +412,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</div>
 <!-- //single-related-products -->
 <!-- footer -->
+<a name="tips"></a>
 <div class="footer">
 	<div class="container">
 		<div class="footer-grids">
@@ -452,6 +456,28 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	})
 	}
 
+</script>
+<script>
+    function logoff(){
+        $.ajax({
+            type:'POST',
+            dataType: "json",
+            url:"../user/logoff",
+			/* data:{
+			 email:$("#email").val(),
+			 password:$("#password").val()
+			 },*/
+            success:function(data){
+                alert("注销完成");
+                window.location.href="/index";
+
+            },
+            error:function(){
+//            $("#test").html("发生错误:"+jqXHR.status);
+                alert("发生错误");
+            }
+        });
+    }
 </script>
 <!-- //footer -->
 <!-- zooming-effect -->
