@@ -16,11 +16,12 @@ public class UserAccount2UserInfoVO {
         userInfoVO.setName(userAccount.getUserName());
         userInfoVO.setEmail(userAccount.getUserEmail());
         userInfoVO.setPassword(userAccount.getUserPassword());
+        userInfoVO.setIcon(userAccount.getIcon());
 
         userInfoVO.setPhone(detail.getUserPhone());
         userInfoVO.setAddress(detail.getUserAddress());
         userInfoVO.setBirthday(detail.getUserBirthday());
-        userInfoVO.setIcon(detail.getUserIcon());
+
 
         return userInfoVO;
     }
