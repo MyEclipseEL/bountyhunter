@@ -36,6 +36,9 @@ public class AssignmentInfo {
     /** 任务描述*/
     private String assignmentDescription;
 
+    /** 用户电话*/
+    private String userPhone;
+
     /** 任务图片*/
     private String assignmentIcon;
 
@@ -44,6 +47,9 @@ public class AssignmentInfo {
 
     /** 支付状态*/
     private Integer payStatus;
+
+    /** 接取方状态*/
+    private Integer receiveStatus;
 
     /** 任务发布位置*/
     private String assignmentPosition;

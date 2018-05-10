@@ -36,6 +36,9 @@ public class AssignmentForm {
     @NotEmpty(message = "请说明任务需求")
     private String description;
 
+    @NotNull(message = "求留下电话")
+    private String phone;
+
     /** 任务图片*/
 //   @URL(message = "请上传图片")
 //    @NotNull(message = "请上传图片")

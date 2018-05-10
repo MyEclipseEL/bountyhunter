@@ -87,12 +87,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											<ul class="multi-column-dropdown" style="padding-left: 40px;" th:each="c : ${category}">
 												<!--<h6>分类列表</h6>-->
 												<li><a th:href="@{'../assignment/list?categoryType='+${c.categoryType} }" th:text="${c.categoryName}">招聘兼职</a></li>
-												<!--<li ><a href="products.html?val=1" >代取任务</a></li>-->
-												<!--<li><a href="/category/type" >二手交易</a></li>-->
-												<!--<li><a href="products.html">招聘兼职</a></li>-->
-												<!--<li><a href="products.html">日租短租</a></li>-->
-												<!--<li ><a href="products.html">游戏任务</a></li>-->
-												<!--<li><a href="products.html">美容健身</a></li>-->
 
 											</ul>
 										</div>
@@ -150,40 +144,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="new-products animated wow slideInUp" data-wow-delay=".5s">
 					<h3>最新任务发布</h3>
 					<div class="new-products-grids">
-						<div class="new-products-grid">
+						<div class="new-products-grid" th:each="t : ${top_3}">
 							<div class="new-products-grid-left">
-								<a href="../single.html"><img src="../images/food-02.jpg" alt=" " class="img-responsive" /></a>
+								<a th:href="@{'../category/detail?assignmentId='+${t.assignmentId}}"><img th:src="@{${t.assignmentIcon}}" alt=" " class="img-responsive" /></a>
 							</div>
 							<div class="new-products-grid-right">
-								<h4><a href="../single.html">任务：带一份咖啡+蛋糕</a></h4>
+								<h4><a th:href="@{'../category/detail?assignmentId='+${t.assignmentId}}" th:text="${t.assignmentName}">任务：带一份咖啡+蛋糕</a></h4>
 								<div class="simpleCart_shelfItem new-products-grid-right-add-cart">
-									<p> <span class="item_price">￥20</span><a class="item_add" href="../single.html">详 情 </a></p>
-								</div>
-							</div>
-							<div class="clearfix"> </div>
-						</div>
-						<div class="new-products-grid">
-							<div class="new-products-grid-left" >
-								<a href="../single.html"><img src="../images/banner-20.jpg" alt=" " class="img-responsive" style="height:150px"/></a>
-							</div>
-							<div class="new-products-grid-right">
-								<h4><a href="../single.html">任务：代购拉花咖啡</a></h4>
-
-								<div class="simpleCart_shelfItem new-products-grid-right-add-cart">
-									<p> <span class="item_price">￥49</span><a class="item_add" href="../single.html">详情 </a></p>
-								</div>
-							</div>
-							<div class="clearfix"> </div>
-						</div>
-						<div class="new-products-grid">
-							<div class="new-products-grid-left">
-								<a href="../single.html"><img src="../images/food-14.jpg" alt=" " class="img-responsive" /></a>
-							</div>
-							<div class="new-products-grid-right">
-								<h4><a href="../single.html">任务：沙拉甜品</a></h4>
-
-								<div class="simpleCart_shelfItem new-products-grid-right-add-cart">
-									<p> <span class="item_price">￥45</span><a class="item_add" href="../single.html">详 情 </a></p>
+									<p> <span class="item_price" th:text="${t.assignmentReward}">￥20</span><a class="item_add" th:href="@{'../category/detail?assignmentId='+${t.assignmentId}}">详 情 </a></p>
 								</div>
 							</div>
 							<div class="clearfix"> </div>
@@ -191,7 +159,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</div>
 				</div>
 				<div class="men-position animated wow slideInUp" data-wow-delay=".4s">
-					<a href="../single.html"><img src="../images/food-07.jpg" alt=" " class="img-responsive" /></a>
+					<a href="#"><img src="../images/food-07.jpg" alt=" " class="img-responsive" /></a>
 					<div class="men-position-pos">
 						<h4>马卡龙</h4>
 						<h5><span>99.99%</span> 女生最爱</h5>
@@ -200,11 +168,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</div>
 			<div class="col-md-8 products-right">
 				<div class="products-right-grid" >
-					<div class="products-right-grids-position animated wow slideInRight" data-wow-delay=".5s">
+					<div class="products-right-grids-position animated wow slideInRight" data-wow-delay=".5s" th:each="n : ${newest}">
 						<img src="../images/food-03.jpg" alt=" " class="img-responsive" style="width:100%;height:500px;"/>
 						<div class="products-right-grids-position1">
-							<h4>2018 赏金任务Top.1</h4>
-							<p>法棍面包，搭配营养美容养颜的蜂蜜，坚果谷物，营养加倍，草莓水果补充丰富维生素</p>
+							<h4>赏金任务最新Top.1</h4>
+							<p th:text="${n.assignmentName}">法棍面包，搭配营养美容养颜的蜂蜜，坚果谷物，营养加倍，草莓水果补充丰富维生素</p>
+							<p th:text="${n.assignmentDescription}"></p>
 						</div>
 					</div>
 				</div>

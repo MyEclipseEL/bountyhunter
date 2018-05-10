@@ -46,7 +46,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<!--<li><a href="#" class="instagram"></a></li>-->
 					<li>
 						<i class="glyphicon " aria-hidden="true">
-						</i><a href="../login.html">登录/</a><a href="../register-01.html">免费注册</a>
+						</i><a href="../login">登录/</a><a href="../register-01">免费注册</a>
 					</li>-->
 				</ul>
 			</div>
@@ -143,7 +143,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 				<div class="col-md-4" th:each=" r :${results}">
 					<div class="new-collections-grid1-image">
-						<a th:href="@{'../category/detail?assignmentId='+${r.assignmentId}}" class="product-image"><img src="../images/food-08.jpg" alt=" " class="img-responsive" style="width:100%;height: 350px;padding-top:50px;"></a>
+						<a th:href="@{'../category/detail?assignmentId='+${r.assignmentId}}" class="product-image"><img th:src="@{${r.assignmentIcon}}" alt=" " class="img-responsive" style="width:100%;height: 350px;padding-top:50px;"></a>
 						<div class="new-collections-grid1-image-pos products-right-grids-pos">
 							<a th:href="@{'../category/detail?assignmentId='+${r.assignmentId}}">点击查看任务</a>
 						</div>

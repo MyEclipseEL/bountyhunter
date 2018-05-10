@@ -42,7 +42,7 @@ public class IndexController {
     @RequestMapping({"/","/index"})
     public String index(Model model){
         AssignmentInfoList2VOlistConverter converter = new AssignmentInfoList2VOlistConverter();
-        List<AssignmentInfo> assignmentInfoList = assignmentService.findOrderByReward();
+        List<AssignmentInfo> assignmentInfoList = assignmentService.findOrderByReward(8);
 
         List<AssignmentCategory> categoryList = categoryService.findAll();
         List<AssignmentInfoVO> resultVOList = converter.converter(assignmentInfoList,accountService,detailService);

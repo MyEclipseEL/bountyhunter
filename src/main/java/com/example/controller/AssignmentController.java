@@ -5,11 +5,13 @@ import com.example.VO.AssignmentVO;
 import com.example.VO.ResultVO;
 import com.example.VO.UserAccountVO;
 import com.example.converter.AssignmentForm2InfoConverter;
+import com.example.converter.AssignmentInfoList2VOlistConverter;
 import com.example.dataobject.AssignmentCategory;
 import com.example.dataobject.AssignmentInfo;
 import com.example.dataobject.UserAccount;
 import com.example.dataobject.UserDetail;
 import com.example.enums.AssignmentStatus;
+import com.example.enums.ReceiveStatus;
 import com.example.enums.ResultEnum;
 import com.example.exception.HunterException;
 import com.example.form.AssignmentForm;
@@ -129,8 +131,8 @@ public class AssignmentController {
      * @param request
      * */
 
-    @GetMapping("/cancel")
-    public ResultVO<AssignmentInfo> cancel(@RequestParam("assignmentId") String assignmentId,
+    @GetMapping("/cancelO")
+    public ResultVO<AssignmentInfo> cancelO(@RequestParam("assignmentId") String assignmentId,
                        HttpServletRequest request){
         HttpSession session = request.getSession();
         String accountId = (String) session.getAttribute("account");
@@ -159,9 +161,115 @@ public class AssignmentController {
         return ResultVOUtil.success(assignmentService.save(assignmentInfo));
     }
 
+    /** 接取方取消任务*/
+    @GetMapping("/cancelR")
+    public ResultVO<Map<String,String>> cancelR(@RequestParam("assignmentId") String assignmentId,
+                                                HttpServletRequest request){
+        HttpSession session = request.getSession();
+        UserAccount userAccount = (UserAccount) session.getAttribute("userAccount");
+        if (userAccount == null){
+            log.error("【接取方取消任务】用户登陆信息为空");
+            throw new HunterException(ResultEnum.ACCOUNT_EMPTY);
+        }
+        if (assignmentId==null||assignmentId.isEmpty()){
+            log.error("【接取方取消任务】任务id 为空");
+            throw new HunterException(ResultEnum.PARAM_ERROR);
+        }
+        AssignmentInfo info = assignmentService.findOne(assignmentId);
+        if (info == null){
+            log.error("【接取方取消任务】不存在此任务 assignmentId={}",assignmentId);
+            throw new HunterException(ResultEnum.ASSIGNMENT_NOT_EXIST);
+        }
+        if (!userAccount.getAccountId().equals(info.getAssignmentReceive())){
+            log.error("【接取方取消任务】用户不匹配  登陆者={},匹配={}",userAccount.getAccountId(),info.getAssignmentReceive());
+            throw new HunterException(ResultEnum.ACCOUNT_NOT_MATCHING);
+        }
+        if (info.getReceiveStatus().compareTo(ReceiveStatus.RECEIVED.getCode())!=0 ){
+            log.error("【接取方取消任务】任务状态不正确 receiveStatus={}",info.getReceiveStatus());
+            throw new HunterException(ResultEnum.STATUS_NOT_TRUE);
+        }
+        info.setReceiveStatus(ReceiveStatus.CANCELED.getCode());
+        info.setAssignmentStatus(AssignmentStatus.CANCEL.getCode());
+        assignmentService.save(info);
+        Map<String,String> map = new HashMap<>();
+        map.put("assignmentId",info.getAssignmentId());
+        return ResultVOUtil.success(map);
+    }
+
     /**
-     * 完结任务
+     * 完结任务 发布者完结任务
+     * 需 接取者先完结任务
      * */
+    @GetMapping("finishO")
+    public ResultVO finishO(@RequestParam("assignmentId") String assignmentId,
+                            HttpServletRequest request){
+        HttpSession session = request.getSession();
+        UserAccount userAccount = (UserAccount) session.getAttribute("userAccount");
+
+        if (userAccount == null){
+            log.error("【发布者完结任务】用户登陆信息为空");
+            throw new HunterException(ResultEnum.ACCOUNT_EMPTY);
+        }
+        if (assignmentId==null||assignmentId.isEmpty()){
+            log.error("【发布者完结任务】任务id 为空");
+            throw new HunterException(ResultEnum.PARAM_ERROR);
+        }
+        AssignmentInfo info = assignmentService.findOne(assignmentId);
+        if (info == null){
+            log.error("【发布者完结任务】不存在此任务 assignmentId={}",assignmentId);
+            throw new HunterException(ResultEnum.ASSIGNMENT_NOT_EXIST);
+        }
+        if (!userAccount.getAccountId().equals(info.getAssignmentReceive())){
+            log.error("【发布者完结任务】用户不匹配  登陆者={},匹配={}",userAccount.getAccountId(),info.getAssignmentReceive());
+            throw new HunterException(ResultEnum.ACCOUNT_NOT_MATCHING);
+        }
+        if (info.getAssignmentStatus().compareTo(AssignmentStatus.RECEIVED.getCode())!=0||
+                info.getReceiveStatus().compareTo(ReceiveStatus.FINISHED.getCode())!=0){
+            log.error("【发布者完结任务】任务状态错误 receiveStatus={}",info.getReceiveStatus());
+            throw new HunterException(ResultEnum.STATUS_NOT_TRUE);
+        }
+        //TODO 判断支付状态
+        info.setAssignmentStatus(AssignmentStatus.FINISHED.getCode());
+        AssignmentInfo result = assignmentService.save(info);
+        return ResultVOUtil.success(result);
+
+    }
+
+    /** 接取者完结任务*/
+    @GetMapping("/finishR")
+    public ResultVO finishR(@RequestParam("assignmentId") String assignmentId,
+                            HttpServletRequest request){
+
+        HttpSession session = request.getSession();
+        UserAccount userAccount = (UserAccount) session.getAttribute("userAccount");
+
+        if (userAccount == null){
+            log.error("【接取方完结任务】用户登陆信息为空");
+            throw new HunterException(ResultEnum.ACCOUNT_EMPTY);
+        }
+        if (assignmentId==null||assignmentId.isEmpty()){
+            log.error("【接取方完结任务】任务id 为空");
+            throw new HunterException(ResultEnum.PARAM_ERROR);
+        }
+        AssignmentInfo info = assignmentService.findOne(assignmentId);
+        if (info == null){
+            log.error("【接取方完结任务】不存在此任务 assignmentId={}",assignmentId);
+            throw new HunterException(ResultEnum.ASSIGNMENT_NOT_EXIST);
+        }
+        if (!userAccount.getAccountId().equals(info.getAssignmentReceive())){
+            log.error("【接取方完结任务】用户不匹配  登陆者={},匹配={}",userAccount.getAccountId(),info.getAssignmentReceive());
+            throw new HunterException(ResultEnum.ACCOUNT_NOT_MATCHING);
+        }
+        if (info.getAssignmentStatus().compareTo(AssignmentStatus.RECEIVED.getCode())!=0||
+                info.getReceiveStatus().compareTo(ReceiveStatus.RECEIVED.getCode())!=0){
+            log.error("【接取方完结任务】任务状态错误 receiveStatus={}",info.getReceiveStatus());
+            throw new HunterException(ResultEnum.STATUS_NOT_TRUE);
+        }
+        //TODO 判断支付状态
+        info.setReceiveStatus(ReceiveStatus.FINISHED.getCode());
+        AssignmentInfo result = assignmentService.save(info);
+        return ResultVOUtil.success(result);
+    }
 
     /**
      *分类任务列表
@@ -180,12 +288,17 @@ public class AssignmentController {
             return "redirect:/index";
 
         }
+        AssignmentInfoList2VOlistConverter converter = new AssignmentInfoList2VOlistConverter();
         PageRequest request = new PageRequest(page,size);
         Page<AssignmentInfoVO> infoVOPage = assignmentService.findList(categoryType,request);
         log.info("infoPage={}",infoVOPage);
         AssignmentCategory categoryThis = categoryService.findByCategory(categoryType);
+        List<AssignmentInfoVO> top_3 = converter.converter(assignmentService.findOrderByReward(3,categoryType),accountService,detailService);
         Integer indexPage = page;
         Integer totalPages = infoVOPage.getTotalPages();
+        List<AssignmentInfoVO> newest = assignmentService.findOrderByTime(1);
+        model.addAttribute("newest",newest);
+        model.addAttribute("top_3",top_3);
         model.addAttribute("totalPages",totalPages);
         model.addAttribute("indexPage",indexPage);
         model.addAttribute("categoryThis",categoryThis);
@@ -194,8 +307,10 @@ public class AssignmentController {
     }
 
     @GetMapping("/history")
-    public String history(@RequestParam(value = "page" ,defaultValue = "0") Integer page,
-                          @RequestParam(value = "size" ,defaultValue = "10") Integer size,
+    public String history(@RequestParam(value = "pageO" ,defaultValue = "0") Integer pageO,
+                          @RequestParam(value = "sizeO" ,defaultValue = "10") Integer sizeO,
+                          @RequestParam(value = "pageR" ,defaultValue = "0") Integer pageR,
+                          @RequestParam(value = "sizeR" ,defaultValue = "10") Integer sizeR,
                           HttpServletRequest request,
                           Model model){
 
@@ -204,15 +319,25 @@ public class AssignmentController {
         if (account == null){
             return "redirect:/index";
         }
-        PageRequest pageRequest = new PageRequest(page,size);
-        Page<AssignmentInfoVO> voPage = assignmentService.findUserHistoryAssignment(account.getAccountId(),pageRequest);
-        Integer indexPage = page;
-        Integer totalPages = voPage.getTotalPages();
-        model.addAttribute("totalPages",totalPages);
-        model.addAttribute("indexPage",indexPage);
-        model.addAttribute("infoPage",voPage);
+        PageRequest pageRequestR = new PageRequest(pageR,sizeR);
+        Page<AssignmentInfoVO> voPageR = assignmentService.findUserHistoryAssignmentR(account.getAccountId(),pageRequestR);
+        Integer indexPageR = pageR;
+        Integer totalPagesR = voPageR.getTotalPages();
+        PageRequest pageRequestO = new PageRequest(pageO,sizeO);
+        Page<AssignmentInfoVO> voPageO = assignmentService.findUserHistoryAssignmentO(account.getAccountId(),pageRequestO);
+        Integer indexPageO = pageO;
+        Integer totalPagesO = voPageO.getTotalPages();
+        model.addAttribute("totalPagesR",totalPagesR);
+        model.addAttribute("indexPageR",indexPageR);
+        model.addAttribute("infoPageR",voPageR);
+        model.addAttribute("totalPagesO",totalPagesO);
+        model.addAttribute("indexPageO",indexPageO);
+        model.addAttribute("infoPageO",voPageO);
         return "checkout";
     }
+
+//    @GetMapping("/historyR")
+//    public
 
     /**
      * 实现文件上传
@@ -226,11 +351,6 @@ public class AssignmentController {
         }
         String root_fileName = file.getOriginalFilename();
 
-//        String path = System.getProperty("user.dir") + "/uploadFile" ;
-//        File dest = new File(path + "/" + fileName);
-//        if(!dest.getParentFile().exists()){ //判断文件父目录是否存在
-//            dest.getParentFile().mkdir();
-//        }
         String return_path = ImageUtil.getFilePath(userAccount);
         String filePath = location + return_path;
         String file_name = "";
@@ -242,18 +362,6 @@ public class AssignmentController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-//        try {
-//            file.transferTo(dest); //保存文件
-//            return dest.getPath();
-//        } catch (IllegalStateException e) {
-//            // TODO Auto-generated catch block
-//            e.printStackTrace();
-//            return null;
-//        } catch (IOException e) {
-//            // TODO Auto-generated catch block
-//            e.printStackTrace();
-//            return null;
-//        }
         return null;
     }
 }

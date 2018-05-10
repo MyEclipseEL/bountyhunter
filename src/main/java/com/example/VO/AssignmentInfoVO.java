@@ -50,6 +50,8 @@ public class AssignmentInfoVO {
     @JsonProperty("position")
     private String assignmentPosition;
 
+    @JsonProperty("phone")
+    private String phone;
     /** 任务发布时间*/
     @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     private Date createTime;
