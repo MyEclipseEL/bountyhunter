@@ -34,7 +34,13 @@ public class ImageUtil {
         }
         FileInputStream fileInputStream = (FileInputStream) multipartFile.getInputStream();
         String fileName = KeyUtil.getUUID() + ".png";
-        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(path + File.separator + fileName));
+
+        //Windows下
+        //BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(path + File.separator + fileName));
+
+        //Linux下
+        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(path + "/" + fileName));
+
         byte[] bs = new byte[1024];
         int len;
         while ((len = fileInputStream.read(bs)) != -1) {
@@ -88,10 +94,15 @@ public class ImageUtil {
      * @return
      */
     public static String getFilePath(UserAccount user) {
-        //处理图片
+        /*//处理图片 windows下
         String path = File.separator + "article"
                 + File.separator + user.getAccountId()
                 + File.separator + DateFormatUtils.format(new Date(), "yyyy-MM-dd");
+        return path;*/
+        // Linux下
+        String path ="/"+ "usericon"
+                + "/" + user.getAccountId()
+                + "/" + DateFormatUtils.format(new Date(), "yyyy-MM-dd");
         return path;
     }
 

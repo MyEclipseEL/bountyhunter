@@ -297,11 +297,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
         alert(formData);
         uploadFile(formData).then(function (res) {
-            if (res.code == 200) {
-                var imageName = res.data;
-                //        var imageUrl  = HOST_IMAGES + imageName;
-                // 给封面 赋值
-                //$("#picture").val(imageUrl);
+            if (res.code == 0) {
+                var imageUrl = res.data;
+                $("#picture").attr("src",imageUrl);
             }
         })
     });
