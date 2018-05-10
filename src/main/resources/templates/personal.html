@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Mail Us</title>
+    <!-- for-mobile-apps -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Best Store Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+    function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- //for-mobile-apps -->
+    <link href="../css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="../css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <!-- js -->
+    <script src="../js/jquery.min.js"></script>
+    <!-- //js -->
+    <!-- cart -->
+    <script src="../js/simpleCart.min.js"> </script>
+    <!-- cart -->
+    <link rel="stylesheet" type="text/css" href="../css/jquery-ui.css">
+
+    <!-- for bootstrap working -->
+    <script type="text/javascript" src="../js/bootstrap-3.1.1.min.js"></script>
+    <!-- //for bootstrap working -->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <!-- animation-effect -->
+    <link href="../css/animate.min.css" rel="stylesheet">
+    <!--<script src="../js/wow.min.js"></script>-->
+    <script src="../js/jquery-ui.min.js"></script>
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <!-- //animation-effect -->
+    <!--<script src="../js/vue.min.js"></script>-->
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
+
+
+</head>
+
+<body>
+<!-- header -->
+<div class="header">
+    <div class="container">
+        <div class="header-grid">
+            <div class="header-grid-left animated wow slideInLeft" data-wow-delay=".5s">
+            </div>
+            <div class="header-grid-right animated wow slideInRight" data-wow-delay=".2s">
+                <ul class="social-icons">
+                    <!--<li><a href="#" class="facebook"></a></li>-->
+                    <li><a href="#" class="twitter"></a></li>
+                    <!--<li><a href="#" class="g"></a></li>-->
+                    <!--<li><a href="#" class="instagram"></a></li>-->
+                    <li>
+                        <i class="glyphicon " aria-hidden="true">
+                        </i><a href="../login">登录/</a><a href="../register-01">免费注册</a>
+                    </li>-->
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+        <div class="logo-nav">
+            <div class="logo-nav-left animated wow zoomIn slideInLeft " data-wow-delay=".5s" >
+                <h1 ><a href="../index/">赏 金 猎 人</a></h1>
+                <span>赏金猎人中小型校园任务发布平台</span>
+            </div>
+            <div class="logo-nav-left1">
+                <nav class="navbar navbar-default">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header nav_2">
+                        <button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse" data-target="#bs-megadropdown-tabs">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="../index/" >首页</a></li>
+                            <!-- Mega Menu -->
+                            <li class="dropdown ">
+
+                                <a href="../products.html" class="dropdown-toggle " data-toggle="dropdown">悬赏任务分类 <b class="caret"></b></a>
+                                <ul class="dropdown-menu multi-column columns-1">
+                                    <div class="row"  >
+                                        <div class="col-sm-8"  >
+                                            <ul class="multi-column-dropdown" style="padding-left: 40px;" th:each="c : ${category}">
+                                                <!--<h6>分类列表</h6>-->
+                                                <li><a th:href="@{'../assignment/list?categoryType='+${c.categoryType} }" th:text="${c.categoryName}">招聘兼职</a></li>
+
+                                            </ul>
+                                        </div>
+
+
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </ul>
+                            </li>
+                            <li  ><a href="../category/news" >最新任务列表</a></li>
+                            <li class="active"><a href="../category/mail" style="color:#dd703e">任务发布</a></li>
+                            <li><a href="../category/check">历史任务</a></li>
+
+
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+</div>
+<!-- //header -->
+<!-- breadcrumbs -->
+<div class="breadcrumbs">
+    <div class="container">
+        <ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
+            <li><a href="../index/"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>首页</a></li>
+            <li class="active">个人中心</li>
+        </ol>
+    </div>
+</div>
+<!-- //breadcrumbs -->
+<div style="padding-left:10%;padding-right:10%;padding-top:50px;">
+    <ul id="myTab" class="nav nav-tabs">
+        <li class="active"><a href="#home" data-toggle="tab">
+            个人信息</a>
+        </li>
+        <li><a href="#ios" data-toggle="tab">已接任务</a></li>
+        <li><a href="#abc" data-toggle="tab">已发布任务</a></li>
+    </ul>
+    <div id="myTabContent" class="tab-content">
+        <div class="tab-pane fade in active" id="home">
+            <div class="container"  id="box">
+                <h3 style="text-align: center;padding-top:30px;">个人信息</h3>
+
+                <div class="col-md-8 mail-grid-left animated wow slideInLeft" data-wow-delay=".5s" >
+                    <form id="ajaxsubmit" method="post"  class="form-search">
+                        <input type="text" value="姓名" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '姓名';}" required="" id="name" name="name" style="margin-top:10px;" placeholder="姓名">
+                        <input type="text" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" required="" id="reward" name="reward" style="margin-top:10px;" placeholder="Email">
+                        <div class="col-md-12" style="border:1px solid gainsboro;margin-top:10px;" >
+                            <input type="password" value="123456" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '密码';}" required="" id="pass" name="type" style="border:none;height:40px;width:80%;background-color: white" placeholder="123456" disabled="true"  class="col-md-10 input-small">
+                            <input type="button" value="修改" id="btn" class="col-md-2 btn"style="width:20%;margin-top:2px;" >
+                        </div>
+
+                        <input type="text" value="联系电话" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '联系电话';}" required="" id="position" name="position" style="margin-top:10px;" placeholder="联系电话">
+                        <input type="text" value="家庭住址" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '家庭住址';}" required="" id="owner" name="owner" style="margin-top:10px;" placeholder="家庭住址">
+
+                    </form>
+                    <div style="margin-top:10px;border:1px solid lightgrey;height:40px;background-color: #f5f5f5;line-height:40px;"  class="col-md-12">
+                        <span class="col-md-3" style="padding-left:0;">出生年月：</span>
+                        <form name="form1" method="post" action="" class="col-md-9">
+                            <select name="year" style="width:100px;" >
+                            </select>年
+                            <select name="month" style="width:100px;" >
+                            </select>月
+                            <select name="day" style="width:100px;" >
+                            </select>日
+                        </form>
+                    </div>
+                    <div id="box-01" >
+                        <input type="submit"  value="完善成功" id="submit" style="margin-top:30px;">
+                    </div>
+                </div>
+
+                <div class="col-md-4 mail-grid-right animated wow slideInRight" data-wow-delay=".5s" >
+                    <div class="mail-grid-right1">
+                        <img id="picture" src="../images/people.jpg"  style="width:100%;height:300px; " >
+                        <form id="upload" method="" enctype="multipart/form-data" style="text-align: center;height:100px;padding-top:20px;padding-left:10px;padding-right:10px;">
+                            <input id="pic"  name="file" accept="image/*"  value="选择图片" type="file"  style="border: 1px solid white;margin-left:20px;height:30px;line-height:30px;width:100%;border-radius:20px;"/><!--style="display: none"-->
+                            <h4  style="text-align: center"><input id="upload_button" type="button" value="上传头像" style="border: 1px solid white;background-color: #d9703e;color:white;height:30px;line-height:30px;width:100px;border-radius:20px;"/></h4>
+                        </form>
+                    </div>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+
+
+
+        <div class="tab-pane fade" id="ios">
+            <div class="checkout-right animated wow slideInUp" data-wow-delay=".5s">
+                <table class="timetable_sub">
+                    <thead>
+                    <tr>
+                        <th>序号</th>
+                        <!--<th style="width:300px;">任务</th>-->
+                        <!--<th>件数</th>-->
+                        <th>任务名字</th>
+                        <th>任务价格</th>
+                        <!--<th>Price</th>-->
+                        <th>移除</th>
+                    </tr>
+                    </thead>
+                    <tr class="rem1">
+                        <td class="invert">1</td>
+                        <!--<td class="invert-image"><a href="single.html"><img src="../images/22.jpg" alt=" " class="img-responsive" /></a></td>-->
+                        <!--<td class="invert">-->
+                            <!--<div class="quantity">-->
+                                <!--<div class="quantity-select">-->
+                                    <!--<div class="entry value-minus">&nbsp;</div>-->
+                                    <!--<div class="entry value"><span>1</span></div>-->
+                                    <!--<div class="entry value-plus active">&nbsp;</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</td>-->
+                        <td class="invert">Black Shoe</td>
+                        <!--<td class="invert">$5.00</td>-->
+                        <td class="invert">$290.00</td>
+                        <td class="invert">
+                            <div class="rem">
+                                <div class="close1"> </div>
+                            </div>
+                            <script>$(document).ready(function(c) {
+                                $('.close1').on('click', function(c){
+                                    $('.rem1').fadeOut('slow', function(c){
+                                        $('.rem1').remove();
+                                    });
+                                });
+                            });
+                            </script>
+                        </td>
+                    </tr>
+                    <tr class="rem2">
+                        <td class="invert">2</td>
+                        <!--<td class="invert-image"><a href="single.html"><img src="../images/30.jpg" alt=" " class="img-responsive" /></a></td>-->
+                        <!--<td class="invert">-->
+                            <!--<div class="quantity">-->
+                                <!--<div class="quantity-select">-->
+                                    <!--<div class="entry value-minus">&nbsp;</div>-->
+                                    <!--<div class="entry value"><span>1</span></div>-->
+                                    <!--<div class="entry value-plus active">&nbsp;</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</td>-->
+                        <td class="invert">Centre Table</td>
+                        <!--<td class="invert">$5.00</td>-->
+                        <td class="invert">$250.00</td>
+                        <td class="invert">
+                            <div class="rem">
+                                <div class="close2"> </div>
+                            </div>
+                            <script>$(document).ready(function(c) {
+                                $('.close2').on('click', function(c){
+                                    $('.rem2').fadeOut('slow', function(c){
+                                        $('.rem2').remove();
+                                    });
+                                });
+                            });
+                            </script>
+                        </td>
+                    </tr>
+                    <tr class="rem3">
+                        <td class="invert">3</td>
+                        <!--<td class="invert-image"><a href="single.html"><img src="../images/11.jpg" alt=" " class="img-responsive" /></a></td>-->
+                        <!--<td class="invert">-->
+                            <!--<div class="quantity">-->
+                                <!--<div class="quantity-select">-->
+                                    <!--<div class="entry value-minus">&nbsp;</div>-->
+                                    <!--<div class="entry value"><span>1</span></div>-->
+                                    <!--<div class="entry value-plus active">&nbsp;</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</td>-->
+                        <td class="invert">Stone Bangles</td>
+                        <!--<td class="invert">$5.00</td>-->
+                        <td class="invert">$299.00</td>
+                        <td class="invert">
+                            <div class="rem">
+                                <div class="close3"> </div>
+                            </div>
+                            <script>$(document).ready(function(c) {
+                                $('.close3').on('click', function(c){
+                                    $('.rem3').fadeOut('slow', function(c){
+                                        $('.rem3').remove();
+                                    });
+                                });
+                            });
+                            </script>
+                        </td>
+                    </tr>
+                    <!--quantity-->
+                    <script>
+                        $('.value-plus').on('click', function(){
+                            var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10)+1;
+                            divUpd.text(newVal);
+                        });
+
+                        $('.value-minus').on('click', function(){
+                            var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10)-1;
+                            if(newVal>=1) divUpd.text(newVal);
+                        });
+                    </script>
+                    <!--quantity-->
+                </table>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="abc">
+            <div class="checkout-right animated wow slideInUp" data-wow-delay=".5s">
+                <table class="timetable_sub">
+                    <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th style="width:300px;">任务</th>
+                        <th>件数</th>
+                        <th>任务名字</th>
+                        <th>任务价格</th>
+                        <!--<th>Price</th>-->
+                        <th>移除</th>
+                    </tr>
+                    </thead>
+                    <tr class="rem1">
+                        <td class="invert">1</td>
+                        <td class="invert-image"><a href="single.html"><img src="../images/22.jpg" alt=" " class="img-responsive" /></a></td>
+                        <td class="invert">
+                            <div class="quantity">
+                                <div class="quantity-select">
+                                    <div class="entry value-minus">&nbsp;</div>
+                                    <div class="entry value"><span>1</span></div>
+                                    <div class="entry value-plus active">&nbsp;</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="invert">Black Shoe</td>
+                        <!--<td class="invert">$5.00</td>-->
+                        <td class="invert">$290.00</td>
+                        <td class="invert">
+                            <div class="rem">
+                                <div class="close1"> </div>
+                            </div>
+                            <script>$(document).ready(function(c) {
+                                $('.close1').on('click', function(c){
+                                    $('.rem1').fadeOut('slow', function(c){
+                                        $('.rem1').remove();
+                                    });
+                                });
+                            });
+                            </script>
+                        </td>
+                    </tr>
+                    <tr class="rem2">
+                        <td class="invert">2</td>
+                        <td class="invert-image"><a href="single.html"><img src="../images/30.jpg" alt=" " class="img-responsive" /></a></td>
+                        <td class="invert">
+                            <div class="quantity">
+                                <div class="quantity-select">
+                                    <div class="entry value-minus">&nbsp;</div>
+                                    <div class="entry value"><span>1</span></div>
+                                    <div class="entry value-plus active">&nbsp;</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="invert">Centre Table</td>
+                        <!--<td class="invert">$5.00</td>-->
+                        <td class="invert">$250.00</td>
+                        <td class="invert">
+                            <div class="rem">
+                                <div class="close2"> </div>
+                            </div>
+                            <script>$(document).ready(function(c) {
+                                $('.close2').on('click', function(c){
+                                    $('.rem2').fadeOut('slow', function(c){
+                                        $('.rem2').remove();
+                                    });
+                                });
+                            });
+                            </script>
+                        </td>
+                    </tr>
+                    <tr class="rem3">
+                        <td class="invert">3</td>
+                        <td class="invert-image"><a href="single.html"><img src="../images/11.jpg" alt=" " class="img-responsive" /></a></td>
+                        <td class="invert">
+                            <div class="quantity">
+                                <div class="quantity-select">
+                                    <div class="entry value-minus">&nbsp;</div>
+                                    <div class="entry value"><span>1</span></div>
+                                    <div class="entry value-plus active">&nbsp;</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="invert">Stone Bangles</td>
+                        <!--<td class="invert">$5.00</td>-->
+                        <td class="invert">$299.00</td>
+                        <td class="invert">
+                            <div class="rem">
+                                <div class="close3"> </div>
+                            </div>
+                            <script>$(document).ready(function(c) {
+                                $('.close3').on('click', function(c){
+                                    $('.rem3').fadeOut('slow', function(c){
+                                        $('.rem3').remove();
+                                    });
+                                });
+                            });
+                            </script>
+                        </td>
+                    </tr>
+                    <!--quantity-->
+                    <script>
+                        $('.value-plus').on('click', function(){
+                            var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10)+1;
+                            divUpd.text(newVal);
+                        });
+
+                        $('.value-minus').on('click', function(){
+                            var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10)-1;
+                            if(newVal>=1) divUpd.text(newVal);
+                        });
+                    </script>
+                    <!--quantity-->
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- footer -->
+<div style="height:50px;"></div>
+<div class="footer">
+    <div class="container">
+        <div class="footer-grids">
+            <div class="col-md-11 footer-grid animated wow slideInLeft" data-wow-delay=".5s" style="text-align: center">
+                <h3>About Us</h3>
+                <p>黑龙江科技大学，坐落在北国冰城哈尔滨市，是黑龙江“十二五”期间重点建设的特色应用型本科高校，黑龙江、吉林乃至内蒙古地区唯一一所以矿业工程为特色的高校，黑龙江省人民政府和国家安全生产监督管理总局共建高校  。因坐落于松花江北岸，故有“江畔朝阳”一说。</span></p>
+            </div>
+
+            <div class="clearfix"> </div>
+        </div>
+        <div class="footer-logo animated wow " >
+            <h2><a href="../index/">Bounty Hunter <span>shop anywhere</span></a></h2>
+        </div>
+    </div>
+</div>
+<!-- //footer -->
+
+<script>
+    $(function () {
+        $('#myTab li:eq(1) a').tab('show');
+    });
+</script>
+<script type="text/javascript">
+    (function () {
+        $("#submit").click(function(e){
+            e.preventDefault();
+            $.ajax({
+                type:'post',
+                url:"../assignment/issue",
+                dataType: "json",
+                data:{
+                    name: $('#name').val(),
+                    reward : $('#reward').val(),
+                    type:$('#type').val(),
+                    position: $('#position').val(),
+                    description : $('#description').val(),
+                    icon: $('#icon').val()
+                },
+
+                success:function(data){
+                    if(data.code!="0"){
+                        console.log(data);
+                        alert(data.msg);
+                    }
+                },
+                error:function(){
+//                    $("#test").html("发生错误:"+jqXHR.status);
+                    alert("发生错误！");
+                }
+            });
+        })
+    })()
+
+    $(function() {
+        $("#pic").click(function () {
+            $("#upload").click(); //隐藏了input:file样式后，点击头像就可以本地上传
+            $("#upload").on("change",function(){
+                var objUrl = getObjectURL(this.files[0]) ; //获取图片的路径，该路径不是图片在本地的路径
+                if (objUrl) {
+                    $("#pic").attr("src", objUrl) ; //将图片路径存入src中，显示出图片
+                }
+            });
+        });
+    });
+
+    function getObjectURL(file) {
+        var url = null ;
+        if (window.createObjectURL!=undefined) { // basic
+            url = window.createObjectURL(file) ;
+        } else if (window.URL!=undefined) { // mozilla(firefox)
+            url = window.URL.createObjectURL(file) ;
+        } else if (window.webkitURL!=undefined) { // webkit or chrome
+            url = window.webkitURL.createObjectURL(file) ;
+        }
+        return url ;
+    }
+
+
+    function onChangeSelect(){
+        document.getElementById("classID").value=document.getElementById("selectKK").value;
+    }
+
+</script>
+
+</body>
+</html>

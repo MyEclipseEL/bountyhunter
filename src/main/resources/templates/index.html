@@ -1,7 +1,7 @@
 <!DOCTYPE html >
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-	  xmlns:th="http://www.thymeleaf.org" xmlns:border-radius="http://www.w3.org/1999/xhtml">
+	  xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>Home</title>
 <!-- for-mobile-apps -->
@@ -36,15 +36,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link rel="stylesheet" href="../css/jquery.countdown.css" />
 <!-- //timer -->
 <!-- animation-effect -->
-<link href="../css/animate.min.css" rel="stylesheet">
-	<!--<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>-->
-	<!--<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+<link href="../css/animate.min.css" rel="stylesheet"> 
 <!-- //animation-effect -->
 </head>
 	
 <body>
 <!-- header -->
-
 	<div class="header">
 		<div class="container">
 			<div class="header-grid">
@@ -52,7 +49,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 				</div>
 				<div class="header-grid-right animated wow slideInRight" data-wow-delay=".2s">
-					<ul class="social-icons" th:if="${session.userAccount == null}">
+					<ul class="social-icons">
 						<!--<li><a href="#" class="facebook"></a></li>-->
 						<li><a href="#" class="twitter"></a></li>
 							<i class="glyphicon " aria-hidden="true"></i>
@@ -92,9 +89,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</div>
 					<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
 						<ul class="nav navbar-nav">
-							<li class="active"><a href="../index" class="act">首页</a></li>
+							<li class="active"><a th:href="@{'/index'}" class="act">首页</a></li>
 							<!-- Mega Menu -->
-
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">悬赏任务分类 <b class="caret"></b></a>
 								<ul class="dropdown-menu multi-column columns-1">
@@ -106,14 +102,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 											</ul>
 										</div>
+
 										<div class="clearfix"></div>
 									</div>
 								</ul>
 							</li>
 							<li  ><a href="../category/news" >最新任务列表</a></li>
 							<li><a href="../category/mail">任务发布</a></li>
-							<li th:if="${session.userAccount==null}"><a href="../login">历史任务</a></li>
-							<li th:if="${session.userAccount!=null}"><a href="../assignment/history">历史任务</a></li>
+							<!--<li th:if="${session.userAccount==null}"><a href="../login">历史任务</a></li>-->
+							<li><a href="../category/check">历史任务</a></li>
 						</ul>
 					</div>
 					</nav>
@@ -183,9 +180,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="banner-bottom-grid-left animated wow slideInLeft" data-wow-delay=".2s">
 					<div class="grid">
 						<figure class="effect-julia">
-							<a th:href="@{''}"><img src=".././images/ps-01/p-01.jpg" alt=" " class="img-responsive" style="height:480px;width:100%;"/></a>
+							<img src=".././images/ps-01/p-01.jpg" alt=" " class="img-responsive" style="height:480px;width:100%;"/>
 							<figcaption>
-								<h3 th:text="${category[0].categoryName}">aaa <span></span><i> 拼购炸鸡电影</i></h3>
+								<a th:href="@{'../assignment/list?categoryType='+${category[0].categoryType} }">
+									跑腿代取
+								</a>
+									<h3 th:text="${category[0].categoryName}"><i> 跑腿代取</i></h3>
 							</figcaption>
 						</figure>
 					</div>
@@ -193,19 +193,31 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="banner-bottom-grid-left1 animated wow slideInUp" data-wow-delay=".2s">
 					<div class="banner-bottom-grid-left-grid left1-grid grid-left-grid1" >
 						<div class="banner-bottom-grid-left-grid1" style="height:230px;background-size:100% auto;" >
-							<img src=".././images/ps-02/flower-06.jpg" alt=" " class="img-responsive" />
+							<a  th:href="@{'../assignment/list?categoryType='+${category[1].categoryType} }">
+								<img src=".././images/ps-02/flower-06.jpg" alt=" " class="img-responsive" />
+							</a>
+
 						</div>
 						<div class="banner-bottom-grid-left1-pos">
-							<p th:text="${category[1].categoryName}">说走就走的旅行</p>
+							<a  th:href="@{'../assignment/list?categoryType='+${category[1].categoryType} }">
+								<p th:text="${category[1].categoryName}">二手交易</p>
+							</a>
+
 						</div>
 					</div>
 					<div class="banner-bottom-grid-left-grid left1-grid grid-left-grid1">
 						<div class="banner-bottom-grid-left-grid1" style="height:230px">
-							<img src=".././images/ps-03/game-01.jpg" alt=" " class="img-responsive"   />
+							<a  th:href="@{'../assignment/list?categoryType='+${category[2].categoryType} }">
+								<img src=".././images/ps-03/game-01.jpg" alt=" " class="img-responsive"   />
+							</a>
+
 						</div>
 						<div class="banner-bottom-grid-left1-position">
 							<div class="banner-bottom-grid-left1-pos1">
-								<p th:text="${category[2].categoryName}">任务：代购咖啡花语豆</p>
+								<a  th:href="@{'../assignment/list?categoryType='+${category[2].categoryType} }">
+									<p th:text="${category[2].categoryName}">任务：游戏代练</p>
+								</a>
+
 							</div>
 						</div>
 					</div>
@@ -213,10 +225,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="banner-bottom-grid-right animated wow slideInRight" data-wow-delay=".2s">
 					<div class="banner-bottom-grid-left-grid grid-left-grid1">
 						<div class="banner-bottom-grid-left-grid1" >
-							<img src=".././images/ps-04/introduce-01.jpg" alt=" " class="img-responsive" style="height:480px;" >
+							<a th:href="@{'../assignment/list?categoryType='+${category[3].categoryType} }">
+								<img src=".././images/ps-04/introduce-01.jpg" alt=" " class="img-responsive" style="height:480px;" >
+							</a>
+
 						</div>
 						<div class="grid-left-grid1-pos">
-							<p th:text="${category[3].categoryName}">任务：大量招募街头艺人 <span></span></p>
+							 <a th:href="@{'../assignment/list?categoryType='+${category[3].categoryType} }">
+								 <p th:text="${category[3].categoryName}">任务：招聘兼职 <span></span></p>
+							 </a>
+
 						</div>
 					</div>
 				</div>
@@ -228,8 +246,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- collections -->
 	<div class="new-collections">
 		<div style="margin-left:15%;margin-right:15%;" >
-			<h3 class="animated wow zoomIn" data-wow-delay=".5s" >悬赏任务排行榜TOP8</h3>
-			<div class="col-md-3"  th:each=" r : ${results}" >
+			<h3 class="animated wow zoomIn" data-wow-delay=".5s" >最新任务发布</h3>
+			<div class="col-md-3"  th:each=" r : ${results}" style="padding-top:50px;" >
 				<div class="new-collections-grid1-image">
 					<a th:href="@{'/category/detail?assignmentId='+${r.assignmentId}}" class="product-image">
 						<img src="../images/home/one.jpg" alt=" " class="img-responsive" />
@@ -238,10 +256,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<a th:href="@{'/category/detail?assignmentId='+${r.assignmentId}}">点击查看详情</a>
 					</div>
 				</div>
-				<h4><a th:href="@{'/category/detail?assignmentId='+${r.assignmentId}}" th:text="${r.assignmentName}">任务：代购美国Gucci衬衫</a></h4>
-				<div class="new-collections-grid1-left simpleCart_shelfItem">
+				<h4 style="text-align: center;padding-top:20px;"><a th:href="@{'/category/detail?assignmentId='+${r.assignmentId}}" th:text="${r.assignmentName}" style="color:black">任务：代购美国Gucci衬衫</a></h4>
+				<div class="new-collections-grid1-left simpleCart_shelfItem" style="text-align: center">
 					<p><span class="item_price" th:text="${r.assignmentReward}">￥500</span>
-						<a class="item_add" th:href="@{'/category/detail?assignmentId='+${r.assignmentId}}">详 情</a></p>
+					<a class="item_add" th:href="@{'/category/detail?assignmentId='+${r.assignmentId}}">详 情</a>
+					</p>
+
 				</div>
 			</div>
 		</div>
@@ -251,6 +271,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</div>
 <!-- //collections -->
 <!-- collections-bottom -->
+<a name="tips"></a>
 	<div class="collections-bottom">
 		<div class="container">
 			<div class="collections-bottom-grids">
