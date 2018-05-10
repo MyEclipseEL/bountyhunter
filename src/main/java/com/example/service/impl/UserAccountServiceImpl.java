@@ -62,7 +62,7 @@ public class UserAccountServiceImpl implements UserAccountService {
         message.setTo(user.getUserEmail());
 
         message.setSubject("用户激活");
-        message.setText("请激活赏金猎人账号" + "http://127.0.0.1:8080/user/activate?activeCode=" + activityCode);
+        message.setText("请激活赏金猎人账号" + "http://aeaeae.top/user/activate?activeCode=" + activityCode);
 
         String accountId = KeyUtil.getUserKey();
         user.setActiveCode(activityCode);

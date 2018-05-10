@@ -169,11 +169,11 @@ public class LoginController {
 /*
         UserDetail detail = UserInfo2DetailConverter.converter(userInfoForm);
 */
-
         return null;
     }
 
 
+    // 上传 图片 并返回 图片路径
     @PostMapping("/uploadFile")
     public ResultVO<String> uploadFile(@RequestParam("file") MultipartFile multipartFile,
                                                     HttpSession session) {
@@ -199,8 +199,7 @@ public class LoginController {
         }
         String root_fileName = multipartFile.getOriginalFilename();
         log.info("上传图片:name={},type={}", root_fileName, contentType);
-        //处理图片
-        //User currentUser = userService.getCurrentUser();
+
         //获取路径
         String return_path = ImageUtil.getFilePath(user);
 
@@ -209,27 +208,27 @@ public class LoginController {
         String file_name = null;
         try {
             file_name = ImageUtil.saveImg(multipartFile, filePath);
-            /*MarkDVo markDVo = new MarkDVo();
-            markDVo.setSuccess(0);
-            if(StringUtils.isNotBlank(file_name)){
-                markDVo.setSuccess(1);
-                markDVo.setMessage("上传成功");
-                markDVo.setUrl(return_path+ File.separator+file_name);
-                markDVo.setCallback(callback);
-            }*/
+
 
             if (StringUtils.isNotBlank(file_name)) {
                 UserDetail detail = detailRepository.findOne(user.getDetailId());
-                detail.setUserIcon(return_path + File.separator + file_name);
+
+                /** Windows下
+                 * detail.setUserIcon(return_path + File.separator + file_name);
+                  */
+                //Linux下
+                detail.setUserIcon(return_path + "/" + file_name);
+
+
                 detailRepository.save(detail);
 
                 /*Map<String, String> map = new HashMap<>();
                 map.put("img", location+File.separator+ detail.getUserIcon());*/
 
                 // 图片访问路径
-                String imgurl = location + File.separator + detail.getUserIcon();
+                String userIcon = detail.getUserIcon();
 
-                return ResultVOUtil.success(imgurl);
+                return ResultVOUtil.success(userIcon);
             }
             return null;
 

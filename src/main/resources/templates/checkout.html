@@ -54,7 +54,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<!--<li><a href="#" class="instagram"></a></li>-->
 					<li>
 						<i class="glyphicon " aria-hidden="true">
-						</i><a href="../login.html">登录/</a><a href="../register-01.html">免费注册</a>
+						</i><a href="../login">登录/</a><a href="../register-01">免费注册</a>
 					</li>-->
 				</ul>
 			</div>
@@ -62,7 +62,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</div>
 		<div class="logo-nav">
 			<div class="logo-nav-left animated wow zoomIn slideInLeft " data-wow-delay=".5s" >
-				<h1 ><a href="../index/">赏 金 猎 人</a></h1>
+				<h1 ><a href="../index">赏 金 猎 人</a></h1>
 				<span>赏金猎人中小型校园任务发布平台</span>
 			</div>
 			<div class="logo-nav-left1">
@@ -78,7 +78,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</div>
 					<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
 						<ul class="nav navbar-nav">
-							<li class="active"><a href="../index/" >首页</a></li>
+							<li class="active"><a href="../index" >首页</a></li>
 							<!-- Mega Menu -->
 							<li class="dropdown">
 								<a href="../products.html" class="dropdown-toggle" data-toggle="dropdown">悬赏任务分类 <b class="caret"></b></a>
@@ -87,38 +87,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										<div class="col-sm-8"  >
 											<ul class="multi-column-dropdown" style="padding-left: 40px;" th:each="c : ${category}">
 												<!--<h6>分类列表</h6>-->
-												<li><a th:href="@{'../category/list?categoryType='+${c.categoryType} }" th:text="${c.categoryName}">招聘兼职</a></li>
-												<!--<li ><a href="products.html?val=1" >代取任务</a></li>-->
-												<!--<li><a href="/category/type" >二手交易</a></li>-->
-												<!--<li><a href="products.html">招聘兼职</a></li>-->
-												<!--<li><a href="products.html">日租短租</a></li>-->
-												<!--<li ><a href="products.html">游戏任务</a></li>-->
-												<!--<li><a href="products.html">美容健身</a></li>-->
-
+												<li><a th:href="@{'../assignment/list?categoryType='+${c.categoryType} }" th:text="${c.categoryName}">招聘兼职</a></li>
 											</ul>
 										</div>
-										<!--<div class="col-sm-4">-->
-										<!--<ul class="multi-column-dropdown">-->
-										<!--<h6>Women's Wear</h6>-->
-										<!--<li><a hrproducts.jsphtml">Clothing</a></li>-->
-										<!--<li><a hrproducts.jsphtml">Wallets,Bags</a></li>-->
-										<!--<li><a hrproducts.jsphtml">Footwear</a></li>-->
-										<!--<li><a hrproducts.jsphtml">Watches</a></li>-->
-										<!--<li><a hrproducts.jsphtml">Accessories</a></li>-->
-										<!--<li><a hrproducts.jsphtml">Jewellery</a></li>-->
-										<!--<li><a hrproducts.jsphtml">Beauty & Grooming</a></li>-->
-										<!--</ul>-->
-										<!--</div>-->
-										<!--<div class="col-sm-4">-->
-										<!--<ul class="multi-column-dropdown">-->
-										<!--<h6>Kid's Wear</h6>-->
-										<!--<li><a hrproducts.jsphtml">Kids Home Fashion</a></li>-->
-										<!--<li><a hrproducts.jsphtml">Boy's Clothing</a></li>-->
-										<!--<li><a hrproducts.jsphtml">Girl's Clothing</a></li>-->
-										<!--<li><a hrproducts.jsphtml">Shoes</a></li>-->
-										<!--<li><a hrproducts.jsphtml">Brand Stores</a></li>-->
-										<!--</ul>-->
-										<!--</div>-->
 										<div class="clearfix"></div>
 									</div>
 								</ul>
@@ -148,18 +119,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</script>
 				<!-- //search-scripts -->
 			</div>
-			<!--<div class="header-right">-->
-			<!--<div class="cart box_1">-->
-			<!--<a href="checkout.html">-->
-			<!--<h3> <div class="total">-->
-			<!--<span class="simpleCart_total"></span> (<span id="simpleCart_quantity" class="simpleCart_quantity"></span> items)</div>-->
-			<!--<img src="../images/bag.png" alt="" />-->
-			<!--</h3>-->
-			<!--</a>-->
-			<!--<p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>-->
-			<!--<div class="clearfix"> </div>-->
-			<!--</div>	-->
-			<!--</div>-->
 			<div class="clearfix"> </div>
 		</div>
 	</div>

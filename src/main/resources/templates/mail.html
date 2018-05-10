@@ -54,7 +54,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<!--<li><a href="#" class="instagram"></a></li>-->
 					<li>
 						<i class="glyphicon " aria-hidden="true">
-						</i><a href="../login.html">登录/</a><a href="../register-01.html">免费注册</a>
+						</i><a href="../login">登录/</a><a href="../register-01">免费注册</a>
 					</li>-->
 				</ul>
 			</div>
@@ -88,13 +88,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										<div class="col-sm-8"  >
 											<ul class="multi-column-dropdown" style="padding-left: 40px;" th:each="c : ${category}">
 												<!--<h6>分类列表</h6>-->
-												<li><a th:href="@{'../category/list?categoryType='+${c.categoryType} }" th:text="${c.categoryName}">招聘兼职</a></li>
-												<!--<li ><a href="products.html?val=1" >代取任务</a></li>-->
-												<!--<li><a href="/category/type" >二手交易</a></li>-->
-												<!--<li><a href="products.html">招聘兼职</a></li>-->
-												<!--<li><a href="products.html">日租短租</a></li>-->
-												<!--<li ><a href="products.html">游戏任务</a></li>-->
-												<!--<li><a href="products.html">美容健身</a></li>-->
+												<li><a th:href="@{'../assignment/list?categoryType='+${c.categoryType} }" th:text="${c.categoryName}">招聘兼职</a></li>
 
 											</ul>
 										</div>
@@ -106,29 +100,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							</li>
 							<li  ><a href="../category/news" >最新任务列表</a></li>
 							<li class="active"><a href="../category/mail" style="color:#dd703e">任务发布</a></li>
-							<li><a href="../category/check">历史任务</a></li>
+							<li th:if="${session.userAccount==null}"><a href="../login">历史任务</a></li>
+							<li th:if="${session.userAccount!=null}"><a href="../assignment/history">历史任务</a></li>
 						</ul>
 					</div>
 				</nav>
 			</div>
-			<!--<div class="logo-nav-right">-->
-				<!--<div class="search-box">-->
-					<!--<div id="sb-search" class="sb-search">-->
-						<!--<form>-->
-							<!--<input class="sb-search-input" placeholder="Enter your search term..." type="search" id="search">-->
-							<!--<input class="sb-search-submit" type="submit" value="">-->
-							<!--<span class="sb-icon-search"> </span>-->
-						<!--</form>-->
-					<!--</div>-->
-				<!--</div>-->
-				<!--&lt;!&ndash; search-scripts &ndash;&gt;-->
-				<!--<script src="../js/classie.js"></script>-->
-				<!--<script src="../js/uisearch.js"></script>-->
-				<!--<script>-->
-                    <!--new UISearch( document.getElementById( 'sb-search' ) );-->
-				<!--</script>-->
-				<!--&lt;!&ndash; //search-scripts &ndash;&gt;-->
-			<!--</div>-->
 
 			<div class="clearfix"> </div>
 		</div>
@@ -157,16 +134,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<!--<input type="text" value="任务发布者" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '任务发布者';}" required="" id="publisher" name="">-->
 						<input type="text" value="任务名称" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '任务名称';}" required="" id="name" name="name" placeholder="任务名称" style="margin-top:10px;">
 						<input type="text" value="任务价格" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '任务价格';}" required="" id="reward" name="reward" placeholder="任务价格" style="margin-top:10px;">
-						<div class="col-md-12" style="border:1px solid gainsboro;margin-top:10px;float:left;background-color: #f5f5f5;" >
-							<input type="text" value="任务分类" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '任务分类';}" required=""  id="classID"  name="type" placeholder="任务分类"  style="width:80%;border:none;float:left;background-color: #f5f5f5;" >
-							<select  style="width:20%;float:left;height:30px;margin-top:5px;"  id="selectKK" onChange="onChangeSelect();">
-								<option value="跑腿代取">跑腿代取</option>
-								<option value="二手交易">二手交易</option>
-								<option value="游戏代练">游戏代练</option>
-								<option value="招聘兼职">招聘兼职</option>
-								<option value="日租短租">日租短租</option>
+						<label>任务分类：</label>
+						<!--<div class="col-md-12" style="border:1px solid gainsboro;margin-top:10px;float:left;background-color: #f5f5f5;" >-->
+							<!--<input type="text" value="任务分类" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '任务分类';}" required=""  id="classID"  name="type" placeholder="任务分类"  style="width:80%;border:none;float:left;background-color: #f5f5f5;" >-->
+							<select  style="width:20%;float:left;height:30px;margin-top:5px;"  id="type" name="type" >
+								<option th:each="c : ${category}" th:value="${c.categoryType}" th:text="${c.categoryName}"  >跑腿代取</option>
 							</select>
-						</div>
+						<!--</div>-->
 
 						<!--<input type="text" value="任务小图" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '任务小图';}" required="" id="icon" name="icon">-->
 						<input type="text" value="配送地点" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '任务地点';}" required="" id="position" name="position" placeholder="配送地点 "  style="margin-top:10px;">
@@ -192,10 +166,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<!--<li><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i>Email: <a href="mailto:info@example.com">info@example.com</a></li>-->
 						</ul>
 						<ul class="social-icons">
-							<!--<li><a href="#" class="facebook"></a></li>-->
-							<!--<li><a href="#" class="twitter"></a></li>-->
-							<!--<li><a href="#" class="g"></a></li>-->
-							<!--<li><a href="#" class="instagram"></a></li>-->
 						</ul>
 					</div>
 				</div>
@@ -227,16 +197,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     (function () {
         $("#submit").click(function(e){
             e.preventDefault();
-            console.log("ui");
-//            var formData = new FormData($("ajaxsubmit")[0]);
             $.ajax({
                 type:'post',
                 url:"../assignment/issue",
                 dataType: "json",
-
-
                 data:{
-//                    "publisher": "李明"
                     name: $('#name').val(),
                     reward : $('#reward').val(),
 					type:$('#type').val(),
