@@ -1,7 +1,9 @@
 package com.example.controller;
 
 import com.example.VO.ResultVO;
+import com.example.VO.UserInfoVO;
 import com.example.async.EmailAsync;
+import com.example.converter.UserAccount2UserInfoVO;
 import com.example.converter.UserForm2UserAccountConverter;
 import com.example.converter.UserInfo2DetailConverter;
 import com.example.dataobject.UserAccount;
@@ -130,9 +132,8 @@ public class LoginController {
         UserAccount userAccount = userService.activity(activeCode);
     }
 
-
     /**
-     * 用户详细信息
+     * 修改用户详细信息
      * @param userInfoForm
      * @param bindingResult
      * @param session
@@ -161,17 +162,34 @@ public class LoginController {
 
             userService.updateInfo(userAccount, detail);
 
+            session.setAttribute("userAccount", userAccount);
+
         } else {
             log.error("[用户信息填写]session中无信息,object={}", object);
-
         }
-
-/*
-        UserDetail detail = UserInfo2DetailConverter.converter(userInfoForm);
-*/
         return null;
     }
 
+
+    @GetMapping("/center")
+    public ResultVO<UserInfoVO> center(HttpSession session) {
+        Object object = session.getAttribute("userAccount");
+
+        if (object != null) {
+            UserAccount userAccount = (UserAccount) object;
+
+            UserAccount user = userService.findOne(userAccount.getAccountId());
+            UserDetail detail = detailRepository.findOne(userAccount.getDetailId());
+
+            UserInfoVO userInfoVO = UserAccount2UserInfoVO.converter(user, detail);
+
+            return ResultVOUtil.success(userInfoVO);
+        } else {
+            log.error("[用户信息填写]session中无信息,object={}", object);
+            return ResultVOUtil.error(UserEnum.SESSION_NOT_EXIST.getCode(), UserEnum.SESSION_NOT_EXIST.getMessage());
+        }
+
+    }
 
     // 上传 图片 并返回 图片路径
     @PostMapping("/uploadFile")

@@ -1,26 +1,39 @@
-package com.example.form;
+package com.example.VO;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import com.example.dataobject.UserDetail;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 
 /**
- * Created by 白 on 2018/5/6.
+ * 回显用户信息使用
+ *
+ * Created by 白 on 2018/5/10.
  */
-public class UserInfoForm {
 
-    @NotEmpty(message = "用户名必填")
+public class UserInfoVO {
+
+
+    @JsonProperty("name")
     private String name;
 
-    @NotEmpty(message = "邮箱必填")
+    @JsonProperty("email")
     private String email;
 
-    @NotEmpty(message = "密码")
+
+    @JsonProperty("password")
     private String password;
 
+    @JsonProperty("phone")
     private String phone;
 
+    @JsonProperty("address")
     private String address;
 
+    @JsonProperty("birthday")
     private String birthday;
+
+    @JsonProperty("icon")
+    private String icon;
 
     public String getName() {
         return name;
@@ -70,4 +83,11 @@ public class UserInfoForm {
         this.birthday = birthday;
     }
 
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
 }
