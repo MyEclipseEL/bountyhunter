@@ -26,6 +26,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -168,7 +169,7 @@ public class LoginController {
     }
 
 
-    @GetMapping("/center")
+   /* @GetMapping("/center")
     public ResultVO<UserInfoVO> center(HttpSession session) {
         Object object = session.getAttribute("userAccount");
 
@@ -184,6 +185,29 @@ public class LoginController {
         } else {
             log.error("[用户信息填写]session中无信息,object={}", object);
             return ResultVOUtil.error(UserEnum.SESSION_NOT_EXIST.getCode(), UserEnum.SESSION_NOT_EXIST.getMessage());
+        }
+
+    }*/
+
+    @GetMapping("/center")
+    public ModelAndView center(HttpSession session,Map<String,Object> map) {
+        Object object = session.getAttribute("userAccount");
+
+        if (object != null) {
+            UserAccount userAccount = (UserAccount) object;
+
+            UserAccount user = userService.findOne(userAccount.getAccountId());
+            UserDetail detail = detailRepository.findOne(userAccount.getDetailId());
+
+            UserInfoVO userInfoVO = UserAccount2UserInfoVO.converter(user, detail);
+
+            map.put("info", userInfoVO);
+
+            return new ModelAndView("center", map);
+
+        } else {
+            log.error("[用户信息填写]session中无信息,object={}", object);
+            return new ModelAndView("center", map);
         }
 
     }
