@@ -40,30 +40,34 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="container">
 		<div class="header-grid">
 			<div class="header-grid-left animated wow slideInLeft" data-wow-delay=".5s">
-				<!--<ul>-->
-				<!--<li><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i><a href="mailto:info@example.com">@example.com</a></li>-->
-				<!--<li><i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>+1234 567 892</li>-->
-				<!--<li><i class="glyphicon glyphicon-log-in" aria-hidden="true"></i><a hrlogin.jsphtml">Login</a></li>-->
-				<!--<li><i class="glyphicon glyphicon-book" aria-hidden="true"></i><a hrregister.jsphtml">Register</a></li>-->
-				<!--</ul>-->
 			</div>
 			<div class="header-grid-right animated wow slideInRight" data-wow-delay=".2s">
-				<ul class="social-icons">
+				<ul class="social-icons" th:if="${session.userAccount == null}">
 					<!--<li><a href="#" class="facebook"></a></li>-->
 					<li><a href="#" class="twitter"></a></li>
-					<!--<li><a href="#" class="g"></a></li>-->
-					<!--<li><a href="#" class="instagram"></a></li>-->
-					<li>
-						<i class="glyphicon " aria-hidden="true">
-						</i><a href="../login.html">登录/</a><a href="../register-01.html">免费注册</a>
-					</li>-->
+					<i class="glyphicon " aria-hidden="true"></i>
+					<a href="../login">登录/</a><a href="../register-01">免费注册</a>
+					<li class="glyphicon " aria-hidden="true">
+
+					</li>
+				</ul>
+				<ul th:if="${session.userAccount != null}">
+					<i>
+						<a href="#"><img style="width: 50px;height: 50px;" class="img-circle" src="../images/food-01.jpg" alt="头像"/></a>
+						<i><a href="#" th:text="${session.userAccount.userName}" style="font-size: larger"></a></i>
+						<i><a href="#">注销</a></i>
+
+					</i>
 				</ul>
 			</div>
 			<div class="clearfix"> </div>
 		</div>
 		<div class="logo-nav">
 			<div class="logo-nav-left animated wow zoomIn slideInLeft " data-wow-delay=".5s" >
-				<h1><a href="../index/">Bounty Hunter <span>Bounty hunter</span></a></h1>
+				<div class="logo-nav-left animated wow zoomIn slideInLeft " data-wow-delay=".5s" >
+					<h1 ><a href="../index/">赏 金 猎 人</a></h1>
+					<span>中小型校园任务发布平台</span>
+				</div>
 			</div>
 			<div class="logo-nav-left1">
 				<nav class="navbar navbar-default">
@@ -223,7 +227,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<!--<div class="clearfix"> </div>-->
 					<!--</div>-->
 					<div class="" style="height:50px;width:200px;background: #ff9f37;text-align: center;margin-left:50px;">
-						<a class="item_add" href="#" style="color: white;font-size:20px;height:50px;line-height:50px;" th:href="@{'/category/receive?assignmentId='+${result.assignmentId}}">接取任务 </a>
+						<a class="item_add" onclick="receive()" style="color: white;font-size:20px;height:50px;line-height:50px;" >接取任务 </a>
 					</div>
 					<div class="social">
 						<div class="social-left;padding-left:10px;color:grey;">
@@ -424,6 +428,31 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</div>
 </div>
 
+<script th:inline="javascript">
+	function receive(){
+	    $.ajax({
+			type:'get',
+			dataType:'json',
+			url:'/category/receive?assignmentId='+[[${result.assignmentId}]],
+			data:{},
+			success:function (data) {
+			    console.log(data);
+			    if (data.code==0){
+                    alert("成功");
+				}else {
+			        alert(data.msg);
+				}
+            },
+			error:function (data) {
+			    if (data.code!=0){
+                    alert(data.msg);
+
+                }
+            }
+	})
+	}
+
+</script>
 <!-- //footer -->
 <!-- zooming-effect -->
 	<script src="../js/imagezoom.js"></script>

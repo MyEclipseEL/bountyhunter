@@ -17,10 +17,12 @@ import com.example.service.AssignmentCategoryService;
 import com.example.service.AssignmentService;
 import com.example.service.DetailService;
 import com.example.service.UserAccountService;
+import com.example.util.ImageUtil;
 import com.example.util.ResultVOUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.repository.query.Param;
@@ -30,12 +32,14 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -63,13 +67,34 @@ public class AssignmentController {
 
     @Autowired
     private DetailService detailService;
+    /**
+     * 在配置文件中配置的图片保存路径
+     */
+    @Value("${img.location}")
+    private String location;
 
-    @RequestMapping("/issue")
+    @RequestMapping(value = "/issue")
     @ResponseBody
     public ResultVO<Map<String,String>> issue(
-                                              @Valid AssignmentForm assignmentForm,
-                                              BindingResult bindingResult,
-                                                HttpServletRequest request) {
+                @Valid AssignmentForm assignmentForm,
+                BindingResult bindingResult,
+                @RequestParam("file") MultipartFile file,
+                HttpServletRequest request) {
+
+        HttpSession session = request.getSession();
+        UserAccount userAccount = (UserAccount) session.getAttribute("userAccount");
+        if (userAccount==null){
+            log.error("【发布任务】用户信息为空");
+            throw new HunterException(ResultEnum.ACCOUNT_EMPTY);
+        }
+        String icon = "";
+        try {
+            icon =fileUpload(file,userAccount);
+        }catch (NullPointerException e){
+            log.error("图片为空");
+            throw new HunterException(ResultEnum.PARAM_ERROR);
+        }
+
         log.info("assignment={}",assignmentForm);
         if (bindingResult.hasErrors()){
             log.error("【发布任务】参数错误 assignmentForm={}",assignmentForm);
@@ -77,14 +102,6 @@ public class AssignmentController {
                     bindingResult.getFieldError().getDefaultMessage());
         }
 
-        HttpSession session = request.getSession();
-        UserAccount userAccount = (UserAccount) session.getAttribute("userAccount");
-
-
-        if (userAccount==null){
-            log.error("【发布任务】用户信息为空");
-            throw new HunterException(ResultEnum.ACCOUNT_EMPTY);
-        }
         String accountId = userAccount.getAccountId();
         UserAccount account = accountService.findOne(accountId);
         if (account==null){
@@ -92,17 +109,12 @@ public class AssignmentController {
             throw new HunterException(ResultEnum.ACCOUNT_NOT_EXIST);
         }
 
-//        AssignmentForm assignmentForm = new AssignmentForm();
         AssignmentInfo assignmentInfo = AssignmentForm2InfoConverter.converter(assignmentForm);
         assignmentInfo.setAssignmentOwner(account.getAccountId());
-
+        assignmentInfo.setAssignmentIcon(icon);
         AssignmentInfo result = assignmentService.save(assignmentInfo);
         Map<String,String> map = new HashMap<>();
         map.put("assignmentId",result.getAssignmentId());
-//        response.setHeader( "Access-Control-Allow-Headers","Origin, X-Requested-With, Content-Type, Accept");//
-//        response.addHeader( "Access-Control-Allow-Origin", "*" ); //可以访问此域资源的域。*为所有
-//        response.addHeader( "Access-Control-Allow-Methods", "POST" ); //可以访问此域的脚本方法类型
-//        response.addHeader( "Access-Control-Max-Age", "1000" ); //
         return ResultVOUtil.success(map);
     }
 
@@ -202,4 +214,46 @@ public class AssignmentController {
         return "checkout";
     }
 
+    /**
+     * 实现文件上传
+     * */
+//    @RequestMapping(value="fileUpload",method = RequestMethod.POST)
+//    @ResponseBody
+    public String fileUpload( MultipartFile file,UserAccount userAccount){
+
+        if(file.isEmpty()){
+            return null;
+        }
+        String root_fileName = file.getOriginalFilename();
+
+//        String path = System.getProperty("user.dir") + "/uploadFile" ;
+//        File dest = new File(path + "/" + fileName);
+//        if(!dest.getParentFile().exists()){ //判断文件父目录是否存在
+//            dest.getParentFile().mkdir();
+//        }
+        String return_path = ImageUtil.getFilePath(userAccount);
+        String filePath = location + return_path;
+        String file_name = "";
+        try{
+            file_name = ImageUtil.saveImg(file,filePath);
+            if (org.apache.commons.lang3.StringUtils.isNoneBlank(file_name)){
+                return return_path + "/" + file_name;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+//        try {
+//            file.transferTo(dest); //保存文件
+//            return dest.getPath();
+//        } catch (IllegalStateException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//            return null;
+//        } catch (IOException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//            return null;
+//        }
+        return null;
+    }
 }
