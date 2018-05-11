@@ -28,6 +28,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.repository.query.Param;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,10 +44,8 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.*;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -112,6 +111,8 @@ public class AssignmentController {
         }
 
         AssignmentInfo assignmentInfo = AssignmentForm2InfoConverter.converter(assignmentForm);
+        Date date = new Date();
+        assignmentInfo.setCreateTime(date);
         assignmentInfo.setAssignmentOwner(account.getAccountId());
         assignmentInfo.setAssignmentIcon(icon);
         AssignmentInfo result = assignmentService.save(assignmentInfo);
