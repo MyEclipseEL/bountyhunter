@@ -31,6 +31,28 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </head>
 	
 <body>
+<script>
+    function logoff(){
+        $.ajax({
+            type:'POST',
+            dataType: "json",
+            url:"../user/logoff",
+			/* data:{
+			 email:$("#email").val(),
+			 password:$("#password").val()
+			 },*/
+            success:function(data){
+                alert("注销完成");
+                window.location.href="/index";
+
+            },
+            error:function(){
+//            $("#test").html("发生错误:"+jqXHR.status);
+                alert("发生错误");
+            }
+        });
+    }
+</script>
 <!-- header -->
 <div class="header">
 	<div class="container">
@@ -209,28 +231,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<!--</div>-->
 	</div>
 </div>
-<script>
-    function logoff(){
-        $.ajax({
-            type:'POST',
-            dataType: "json",
-            url:"../user/logoff",
-			/* data:{
-			 email:$("#email").val(),
-			 password:$("#password").val()
-			 },*/
-            success:function(data){
-                alert("注销完成");
-                window.location.href="/index";
 
-            },
-            error:function(){
-//            $("#test").html("发生错误:"+jqXHR.status);
-                alert("发生错误");
-            }
-        });
-    }
-</script>
 <!-- //footer -->
 </body>
 </html>

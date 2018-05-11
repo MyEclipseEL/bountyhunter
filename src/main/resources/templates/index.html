@@ -23,8 +23,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- cart -->
 <!-- for bootstrap working -->
 <script type="text/javascript" src="../js/bootstrap-3.1.1.min.js"></script>
-<script src="../js/vue.js"></script>
-<script src="../js/vue.min.js"></script>
 	<script src="./../js/jquery.min.js"></script>
 
 <!-- //for bootstrap working -->
@@ -39,7 +37,28 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link href="../css/animate.min.css" rel="stylesheet">
 
 </head>
+<script>
+    function logoff(){
+        $.ajax({
+            type:'POST',
+            dataType: "json",
+            url:"../user/logoff",
+			/* data:{
+			 email:$("#email").val(),
+			 password:$("#password").val()
+			 },*/
+            success:function(data){
+                alert("注销完成");
+                window.location.href="/index";
 
+            },
+            error:function(){
+//            $("#test").html("发生错误:"+jqXHR.status);
+                alert("发生错误");
+            }
+        });
+    }
+</script>
 
 <body>
 <!-- header -->
@@ -296,28 +315,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         }
     })
 
-</script>
-<script>
-    function logoff(){
-        $.ajax({
-            type:'POST',
-            dataType: "json",
-            url:"user/logoff",
-			/* data:{
-			 email:$("#email").val(),
-			 password:$("#password").val()
-			 },*/
-            success:function(data){
-                alert("注销完成");
-                window.location.href="/index";
-
-            },
-            error:function(){
-//            $("#test").html("发生错误:"+jqXHR.status);
-                alert("发生错误");
-            }
-        });
-    }
 </script>
 </body>
 </html>

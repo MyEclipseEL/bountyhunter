@@ -33,6 +33,52 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     </script>-->
     <!-- //animation-effect -->
 </head>
+<script>
+    function logoff(){
+        $.ajax({
+            type:'POST',
+            dataType: "json",
+            url:"../user/logoff",
+            /* data:{
+             email:$("#email").val(),
+             password:$("#password").val()
+             },*/
+            success:function(data){
+                alert("注销完成");
+                window.location.href="/index";
+
+            },
+            error:function(){
+//            $("#test").html("发生错误:"+jqXHR.status);
+                alert("发生错误");
+            }
+        });
+    }
+
+    $("#postBtn").click(function(e){
+        e.preventDefault();
+        $.ajax({
+            type:'POST',
+            dataType: "json",
+            url:"../user/login",
+            data:{
+                email:$("#email").val(),
+                password:$("#password").val()
+            },
+
+            success:function(data){
+                alert("登陆成功! 欢迎你");
+                window.location.href="/index";
+
+            },
+            error:function(){
+//            $("#test").html("发生错误:"+jqXHR.status);
+                alert("发生错误");
+            }
+        });
+    })
+
+</script>
 
 <body>
 <!-- header -->
@@ -150,9 +196,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <a href="#">忘记密码?</a>
                     <a href="../register-01" style="float:right;">免费注册</a>
                 </div>
-                <input type="submit" value="登录" id="postBtn" onclick="infoJumpTo">
-
-
+                <input type="submit" value="登录" id="postBtn"/>
             </form>
         </div>
         <h4 class="animated wow slideInUp" data-wow-delay=".5s" ><a href="center.html" style="color:white">去完善个人信息</a></h4>
@@ -194,31 +238,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     }
 </script>
 
-<script th:inline="javascript">
-    $("#postBtn").click(function(e){
-        e.preventDefault();
-        $.ajax({
-            type:'POST',
-            dataType: "json",
-            url:"user/login",
-            data:{
-                email:$("#email").val(),
-                password:$("#password").val()
-            },
 
-        success:function(data){
-                alert("登陆成功! 欢迎你");
-                window.location.href="/index";
-
-        },
-        error:function(){
-//            $("#test").html("发生错误:"+jqXHR.status);
-			alert("发生错误");
-        }
-    });
-})
-
-</script>
 <script th:inline="javascript">
 	var msg = [[${msg}]];
 	$(document).ready(function () {
@@ -228,27 +248,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     })
 
 </script>
-<script>
-    function logoff(){
-        $.ajax({
-            type:'POST',
-            dataType: "json",
-            url:"../user/logoff",
-            /* data:{
-             email:$("#email").val(),
-             password:$("#password").val()
-             },*/
-            success:function(data){
-                alert("注销完成");
-                window.location.href="/index";
 
-            },
-            error:function(){
-//            $("#test").html("发生错误:"+jqXHR.status);
-                alert("发生错误");
-            }
-        });
-    }
-</script>
 </body>
 </html>
