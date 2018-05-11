@@ -385,6 +385,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     $("#address").attr("value", info.address);
                     $("#birthday").attr("value", info.birthday);
                     $("#picture").attr("src", info.icon);
+
                 }else{
                     alert("用户信息不合法，或邮箱已被占用");
                 }
@@ -404,7 +405,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         alert("提交图片成功");
         var formData = new FormData($("#upload")[0]);
 
-        alert(formData);
         uploadFile(formData).then(function (res) {
             if (res.code == 0) {
                 var imageUrl = res.data;
@@ -442,10 +442,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     birthday : $('#birthday').val()
                 },
                 success:function(data){
-                    if(data.code!="0"){
-                        console.log(data);
-                        alert(data.msg);
-                    }
+                    alert("修改成功");
                 },
                 error:function(jqXHR){
                     $("#test").html("用户名,邮箱,密码必填:"+jqXHR.status);
@@ -454,7 +451,29 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         })
     })();
 
+    window.onload=function(){
+        var oPass = document.getElementById('password');
+        var oBtn = document.getElementById('btn');
+        var a =true;
+        oBtn.onclick = function () {
+            if( a ){
+                oPass.type='text';
+                a = false;
+                $("#password").removeAttr('disabled');
+                oBtn.value = '完成';
+            }else{
+                oPass.type= 'password';
+                a = true;
+
+                oBtn.value = '修改';
+            }
+        }
+
+    }
+
 </script>
+
+
 
 <script>
     $(function () {

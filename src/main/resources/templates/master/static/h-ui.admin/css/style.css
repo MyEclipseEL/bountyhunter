@@ -1,0 +1,27 @@
+@charset "utf-8";
+/* 你自己的样式 */
+
+.block1,
+.block2,
+.block3,
+.block4,
+.block5,
+.block6{border: #CCC solid 1px;width:120px;height:70px;text-align: center;background-color:#9dc7e7;margin: 15px 5px ;}
+/*选项卡*/
+.clearfix:after{content:"\20";display:block;height:0;clear:both;visibility:hidden}.clearfix{zoom:1}
+.tabBar {border-bottom: 2px solid rgba(46, 155, 240, 0.52)
+}
+.tabBar span {background-color: rgba(232, 232, 232, 0.11);cursor: pointer;display: inline-block;float: left;font-weight: bold;height: 30px;line-height: 30px;padding: 0 15px}
+.tabBar span.current{background-color: rgba(151, 240, 224, 0.38);color: #209aff
+}
+.tabCon {display: none}
+
+.czjz{padding-bottom: 20px;}
+.czjz li{float: left;}
+
+.bblock2 {padding-left: 150px;}
+
+.money{color: red;}
+
+
+
