@@ -124,6 +124,7 @@ public class CategoryController {
     }
 
     @GetMapping("/detail{assignmentId}")
+    @ResponseBody
     public String detail(@RequestParam("assignmentId") String assignmentId,
                          Model model){
         if(assignmentId.equals("")){

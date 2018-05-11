@@ -210,27 +210,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <th>任务名字</th>
                         <th>任务价格</th>
                         <th>任务发布者</th>
+                        <th>任务接取状态</th>
                         <th>发布时间</th>
                         <th>操作</th>
                     </tr>
                     </thead>
-                    <tr class="rem1" th:each="r : ${infoPageR}">
-                        <td class="invert" th:text="${r.assignmentName}">1</td>
+                    <tr class="rem1" th:each="r : ${infoPageR}" th:switch="${r.receiveStatus}">
+                        <td class="invert" th:text="${r.assignmentName}"></td>
                         <td class="invert" th:text="${r.assignmentReward}">Black Shoe</td>
                         <td class="invert" th:text="${r.assignmentOwner.userName}">$290.00</td>
+                        <!--<td class="invert" ">-->
+                        <td th:case="1">已接取</td>
+                        <td th:case="2">已完结</td>
+                        <td th:case="-1">已取消</td>
+                        <!--</td>-->
                         <td class="invert" th:text="${r.createTime}"></td>
                         <td class="invert" >
-                            <div class="rem">
-                                <div class="close1"> </div>
-                            </div>
-                            <script>$(document).ready(function(c) {
-                                $('.close1').on('click', function(c){
-                                    $('.rem1').fadeOut('slow', function(c){
-                                        $('.rem1').remove();
-                                    });
-                                });
-                            });
-                            </script>
+                            <button class="cancelR" th:rid="${r.assignmentId}" style="border: 1px solid white;background-color: orangered;color:white;">取消任务</button>
+                            <button class="finishR" th:gid="${r.assignmentId}" style="border: 1px solid white;background-color: orange;color:white;">完结任务</button>
                         </td>
                     </tr>
                 </table>
@@ -277,28 +274,31 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <th>任务名字</th>
                         <th>任务价格</th>
                         <th>任务接取者</th>
+                        <th>任务状态</th>
                         <th>发布时间</th>
                         <th>操作</th>
                     </tr>
                     </tr>
                     </thead>
-                    <tr class="rem1" th:each="o : ${infoPageO}">
+                    <tr class="rem1" th:each="o : ${infoPageO}" th:switch="${o.assignmentStatus}">
                         <td class="invert" th:text="${o.assignmentName}">1</td>
                         <td class="invert" th:text="${o.assignmentReward}">Black Shoe</td>
-                        <td class="invert" th:text="${o.assignmentOwner.userName}">$290.00</td>
+                        <td class="invert" th:if="${o.assignmentReceive!=null}" th:text="${o.assignmentReceive.userName}"></td>
+                        <td class="invert" th:if="${o.assignmentReceive ==null}" > 暂无接取者</td>
+                        <td th:case="0">新发布</td>
+                        <!--<td th:case="1" >已接取</td>-->
+                        <!--<td th:case="1" th:if="${o.receiveStatus ==2}">接取方已完结</td>-->
+                        <td th:if="${o.receiveStatus == 1}"> 已接取</td>
+                        <td th:if="${o.receiveStatus == 2&&o.assignmentStatus!=2}">接取方已完结</td>
+                        <td th:if="${o.receiveStatus == 2 && o.assignmentStatus==2}">已完结</td>
+                        <td th:case="-1">已取消</td>
+
                         <td class="invert" th:text="${o.createTime}"></td>
                         <td class="invert" >
-                            <div class="rem">
-                                <div class="close1"> </div>
-                            </div>
-                            <script>$(document).ready(function(c) {
-                                $('.close1').on('click', function(c){
-                                    $('.rem1').fadeOut('slow', function(c){
-                                        $('.rem1').remove();
-                                    });
-                                });
-                            });
-                            </script>
+                            <button class="cancelO" th:tid="${o.assignmentId}" style="border: 1px solid white;background-color: orangered;color:white;">取消任务</button>
+                            <button class="finishO" th:fid="${o.assignmentId}" style="border: 1px solid white;background-color: orange;color:white;">完结任务</button>
+                            <!--<button class="reIssue" th:iid="${o.assignmentId}" style="border: 1px solid white;background-color: green;color:white;">重新发布</button>-->
+
                         </td>
                     </tr>
                 </table>
@@ -375,7 +375,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             success:function(res){
                 if(res.code=="0"){
                     console.log(res);
-                    alert(res.msg);
+//                    alert(res.msg);
                     var info = res.data;
 
                     $("#name").attr("value", info.name);
@@ -491,7 +491,94 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         document.getElementById("classID").value=document.getElementById("selectKK").value;
     }
 
+    $('.finishO').click(function () {
+        var aid = $(this).attr('fid');
+        $.ajax({
+            type:'get',
+            dataType:'json',
+            url:'../assignment/finishO',
+            data:{
+                'assignmentId':aid
+            },
+            success:function (data) {
+                if (data.code ==0){
+                    alert("成功");
+                    window.location.reload();
+                }else {
+                    alert(data.msg);
+                }
+            }
+        });
+    });
+
+    $('.cancelO').click(function () {
+        var aid = $(this).attr('tid');
+        $.ajax({
+            type:'get',
+            dataType:'json',
+            url:'../assignment/cancelO',
+            data:{
+                'assignmentId':aid
+            },
+            success:function (data) {
+                console.log(data);
+                if (data.code ==0){
+                    window.location.reload();
+                    alert("成功");
+                }else {
+                    alert(data.msg);
+                }
+            }
+        });
+    });
+    $('.finishR').click(function () {
+        var aid = $(this).attr('gid');
+        $.ajax({
+            type:'get',
+            dataType:'json',
+            url:'../assignment/finishR',
+            data:{
+                'assignmentId':aid
+            },
+            success:function (data) {
+                if (data.code ==0){
+                    alert("成功");
+                    window.location.reload();
+
+                }else {
+                    alert(data.msg);
+                }
+            }
+        });
+    });
+
+    $('.cancelR').click(function () {
+        var aid = $(this).attr('rid');
+        $.ajax({
+            type:'get',
+            dataType:'json',
+            url:'../assignment/cancelR',
+            data:{
+                'assignmentId':aid
+            },
+            success:function (data) {
+                console.log(data);
+                if (data.code ==0){
+                    alert("成功");
+                    window.location.reload();
+
+                }else {
+                    alert(data.msg);
+                }
+            }
+        });
+    });
 </script>
+<script th:inline="javascript">
+
+</script>
+
+
 
 </body>
 </html>

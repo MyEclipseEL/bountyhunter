@@ -52,10 +52,16 @@ public class AssignmentInfoVO {
     private String assignmentPosition;
 
     @JsonProperty("receiver")
-    private UserAccountVO receiver;
+    private UserAccountVO assignmentReceive;
 
     @JsonProperty("phone")
     private String userPhone;
+
+    @JsonIgnore
+    private Integer assignmentStatus;
+
+    @JsonIgnore
+    private Integer receiveStatus;
     /** 任务发布时间*/
     @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     private Date createTime;

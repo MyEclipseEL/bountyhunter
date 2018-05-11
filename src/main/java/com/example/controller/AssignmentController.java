@@ -125,44 +125,89 @@ public class AssignmentController {
      * */
 
 
+    @ResponseBody
+    @RequestMapping("/reIssue")
+    public ResultVO reIssue(@RequestParam("assignmentId") String assignmentId,
+                            HttpServletRequest request){
+        HttpSession session = request.getSession();
+        UserAccount userAccount = (UserAccount) session.getAttribute("userAccount");
+
+        if (userAccount==null){
+            log.error("【重新发布】登陆信息为空");
+            throw new HunterException(ResultEnum.ACCOUNT_EMPTY);
+        }
+        UserAccount account = accountService.findOne(userAccount.getAccountId());
+        if (account==null){
+            log.error("【重新发布】用户不存在");
+            throw new HunterException(ResultEnum.ACCOUNT_NOT_EXIST);
+        }
+        if (assignmentId==null){
+            log.error("【重新发布】任务id 为空");
+            throw new HunterException(ResultEnum.PARAM_ERROR);
+        }
+        AssignmentInfo info = assignmentService.findOne(assignmentId);
+        if (info==null){
+            log.error("【重新发布】人不存在");
+            throw new HunterException(ResultEnum.ASSIGNMENT_NOT_EXIST);
+        }
+        if (info.getReceiveStatus().compareTo(ReceiveStatus.CANCELED.getCode())!=0){
+            log.error("【重新发布】任务状态不正确");
+            throw new HunterException(ResultEnum.STATUS_NOT_TRUE);
+        }
+        info.setReceiveStatus(ReceiveStatus.NEW.getCode());
+//        info.setAssignmentStatus(AssignmentStatus.NEW.getCode());
+        AssignmentInfo result = assignmentService.save(info);
+
+        return ResultVOUtil.success(result);
+    }
+
     /**
      * 取消任务 若任务未被接取 则发布者可以取消 若被接取则不能取消
      * @param assignmentId
      * @param request
      * */
 
-    @GetMapping("/cancelO")
+    @ResponseBody
+    @RequestMapping("/cancelO")
     public ResultVO<AssignmentInfo> cancelO(@RequestParam("assignmentId") String assignmentId,
                        HttpServletRequest request){
         HttpSession session = request.getSession();
-        String accountId = (String) session.getAttribute("account");
-        if (accountId==null||accountId.isEmpty()){
-            log.error("【取消任务】出错了 没有用户信息");
-            throw new HunterException(ResultEnum.ACCOUNT_EMPTY);
-        }
-        UserAccount account = accountService.findOne(accountId);
+        UserAccount account = (UserAccount) session.getAttribute("userAccount");
         if (account==null){
-            log.error("【取消任务】用户不存在 accountId={}",accountId);
+            log.error("【发布者取消任务】没有用户信息");
             throw new HunterException(ResultEnum.ACCOUNT_NOT_EXIST);
         }
+        UserAccount userAccount = accountService.findOne(account.getAccountId());
+        if (userAccount==null){
+            log.error("【发布者取消任务】出错了 用户不存在");
+            throw new HunterException(ResultEnum.ACCOUNT_EMPTY);
+        }
+
         if (assignmentId==null||assignmentId.isEmpty()){
-            log.error("【取消任务】没有传任务id");
+            log.error("【发布者取消任务】没有传任务id");
             throw new HunterException(ResultEnum.PARAM_ERROR);
         }
         AssignmentInfo assignmentInfo = assignmentService.findOne(assignmentId);
         if (assignmentInfo==null){
-            log.error("【取消任务】任务不存在 assignmentId={}",assignmentId);
+            log.error("【发布者取消任务】任务不存在 assignmentId={}",assignmentId);
             throw new HunterException(ResultEnum.ASSIGNMENT_NOT_EXIST);
         }
         if (!assignmentInfo.getAssignmentStatus().equals(AssignmentStatus.NEW.getCode())){
-            log.error("【取消任务】任务状态错误 assignmentStatus={}",assignmentInfo.getAssignmentStatus());
+            log.error("【发布者取消任务】任务状态错误 assignmentStatus={}",assignmentInfo.getAssignmentStatus());
+            throw new HunterException(ResultEnum.STATUS_NOT_TRUE);
         }
         assignmentInfo.setAssignmentStatus(AssignmentStatus.CANCEL.getCode());
-        return ResultVOUtil.success(assignmentService.save(assignmentInfo));
+        assignmentInfo.setReceiveStatus(ReceiveStatus.CANCELED.getCode());
+        assignmentInfo.setAssignmentReceive(null);
+        assignmentService.save(assignmentInfo);
+        Map<String,String> map = new HashMap<>();
+        map.put("assignmentId",assignmentInfo.getAssignmentId());
+        return ResultVOUtil.success(map);
     }
 
     /** 接取方取消任务*/
-    @GetMapping("/cancelR")
+    @ResponseBody
+    @RequestMapping("/cancelR")
     public ResultVO<Map<String,String>> cancelR(@RequestParam("assignmentId") String assignmentId,
                                                 HttpServletRequest request){
         HttpSession session = request.getSession();
@@ -189,7 +234,8 @@ public class AssignmentController {
             throw new HunterException(ResultEnum.STATUS_NOT_TRUE);
         }
         info.setReceiveStatus(ReceiveStatus.CANCELED.getCode());
-        info.setAssignmentStatus(AssignmentStatus.CANCEL.getCode());
+        info.setAssignmentStatus(AssignmentStatus.NEW.getCode());
+        info.setAssignmentReceive(null);
         assignmentService.save(info);
         Map<String,String> map = new HashMap<>();
         map.put("assignmentId",info.getAssignmentId());
@@ -200,8 +246,9 @@ public class AssignmentController {
      * 完结任务 发布者完结任务
      * 需 接取者先完结任务
      * */
-    @GetMapping("finishO")
-    public ResultVO finishO(@RequestParam("assignmentId") String assignmentId,
+    @ResponseBody
+    @RequestMapping("finishO")
+    public ResultVO<AssignmentInfo> finishO(@RequestParam("assignmentId") String assignmentId,
                             HttpServletRequest request){
         HttpSession session = request.getSession();
         UserAccount userAccount = (UserAccount) session.getAttribute("userAccount");
@@ -219,8 +266,8 @@ public class AssignmentController {
             log.error("【发布者完结任务】不存在此任务 assignmentId={}",assignmentId);
             throw new HunterException(ResultEnum.ASSIGNMENT_NOT_EXIST);
         }
-        if (!userAccount.getAccountId().equals(info.getAssignmentReceive())){
-            log.error("【发布者完结任务】用户不匹配  登陆者={},匹配={}",userAccount.getAccountId(),info.getAssignmentReceive());
+        if (!userAccount.getAccountId().equals(info.getAssignmentOwner())){
+            log.error("【发布者完结任务】用户不匹配  登陆者={},匹配={}",userAccount.getAccountId(),info.getAssignmentOwner());
             throw new HunterException(ResultEnum.ACCOUNT_NOT_MATCHING);
         }
         if (info.getAssignmentStatus().compareTo(AssignmentStatus.RECEIVED.getCode())!=0||
@@ -236,7 +283,8 @@ public class AssignmentController {
     }
 
     /** 接取者完结任务*/
-    @GetMapping("/finishR")
+    @ResponseBody
+    @RequestMapping("/finishR")
     public ResultVO finishR(@RequestParam("assignmentId") String assignmentId,
                             HttpServletRequest request){
 

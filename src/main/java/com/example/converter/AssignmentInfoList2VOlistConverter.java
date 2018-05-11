@@ -41,11 +41,11 @@ public class AssignmentInfoList2VOlistConverter {
                     UserAccount account =  accountService.findOne(assignmentInfo.getAssignmentOwner());
                     UserAccountVO accountVO = new UserAccountVO();
                     BeanUtils.copyProperties(account,accountVO);
-                    if(assignmentInfo.getAssignmentReceive()!=null&&assignmentInfo.getAssignmentReceive().isEmpty()){
+                    if(assignmentInfo.getAssignmentReceive()!=null){
                         UserAccount receiver = accountService.findOne(assignmentInfo.getAssignmentReceive());
                         UserAccountVO userAccountVO = new UserAccountVO();
                         BeanUtils.copyProperties(receiver,userAccountVO);
-                        assignmentInfoVO.setReceiver(userAccountVO);
+                        assignmentInfoVO.setAssignmentReceive(userAccountVO);
                     }
                     UserDetail detail = detailService.findOne(account.getDetailId());
                     accountVO.setUserDetail(detail);
