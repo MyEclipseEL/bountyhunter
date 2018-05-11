@@ -110,9 +110,15 @@ public class LoginController {
 
         UserAccount userAccount = UserForm2UserAccountConverter.converter(userForm);
 
-        /*UserAccount registerResult = userService.register(userAccount);*/
+        /*Future<String> task1 = emailAsync.task1(userAccount);
 
-        Future<String> future = emailAsync.task1(userAccount);
+        while(true){
+            if (task1.isDone()) {
+                break;
+            }
+            Thread.sleep(100);
+        }*/
+        UserAccount registerResult = userService.register(userAccount);
 
         Map<String, String> map = new HashMap<>();
         map.put("show", "若三分钟后未收到邮件请重新注册");

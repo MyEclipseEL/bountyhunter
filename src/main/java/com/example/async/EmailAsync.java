@@ -24,7 +24,7 @@ public class EmailAsync {
     @Async
     public Future<String> task1(UserAccount userAccount) throws InterruptedException {
 
-        Thread.sleep(100);
+        Thread.sleep(10);
         UserAccount registerResult = userService.register(userAccount);
         return new AsyncResult<String>(registerResult.getUserEmail());
     }
