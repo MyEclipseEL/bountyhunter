@@ -241,9 +241,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<h5><i>发布时间</i></h5>
 						<p style="font-size: 20px;" th:text="${result.createTime}"></p>
 					</div>
-					<div class="" style="height:50px;width:200px;background: #ff9f37;text-align: center;margin-left:50px;">
-						<a class="item_add" onclick="receive()" style="color: white;font-size:20px;height:50px;line-height:50px;" >接取任务 </a>
-					</div>
+					<!--<div class="" style="height:50px;width:200px;background: #ff9f37;text-align: center;margin-left:50px;">-->
+						<button class="item_add" onclick="receive()" style="border: 1px solid white;background-color: orange;color:white;width: 150px;height: 50px"> 接取任务 </button>
+
+
+					<!--</div>-->
 					<div class="social">
 						<div class="social-left;padding-left:10px;color:grey;">
 							<p>服务商已经缴纳保证金200元，承诺交易出问题，保证金赔付</p>
@@ -455,10 +457,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				}
             },
 			error:function (data) {
-			    if (data.code!=0){
-                    alert(data.msg);
 
-                }
+                    alert("出错了");
+
+
             }
 	})
 	}
