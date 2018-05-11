@@ -72,4 +72,14 @@ public class UserDetail {
     }
 
 
+    @Override
+    public String toString() {
+        return "UserDetail{" +
+                "detailId='" + detailId + '\'' +
+                ", userPhone='" + userPhone + '\'' +
+                ", userAddress='" + userAddress + '\'' +
+                ", userBirthday='" + userBirthday + '\'' +
+                ", updateTime=" + updateTime +
+                '}';
+    }
 }

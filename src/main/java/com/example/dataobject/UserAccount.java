@@ -125,4 +125,20 @@ public class UserAccount {
     public void setIcon(String icon) {
         this.icon = icon;
     }
+
+    @Override
+    public String toString() {
+        return "UserAccount{" +
+                "accountId='" + accountId + '\'' +
+                ", userName='" + userName + '\'' +
+                ", userPassword='" + userPassword + '\'' +
+                ", detailId='" + detailId + '\'' +
+                ", userEmail='" + userEmail + '\'' +
+                ", activeCode='" + activeCode + '\'' +
+                ", state=" + state +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", icon='" + icon + '\'' +
+                '}';
+    }
 }
