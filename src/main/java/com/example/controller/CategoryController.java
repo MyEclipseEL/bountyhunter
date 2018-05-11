@@ -35,16 +35,15 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 /**
  * Created by Administrator on 2018/4/9.
  */
-//@RestController
 @RequestMapping("/category")
 @Slf4j
-//@CrossOrigin
 @Controller
 public class CategoryController {
 
@@ -155,6 +154,7 @@ public class CategoryController {
     }
 
     @GetMapping("/receive{assignmentId}")
+    @ResponseBody
     public ResultVO<AssignmentInfo> receive(@RequestParam("assignmentId") String assignmentId,
                                             HttpServletRequest request,
                                             Model model) {
@@ -200,6 +200,8 @@ public class CategoryController {
         assignmentInfo.setAssignmentStatus(AssignmentStatus.RECEIVED.getCode());
         assignmentInfo.setReceiveStatus(ReceiveStatus.RECEIVED.getCode());
         assignmentInfo.setAssignmentReceive(account.getAccountId());
+        Date now = new Date();
+        assignmentInfo.setReceiveTime(now);
 
         AssignmentInfo result = assignmentService.save(assignmentInfo);
 
