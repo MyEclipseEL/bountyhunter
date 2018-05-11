@@ -6,6 +6,7 @@ import com.example.dataobject.AssignmentInfo;
 import com.example.dataobject.AssignmentQuery;
 import com.example.enums.AssignmentStatus;
 import com.example.enums.PayStatus;
+import com.example.enums.ReceiveStatus;
 import com.example.repository.AssignmentRepository;
 import com.example.service.AssignmentService;
 import com.example.service.DetailService;
@@ -88,6 +89,7 @@ public class AssignmentServiceImpl implements AssignmentService{
         if (assignmentInfo.getAssignmentId()==null){
             assignmentInfo.setAssignmentId(KeyUtil.genUniqueKey());
             assignmentInfo.setAssignmentStatus(AssignmentStatus.NEW.getCode());
+            assignmentInfo.setReceiveStatus(ReceiveStatus.NEW.getCode());
             assignmentInfo.setPayStatus(PayStatus.WAIT.getCode());
         }
         return repository.save(assignmentInfo);
