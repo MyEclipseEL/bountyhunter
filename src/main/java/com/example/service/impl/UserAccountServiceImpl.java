@@ -72,9 +72,12 @@ public class UserAccountServiceImpl implements UserAccountService {
         UserDetail userDetail = new UserDetail();
         userDetail.setDetailId(accountId);
 
+        System.out.println("用户"+user);
         javaMailSender.send(message);
         detailRepository.save(userDetail);
-        return repository.save(user);
+        UserAccount result = repository.save(user);
+        System.out.println("存储结果为:"+result);
+        return result;
     }
 
 
