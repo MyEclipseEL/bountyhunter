@@ -48,7 +48,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 </ul>
                 <ul th:if="${session.userAccount != null}">
                     <i>
-                        <a href="../user/personal"><img style="width: 50px;height: 50px;" class="img-circle" th:src="${session.userAccount.icon}" alt="头像"/></a>
+                        <a href="../assignment/history"><img style="width: 50px;height: 50px;" class="img-circle" th:src="${session.userAccount.icon}" alt="头像"/></a>
                         <i><a href="#" th:text="${session.userAccount.userName}" style="font-size: larger"></a></i>
                         <i><a href="javascript:void(0)" onclick="logoff()">注销</a></i>
                     </i>
@@ -209,12 +209,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 password:$("#password").val()
             },
             success:function(){
-                alert("success");
+                alert("发送邮件中，请稍后前往邮箱激活");
                 window.location.href="/login.html";
             },
             error:function(jqXHR){
-                alert("发生错误");
-                $("#test").html("发生错误:"+jqXHR.status);
+                alert("邮箱已存在，请重新注册");
+                $("#test").html("邮箱已存在，请重新注册:"+jqXHR.status);
             }
         });
     })
@@ -233,11 +233,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             success:function(data){
                 alert("注销完成");
                 window.location.href="/index";
-
             },
             error:function(){
 //            $("#test").html("发生错误:"+jqXHR.status);
-                alert("发生错误");
+                alert("用户不存在");
             }
         });
     }

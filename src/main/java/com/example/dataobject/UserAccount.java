@@ -43,7 +43,7 @@ public class UserAccount {
     private Date updateTime;
 
     /** 用户头像 **/
-    private String icon;
+    private String icon = "/usericon/def/tim.jpg";
 
 
     public String getAccountId() {

@@ -333,7 +333,7 @@ public class AssignmentController {
         model.addAttribute("totalPagesO",totalPagesO);
         model.addAttribute("indexPageO",indexPageO);
         model.addAttribute("infoPageO",voPageO);
-        return "checkout";
+        return "personal";
     }
 
 //    @GetMapping("/historyR")

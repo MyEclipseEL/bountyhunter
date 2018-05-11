@@ -8,7 +8,10 @@
 </head>
 <body>
 <div th:fragment="pager">
+es-1}?'disabled':''"><a th:href="@{'/assignment/list?categoryType='+${categoryThis.categoryType}+'&page='+${indexPage + 1}}">下一页</a></li>
 
+        </ul>
+    </nav>
     <nav class="numbering animated wow slideInRight" data-wow-delay=".5s">
         <ul class="pagination paging">
             <li th:class="${indexPage == 0}?'disabled':''" >
@@ -35,10 +38,7 @@
             <li th:if="${indexPage+3 <totalPages}">
                 <a th:href="@{'/assignment/list?categoryType='+${categoryThis.categoryType}+'&page='+${indexPage + 3}}" th:text="${indexPage + 4}">1</a>
             </li>
-            <li th:class="${indexPage==totalPages-1}?'disabled':''"><a th:href="@{'/assignment/list?categoryType='+${categoryThis.categoryType}+'&page='+${indexPage + 1}}">下一页</a></li>
-
-        </ul>
-    </nav>
+            <li th:class="${indexPage==totalPag
 </div>
 </body>
 </html>

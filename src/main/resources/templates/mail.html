@@ -33,7 +33,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script src="../js/jquery.min.js"></script>
 <script src="../js/jquery-3.2.1.min.js"></script>
 <!-- //animation-effect -->
-	<!--<script src="../js/vue.min.js"></script>-->
 	<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
 
 
@@ -58,7 +57,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</ul>
 				<ul th:if="${session.userAccount != null}">
 					<i>
-						<a href="../user/personal"><img style="width: 50px;height: 50px;" class="img-circle" th:src="${session.userAccount.icon}" alt="头像"/></a>
+						<a href="../assignment/history"><img style="width: 50px;height: 50px;" class="img-circle" th:src="${session.userAccount.icon}" alt="头像"/></a>
 						<i><a href="#" th:text="${session.userAccount.userName}" style="font-size: larger"></a></i>
 						<i><a href="javascript:void(0)" onclick="logoff()">注销</a></i>
 					</i>

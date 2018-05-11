@@ -170,7 +170,7 @@ public class LoginController {
 
 
     @GetMapping("/personal")
-    public ModelAndView personal(HttpSession session,Map<String,Object> map) {
+    public ResultVO<UserInfoVO> personal(HttpSession session) {
         Object object = session.getAttribute("userAccount");
 
         if (object != null) {
@@ -181,13 +181,11 @@ public class LoginController {
 
             UserInfoVO userInfoVO = UserAccount2UserInfoVO.converter(user, detail);
 
-            map.put("info", userInfoVO);
-
-            return new ModelAndView("personal", map);
+            return ResultVOUtil.success(userInfoVO);
 
         } else {
             log.error("[用户信息填写]session中无信息,object={}", object);
-            return new ModelAndView("personal", map);
+            return ResultVOUtil.error(UserEnum.USER_NOT_EXIST.getCode(), UserEnum.USER_NOT_EXIST.getMessage());
         }
 
     }
@@ -264,6 +262,32 @@ public class LoginController {
         System.out.println("进入注销");
         return ResultVOUtil.success("注销完成");
     }
+
+
+    /* 个人中心返回视图
+
+    @GetMapping("/personal")
+    public ModelAndView personal(HttpSession session,Map<String,Object> map) {
+        Object object = session.getAttribute("userAccount");
+
+        if (object != null) {
+            UserAccount userAccount = (UserAccount) object;
+
+            UserAccount user = userService.findOne(userAccount.getAccountId());
+            UserDetail detail = detailRepository.findOne(userAccount.getDetailId());
+
+            UserInfoVO userInfoVO = UserAccount2UserInfoVO.converter(user, detail);
+
+            map.put("info", userInfoVO);
+
+            return new ModelAndView("personal", map);
+
+        } else {
+            log.error("[用户信息填写]session中无信息,object={}", object);
+            return new ModelAndView("personal", map);
+        }
+
+    }*/
 
 }
 

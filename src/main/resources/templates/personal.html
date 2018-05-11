@@ -33,7 +33,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <script src="../js/jquery.min.js"></script>
     <script src="../js/jquery-3.2.1.min.js"></script>
     <!-- //animation-effect -->
-    <!--<script src="../js/vue.min.js"></script>-->
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
 
 
@@ -58,7 +57,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 </ul>
                 <ul th:if="${session.userAccount != null}">
                     <i>
-                        <a href="../user/personal"><img style="width: 50px;height: 50px;" class="img-circle" th:src="${session.userAccount.icon}" alt="头像"/></a>
+                        <a href="../assignment/history"><img style="width: 50px;height: 50px;" class="img-circle" th:src="${session.userAccount.icon}" alt="头像"/></a>
                         <i><a href="#" th:text="${session.userAccount.userName}" style="font-size: larger"></a></i>
                         <i><a href="javascript:void(0)" onclick="logoff()">注销</a></i>
                     </i>
@@ -144,19 +143,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
                 <div class="col-md-8 mail-grid-left animated wow slideInLeft" data-wow-delay=".5s" >
                     <form id="ajaxsubmit" method="post"  class="form-search">
-                        <input type="text" th:value="${info.name}" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '姓名';}" required="" id="name" name="name" style="margin-top:10px;" placeholder="姓名">
-                        <input type="text" th:value="${info.email}" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" required="" id="email" name="email" style="margin-top:10px;" placeholder="Email">
+                        <input type="text" value="姓名" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '姓名';}" required="" id="name" name="name" style="margin-top:10px;" placeholder="姓名">
+                        <input type="text" value="邮箱" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" required="" id="email" name="email" style="margin-top:10px;" placeholder="邮箱">
                         <div class="col-md-12" style="border:1px solid gainsboro;margin-top:10px;" >
-                            <input type="password" th:value="${info.password}" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '密码';}" required="" id="password" name="password" style="border:none;height:40px;width:80%;background-color: white" placeholder="123456" disabled="true"  class="col-md-10 input-small">
+                            <input type="password" value="123456" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '密码';}" required="" id="password" name="password" style="border:none;height:40px;width:80%;background-color: white" placeholder="123456" disabled="true"  class="col-md-10 input-small">
                             <input type="button" value="修改" id="btn" class="col-md-2 btn"style="width:20%;margin-top:2px;" >
                         </div>
 
-                        <input type="text" th:value="${info.phone}" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '联系电话';}" required="" id="phone" name="phone" style="margin-top:10px;" placeholder="联系电话">
-                        <input type="text" th:value="${info.address}" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '家庭住址';}" required="" id="address" name="address" style="margin-top:10px;" placeholder="家庭住址">
+                        <input type="text" value="联系电话" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '联系电话';}" required="" id="phone" name="phone" style="margin-top:10px;" placeholder="联系电话">
+                        <input type="text" value="家庭住址" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '家庭住址';}" required="" id="address" name="address" style="margin-top:10px;" placeholder="家庭住址">
 
                         <div style="margin-top:10px;border:1px solid lightgrey;height:40px;background-color: #f5f5f5;line-height:40px;"  class="col-md-12">
                             <span class="col-md-3" style="padding-left:0;">出生年月：</span>
-                            <input type="date" id="birthday" th:value="${info.birthday}"/>
+                            <input type="date" id="birthday" />
                         </div>
                         <div id="box-01" >
                             <input type="submit"  value="完善成功" id="submit" style="margin-top:30px;">
@@ -167,7 +166,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
                 <div class="col-md-4 mail-grid-right animated wow slideInRight" data-wow-delay=".5s" >
                     <div class="mail-grid-right1">
-                        <img id="picture" th:src="${info.icon}"  style="width:100%;height:300px; " >
+                        <img id="picture" src="../images/user/tim.jpg"  style="width:100%;height:300px; " >
                         <form id="upload" method="" enctype="multipart/form-data" style="text-align: center;height:100px;padding-top:20px;padding-left:10px;padding-right:10px;">
                             <input id="pic"  name="file" accept="image/*"  value="选择图片" type="file"  style="border: 1px solid white;margin-left:20px;height:30px;line-height:30px;width:100%;border-radius:20px;"/><!--style="display: none"-->
                             <h4  style="text-align: center"><input id="upload_button" type="button" value="上传头像" style="border: 1px solid white;background-color: #d9703e;color:white;height:30px;line-height:30px;width:100px;border-radius:20px;"/></h4>
@@ -435,12 +434,80 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     </div>
 </div>
 <!-- //footer -->
+<script type="text/javascript">
+    $(function(){
+        initData();
+    });
+
+    //加载初始化数据
+    function initData(){
+        $.ajax({
+            type:'GET',
+            dataType: "json",
+            url:"../user/personal",
+            /*data:{
+             email:$("#email").val(),
+             password:$("#password").val()
+             },*/
+            success:function(res){
+                if(res.code=="0"){
+                    console.log(res);
+                    alert(res.msg);
+                    var info = res.data;
+
+                    $("#name").attr("value", info.name);
+                    $("#email").attr("value", info.email);
+                    $("#password").attr("value", info.password);
+                    $("#phone").attr("value", info.phone);
+                    $("#address").attr("value", info.address);
+                    $("#birthday").attr("value", info.birthday);
+                    $("#picture").attr("src", info.icon);
+                }else{
+                    alert("用户信息不合法，或邮箱已被占用");
+                }
+            },
+            error:function(){
+//            $("#test").html("发生错误:"+jqXHR.status);
+                alert("请先登录");
+            }
+        });
+    }
+
+    /**
+     * 图片单独提交
+     */
+
+    $("#upload_button").click(function () {
+        alert("提交");
+        var formData = new FormData($("#upload")[0]);
+
+        alert(formData);
+        uploadFile(formData).then(function (res) {
+            if (res.code == 0) {
+                var imageUrl = res.data;
+                $("#picture").attr("src",imageUrl);
+            }
+        })
+    });
+
+    function uploadFile(formData) {
+        return $.ajax({
+            url : "/user/uploadFile",
+            type: 'post',
+            data : formData,
+            //dataType:'jsonp'
+            processData:false,
+            contentType:false
+        })
+    }
+</script>
 
 <script>
     $(function () {
         $('#myTab li:eq(1) a').tab('show');
     });
 </script>
+
 <script type="text/javascript">
     (function () {
         $("#submit").click(function(e){
