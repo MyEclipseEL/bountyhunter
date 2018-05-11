@@ -181,7 +181,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <input type="date" id="birthday" />
                         </div>
                         <div id="box-01" >
-                            <input type="submit"  value="完善成功" id="submit" style="margin-top:30px;">
+                            <input type="submit"  value="完善成功" id="submitInfo" style="margin-top:30px;">
                         </div>
 
                     </form>
@@ -375,7 +375,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             success:function(res){
                 if(res.code=="0"){
                     console.log(res);
-                    alert(res.msg);
+                    alert("欢迎进入个人中心");
                     var info = res.data;
 
                     $("#name").attr("value", info.name);
@@ -401,7 +401,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
      */
 
     $("#upload_button").click(function () {
-        alert("提交");
+        alert("提交图片成功");
         var formData = new FormData($("#upload")[0]);
 
         alert(formData);
@@ -423,6 +423,37 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             contentType:false
         })
     }
+
+    (function () {
+        $("#submitInfo").click(function(e){
+            e.preventDefault();
+            console.log("ui");
+//            var formData = new FormData($("ajaxsubmit")[0]);
+            $.ajax({
+                type:'post',
+                url:"/user/updateInfo",
+                dataType: "json",
+                data:{
+                    name: $('#name').val(),
+                    email : $('#email').val(),
+                    password : $('#password').val(),
+                    phone:$('#phone').val(),
+                    address: $('#address').val(),
+                    birthday : $('#birthday').val()
+                },
+                success:function(data){
+                    if(data.code!="0"){
+                        console.log(data);
+                        alert(data.msg);
+                    }
+                },
+                error:function(jqXHR){
+                    $("#test").html("用户名,邮箱,密码必填:"+jqXHR.status);
+                }
+            });
+        })
+    })();
+
 </script>
 
 <script>
@@ -451,7 +482,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 success:function(data){
                     if(data.code!="0"){
                         console.log(data);
-                        alert(data.msg);
                     }
                 },
                 error:function(){

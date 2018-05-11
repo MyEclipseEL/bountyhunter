@@ -29,7 +29,7 @@ public class UserAccountServiceImplTest {
 
         UserAccount user = new UserAccount();
         user.setUserName("ccccc");
-        user.setUserEmail("1342746626@qq.com");
+        user.setUserEmail("2241852868@qq.com");
         user.setUserPassword("dsdsds");
 
         UserAccount result = userAccountService.register(user);

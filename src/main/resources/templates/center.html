@@ -310,36 +310,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 <script type="text/javascript">
 
-    (function () {
-        $("#submit").click(function(e){
-            e.preventDefault();
-            console.log("ui");
-//            var formData = new FormData($("ajaxsubmit")[0]);
-            $.ajax({
-                type:'post',
-                url:"/user/updateInfo",
-                dataType: "json",
-                data:{
-//                    "publisher": "李明"
-                    name: $('#name').val(),
-                    email : $('#email').val(),
-                    password : $('#password').val(),
-                    phone:$('#phone').val(),
-                    address: $('#address').val(),
-                    birthday : $('#birthday').val()
-                },
-                success:function(data){
-                    if(data.code!="0"){
-                        console.log(data);
-                        alert(data.msg);
-                    }
-                },
-                error:function(jqXHR){
-                    $("#test").html("发生错误:"+jqXHR.status);
-                }
-            });
-        })
-    })();
+
 
 
     /**

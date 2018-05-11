@@ -36,11 +36,6 @@ public class UserAccount {
     /** 激活状态  默认为 0 未激活**/
     private int state;
 
-    /** 创建时间*/
-    private Date createTime;
-
-    /** 更新时间*/
-    private Date updateTime;
 
     /** 用户头像 **/
     private String icon = "/usericon/def/tim.jpg";
@@ -102,21 +97,6 @@ public class UserAccount {
         this.state = state;
     }
 
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
 
     public String getIcon() {
         return icon;
@@ -125,6 +105,7 @@ public class UserAccount {
     public void setIcon(String icon) {
         this.icon = icon;
     }
+
 
     @Override
     public String toString() {
@@ -136,8 +117,6 @@ public class UserAccount {
                 ", userEmail='" + userEmail + '\'' +
                 ", activeCode='" + activeCode + '\'' +
                 ", state=" + state +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
                 ", icon='" + icon + '\'' +
                 '}';
     }

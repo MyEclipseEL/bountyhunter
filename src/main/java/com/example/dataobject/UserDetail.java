@@ -28,8 +28,6 @@ public class UserDetail {
     /** 用户生日*/
     private String userBirthday;
 
-    /** 更新时间*/
-    private Date updateTime;
 
     public String getDetailId() {
         return detailId;
@@ -63,23 +61,5 @@ public class UserDetail {
         this.userBirthday = userBirthday;
     }
 
-    public Date getUpdateTime() {
-        return updateTime;
-    }
 
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-
-    @Override
-    public String toString() {
-        return "UserDetail{" +
-                "detailId='" + detailId + '\'' +
-                ", userPhone='" + userPhone + '\'' +
-                ", userAddress='" + userAddress + '\'' +
-                ", userBirthday='" + userBirthday + '\'' +
-                ", updateTime=" + updateTime +
-                '}';
-    }
 }

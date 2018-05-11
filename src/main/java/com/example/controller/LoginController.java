@@ -110,15 +110,15 @@ public class LoginController {
 
         UserAccount userAccount = UserForm2UserAccountConverter.converter(userForm);
 
-        /*Future<String> task1 = emailAsync.task1(userAccount);
+        Future<String> task1 = emailAsync.task1(userAccount);
 
-        while(true){
+        /*while(true){
             if (task1.isDone()) {
                 break;
             }
             Thread.sleep(100);
         }*/
-        UserAccount registerResult = userService.register(userAccount);
+        /*UserAccount registerResult = userService.register(userAccount);*/
 
         Map<String, String> map = new HashMap<>();
         map.put("show", "若三分钟后未收到邮件请重新注册");
@@ -193,7 +193,6 @@ public class LoginController {
             log.error("[用户信息填写]session中无信息,object={}", object);
             return ResultVOUtil.error(UserEnum.USER_NOT_EXIST.getCode(), UserEnum.USER_NOT_EXIST.getMessage());
         }
-
     }
 
     // 上传 图片 并返回 图片路径
@@ -256,7 +255,6 @@ public class LoginController {
         }
     }
 
-
     /**
      * 注销
      *
@@ -268,7 +266,6 @@ public class LoginController {
         System.out.println("进入注销");
         return ResultVOUtil.success("注销完成");
     }
-
 
     /* 个人中心返回视图
 

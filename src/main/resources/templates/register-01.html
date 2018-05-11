@@ -235,8 +235,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 window.location.href="/login.html";
             },
             error:function(jqXHR){
-                alert("邮箱已存在，请重新注册");
-                $("#test").html("邮箱已存在，请重新注册:"+jqXHR.status);
+                alert("邮箱已重复，或邮箱填写错误");
+                $("#test").html("邮箱已重复，或邮箱填写错误:"+jqXHR.status);
             }
         });
     })
