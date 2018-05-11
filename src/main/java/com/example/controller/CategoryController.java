@@ -193,6 +193,10 @@ public class CategoryController {
             log.error("【接取任务】出错了 任务已被接取 assignmentStatus={}",assignmentInfo.getAssignmentStatus());
             throw new HunterException(ResultEnum.RECEIVE_EXIST);
         }
+        if (account.getAccountId().equals(assignmentInfo.getAssignmentOwner())){
+            log.error("【接取任务】发布者试图接取自己的任务");
+            throw new HunterException(ResultEnum.CANNOT_RECEIVE_YOURS);
+        }
         assignmentInfo.setAssignmentStatus(AssignmentStatus.RECEIVED.getCode());
         assignmentInfo.setReceiveStatus(ReceiveStatus.RECEIVED.getCode());
         assignmentInfo.setAssignmentReceive(account.getAccountId());

@@ -34,19 +34,19 @@ public class AssignmentInfoList2VOlistConverter {
                                          UserAccountService accountService,
                                          DetailService detailService
                                          ){
-//        List<AssignmentVO> resultVOList = new ArrayList<>();
-//        for(AssignmentCategory category:categoryList){
-//            AssignmentVO assignmentVO = new AssignmentVO();
-//            assignmentVO.setCategoryName(category.getCategoryName());
-//            assignmentVO.setCategoryType(category.getCategoryType());
 
             List<AssignmentInfoVO> assignmentInfoVOList = new ArrayList<>();
             for (AssignmentInfo assignmentInfo:assignmentInfoList){
-//                if (assignmentInfo.getCategoryType().equals(category.getCategoryType())){
                     AssignmentInfoVO assignmentInfoVO = new AssignmentInfoVO();
                     UserAccount account =  accountService.findOne(assignmentInfo.getAssignmentOwner());
                     UserAccountVO accountVO = new UserAccountVO();
                     BeanUtils.copyProperties(account,accountVO);
+                    if(assignmentInfo.getAssignmentReceive()!=null&&assignmentInfo.getAssignmentReceive().isEmpty()){
+                        UserAccount receiver = accountService.findOne(assignmentInfo.getAssignmentReceive());
+                        UserAccountVO userAccountVO = new UserAccountVO();
+                        BeanUtils.copyProperties(receiver,userAccountVO);
+                        assignmentInfoVO.setReceiver(userAccountVO);
+                    }
                     UserDetail detail = detailService.findOne(account.getDetailId());
                     accountVO.setUserDetail(detail);
 
@@ -54,11 +54,7 @@ public class AssignmentInfoList2VOlistConverter {
                     assignmentInfoVO.setAssignmentOwner(accountVO);
                     assignmentInfoVOList.add(assignmentInfoVO);
                 }
-//            }
 
-//            assignmentVO.setAssignmentInfoVOList(assignmentInfoVOList);
-//            resultVOList.add(assignmentVO);
-//        }
         return assignmentInfoVOList;
     }
 }

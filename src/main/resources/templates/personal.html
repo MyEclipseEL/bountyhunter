@@ -115,7 +115,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                         <div class="col-sm-8"  >
                                             <ul class="multi-column-dropdown" style="padding-left: 40px;" th:each="c : ${category}">
                                                 <!--<h6>分类列表</h6>-->
-                                                <li><a th:href="@{'../assignment/list?categoryType='+${c.categoryType} }" th:text="${c.categoryName}">招聘兼职</a></li>
+                                                <li><a th:href="@{'../assignment/history?pag='+${c.categoryType} }" th:text="${c.categoryName}">招聘兼职</a></li>
 
                                             </ul>
                                         </div>
@@ -207,31 +207,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <table class="timetable_sub">
                     <thead>
                     <tr>
-                        <th>序号</th>
-                        <!--<th style="width:300px;">任务</th>-->
-                        <!--<th>件数</th>-->
                         <th>任务名字</th>
                         <th>任务价格</th>
-                        <!--<th>Price</th>-->
-                        <th>移除</th>
+                        <th>任务发布者</th>
+                        <th>发布时间</th>
+                        <th>操作</th>
                     </tr>
                     </thead>
-                    <tr class="rem1">
-                        <td class="invert">1</td>
-                        <!--<td class="invert-image"><a href="single.html"><img src="../images/22.jpg" alt=" " class="img-responsive" /></a></td>-->
-                        <!--<td class="invert">-->
-                            <!--<div class="quantity">-->
-                                <!--<div class="quantity-select">-->
-                                    <!--<div class="entry value-minus">&nbsp;</div>-->
-                                    <!--<div class="entry value"><span>1</span></div>-->
-                                    <!--<div class="entry value-plus active">&nbsp;</div>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</td>-->
-                        <td class="invert">Black Shoe</td>
-                        <!--<td class="invert">$5.00</td>-->
-                        <td class="invert">$290.00</td>
-                        <td class="invert">
+                    <tr class="rem1" th:each="r : ${infoPageR}">
+                        <td class="invert" th:text="${r.assignmentName}">1</td>
+                        <td class="invert" th:text="${r.assignmentReward}">Black Shoe</td>
+                        <td class="invert" th:text="${r.assignmentOwner.userName}">$290.00</td>
+                        <td class="invert" th:text="${r.createTime}"></td>
+                        <td class="invert" >
                             <div class="rem">
                                 <div class="close1"> </div>
                             </div>
@@ -245,78 +233,39 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             </script>
                         </td>
                     </tr>
-                    <tr class="rem2">
-                        <td class="invert">2</td>
-                        <!--<td class="invert-image"><a href="single.html"><img src="../images/30.jpg" alt=" " class="img-responsive" /></a></td>-->
-                        <!--<td class="invert">-->
-                            <!--<div class="quantity">-->
-                                <!--<div class="quantity-select">-->
-                                    <!--<div class="entry value-minus">&nbsp;</div>-->
-                                    <!--<div class="entry value"><span>1</span></div>-->
-                                    <!--<div class="entry value-plus active">&nbsp;</div>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</td>-->
-                        <td class="invert">Centre Table</td>
-                        <!--<td class="invert">$5.00</td>-->
-                        <td class="invert">$250.00</td>
-                        <td class="invert">
-                            <div class="rem">
-                                <div class="close2"> </div>
-                            </div>
-                            <script>$(document).ready(function(c) {
-                                $('.close2').on('click', function(c){
-                                    $('.rem2').fadeOut('slow', function(c){
-                                        $('.rem2').remove();
-                                    });
-                                });
-                            });
-                            </script>
-                        </td>
-                    </tr>
-                    <tr class="rem3">
-                        <td class="invert">3</td>
-                        <!--<td class="invert-image"><a href="single.html"><img src="../images/11.jpg" alt=" " class="img-responsive" /></a></td>-->
-                        <!--<td class="invert">-->
-                            <!--<div class="quantity">-->
-                                <!--<div class="quantity-select">-->
-                                    <!--<div class="entry value-minus">&nbsp;</div>-->
-                                    <!--<div class="entry value"><span>1</span></div>-->
-                                    <!--<div class="entry value-plus active">&nbsp;</div>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</td>-->
-                        <td class="invert">Stone Bangles</td>
-                        <!--<td class="invert">$5.00</td>-->
-                        <td class="invert">$299.00</td>
-                        <td class="invert">
-                            <div class="rem">
-                                <div class="close3"> </div>
-                            </div>
-                            <script>$(document).ready(function(c) {
-                                $('.close3').on('click', function(c){
-                                    $('.rem3').fadeOut('slow', function(c){
-                                        $('.rem3').remove();
-                                    });
-                                });
-                            });
-                            </script>
-                        </td>
-                    </tr>
-                    <!--quantity-->
-                    <script>
-                        $('.value-plus').on('click', function(){
-                            var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10)+1;
-                            divUpd.text(newVal);
-                        });
-
-                        $('.value-minus').on('click', function(){
-                            var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10)-1;
-                            if(newVal>=1) divUpd.text(newVal);
-                        });
-                    </script>
-                    <!--quantity-->
                 </table>
+                <!--分页-->
+                <nav class="numbering animated wow slideInRight" data-wow-delay=".5s">
+                    <ul class="pagination paging">
+                        <li th:class="${indexPageR == 0}?'disabled':''" >
+                            <a th:href="@{'/assignment/history?page='+${indexPageR}+'&size='+${indexPageR -1}}" aria-label="Previous">
+                                <span aria-hidden="true">上一页</span>
+                            </a>
+                        </li>
+
+                        <li th:if="${indexPageR -3 >=0}">
+                            <a th:href="@{'/assignment/history?pag='+${indexPageR}+'&size='+${indexPageR - 3}}" th:text="${indexPageR -2}">1</a>
+                        </li>
+                        <li th:if="${indexPageR -2 >=0}">
+                            <a th:href="@{'/assignment/history?pag='+${indexPageR}+'&size='+${indexPageR - 2}}" th:text="${indexPageR -1}">1</a>
+                        </li>
+                        <li th:if="${indexPageR -1 >=0}">
+                            <a th:href="@{'/assignment/history?pag='+${indexPageR}+'&size='+${indexPageR - 1}}" th:text="${indexPageR}">1</a>
+                        </li>
+                        <li class="action"><a href="#" th:text="${indexPageR+1}">1</a></li>
+                        <li th:if="${indexPageR+1 <totalPagesR}">
+                            <a th:href="@{'/assignment/history?pag='+${indexPageR}+'&size='+${indexPageR + 1}}" th:text="${indexPageR + 2}">1</a>
+                        </li>
+                        <li th:if="${indexPageR+2 <totalPagesR}">
+                            <a th:href="@{'/assignment/history?pag='+${indexPageR}+'&size='+${indexPageR + 2}}" th:text="${indexPageR + 3}">1</a>
+                        </li>
+                        <li th:if="${indexPageR+3 <totalPagesR}">
+                            <a th:href="@{'/assignment/history?pag='+${indexPageR}+'&size='+${indexPageR + 3}}" th:text="${indexPageR + 4}">1</a>
+                        </li>
+                        <li th:class="${indexPageR>=totalPagesR -1}?'disabled':''"><a th:href="@{'/assignment/history?pag='+${indexPageR}+'&size='+${indexPageR + 1}}">下一页</a></li>
+
+                    </ul>
+                </nav>
             </div>
         </div>
         <div class="tab-pane fade" id="abc">
@@ -324,31 +273,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <table class="timetable_sub">
                     <thead>
                     <tr>
-                        <th>序号</th>
-                        <th style="width:300px;">任务</th>
-                        <th>件数</th>
+                    <tr>
                         <th>任务名字</th>
                         <th>任务价格</th>
-                        <!--<th>Price</th>-->
-                        <th>移除</th>
+                        <th>任务接取者</th>
+                        <th>发布时间</th>
+                        <th>操作</th>
+                    </tr>
                     </tr>
                     </thead>
-                    <tr class="rem1">
-                        <td class="invert">1</td>
-                        <td class="invert-image"><a href="single.html"><img src="../images/22.jpg" alt=" " class="img-responsive" /></a></td>
-                        <td class="invert">
-                            <div class="quantity">
-                                <div class="quantity-select">
-                                    <div class="entry value-minus">&nbsp;</div>
-                                    <div class="entry value"><span>1</span></div>
-                                    <div class="entry value-plus active">&nbsp;</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="invert">Black Shoe</td>
-                        <!--<td class="invert">$5.00</td>-->
-                        <td class="invert">$290.00</td>
-                        <td class="invert">
+                    <tr class="rem1" th:each="o : ${infoPageO}">
+                        <td class="invert" th:text="${o.assignmentName}">1</td>
+                        <td class="invert" th:text="${o.assignmentReward}">Black Shoe</td>
+                        <td class="invert" th:text="${o.assignmentOwner.userName}">$290.00</td>
+                        <td class="invert" th:text="${o.createTime}"></td>
+                        <td class="invert" >
                             <div class="rem">
                                 <div class="close1"> </div>
                             </div>
@@ -362,78 +301,39 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             </script>
                         </td>
                     </tr>
-                    <tr class="rem2">
-                        <td class="invert">2</td>
-                        <td class="invert-image"><a href="single.html"><img src="../images/30.jpg" alt=" " class="img-responsive" /></a></td>
-                        <td class="invert">
-                            <div class="quantity">
-                                <div class="quantity-select">
-                                    <div class="entry value-minus">&nbsp;</div>
-                                    <div class="entry value"><span>1</span></div>
-                                    <div class="entry value-plus active">&nbsp;</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="invert">Centre Table</td>
-                        <!--<td class="invert">$5.00</td>-->
-                        <td class="invert">$250.00</td>
-                        <td class="invert">
-                            <div class="rem">
-                                <div class="close2"> </div>
-                            </div>
-                            <script>$(document).ready(function(c) {
-                                $('.close2').on('click', function(c){
-                                    $('.rem2').fadeOut('slow', function(c){
-                                        $('.rem2').remove();
-                                    });
-                                });
-                            });
-                            </script>
-                        </td>
-                    </tr>
-                    <tr class="rem3">
-                        <td class="invert">3</td>
-                        <td class="invert-image"><a href="single.html"><img src="../images/11.jpg" alt=" " class="img-responsive" /></a></td>
-                        <td class="invert">
-                            <div class="quantity">
-                                <div class="quantity-select">
-                                    <div class="entry value-minus">&nbsp;</div>
-                                    <div class="entry value"><span>1</span></div>
-                                    <div class="entry value-plus active">&nbsp;</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="invert">Stone Bangles</td>
-                        <!--<td class="invert">$5.00</td>-->
-                        <td class="invert">$299.00</td>
-                        <td class="invert">
-                            <div class="rem">
-                                <div class="close3"> </div>
-                            </div>
-                            <script>$(document).ready(function(c) {
-                                $('.close3').on('click', function(c){
-                                    $('.rem3').fadeOut('slow', function(c){
-                                        $('.rem3').remove();
-                                    });
-                                });
-                            });
-                            </script>
-                        </td>
-                    </tr>
-                    <!--quantity-->
-                    <script>
-                        $('.value-plus').on('click', function(){
-                            var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10)+1;
-                            divUpd.text(newVal);
-                        });
-
-                        $('.value-minus').on('click', function(){
-                            var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10)-1;
-                            if(newVal>=1) divUpd.text(newVal);
-                        });
-                    </script>
-                    <!--quantity-->
                 </table>
+                <!--分页-->
+                <nav class="numbering animated wow slideInRight" data-wow-delay=".5s">
+                    <ul class="pagination paging">
+                        <li th:class="${indexPageO == 0}?'disabled':''" >
+                            <a th:href="@{'/assignment/history?page='+${indexPageO}+'&size='+${indexPageO -1}}" aria-label="Previous">
+                                <span aria-hidden="true">上一页</span>
+                            </a>
+                        </li>
+
+                        <li th:if="${indexPageO -3 >=0}">
+                            <a th:href="@{'/assignment/history?pag='+${indexPageO}+'&size='+${indexPageO - 3}}" th:text="${indexPageO -2}">1</a>
+                        </li>
+                        <li th:if="${indexPageO -2 >=0}">
+                            <a th:href="@{'/assignment/history?pag='+${indexPageO}+'&size='+${indexPageO - 2}}" th:text="${indexPageO -1}">1</a>
+                        </li>
+                        <li th:if="${indexPageO -1 >=0}">
+                            <a th:href="@{'/assignment/history?pag='+${indexPageO}+'&size='+${indexPageO - 1}}" th:text="${indexPageO}">1</a>
+                        </li>
+                        <li class="action"><a href="#" th:text="${indexPageO+1}">1</a></li>
+                        <li th:if="${indexPageO+1 <indexPageO}">
+                            <a th:href="@{'/assignment/history?pag='+${indexPageO}+'&size='+${indexPageO + 1}}" th:text="${indexPageO + 2}">1</a>
+                        </li>
+                        <li th:if="${indexPageO+2 <totalPagesO}">
+                            <a th:href="@{'/assignment/history?pag='+${indexPageO}+'&size='+${indexPageO + 2}}" th:text="${indexPageO + 3}">1</a>
+                        </li>
+                        <li th:if="${indexPageO+3 <totalPagesO}">
+                            <a th:href="@{'/assignment/history?pag='+${indexPageO}+'&size='+${indexPageO + 3}}" th:text="${indexPageO + 4}">1</a>
+                        </li>
+                        <li th:class="${indexPageO>=totalPagesO -1}?'disabled':''"><a th:href="@{'/assignment/history?pag='+${indexPageO}+'&size='+${indexPageO + 1}}">下一页</a></li>
+
+                    </ul>
+                </nav>
             </div>
         </div>
 

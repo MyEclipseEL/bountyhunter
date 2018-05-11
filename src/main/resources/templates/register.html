@@ -42,15 +42,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <div class="header-grid-left animated wow slideInLeft" data-wow-delay=".5s">
             </div>
             <div class="header-grid-right animated wow slideInRight" data-wow-delay=".2s">
-                <ul class="social-icons">
+                <ul class="social-icons" th:if="${session.userAccount == null}" >
                     <!--<li><a href="#" class="facebook"></a></li>-->
                     <li><a href="#" class="twitter"></a></li>
-                    <!--<li><a href="#" class="g"></a></li>-->
-                    <!--<li><a href="#" class="instagram"></a></li>-->
-                    <li>
-                        <i class="glyphicon " aria-hidden="true">
-                        </i><a href="../login">登录/</a><a href="../register-01">免费注册</a>
-                    </li>-->
+                    <i class="glyphicon " aria-hidden="true"></i>
+                    <a href="../login">登录/</a><a href="../register-01">免费注册</a>
+                    <li class="glyphicon " aria-hidden="true">
+
+                    </li>
+                </ul>
+                <ul th:if="${session.userAccount != null}">
+                    <i>
+                        <a href="#"><img style="width: 50px;height: 50px;" class="img-circle" th:src="${session.userAccount.icon}" alt="头像"/></a>
+                        <i><a href="#" th:text="${session.userAccount.userName}" style="font-size: larger"></a></i>
+                        <i><a href="javascript:void(0)" onclick="logoff()">注销</a></i>
+                    </i>
                 </ul>
             </div>
             <div class="clearfix"> </div>
@@ -126,7 +132,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="breadcrumbs">
     <div class="container">
         <ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
-            <li><a href="index.html"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
+            <li><a href="../index"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
             <li class="active">登录注册</li>
         </ol>
     </div>

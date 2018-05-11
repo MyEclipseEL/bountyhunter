@@ -327,6 +327,8 @@ public class AssignmentController {
         Page<AssignmentInfoVO> voPageO = assignmentService.findUserHistoryAssignmentO(account.getAccountId(),pageRequestO);
         Integer indexPageO = pageO;
         Integer totalPagesO = voPageO.getTotalPages();
+        List<AssignmentCategory> categoryList = categoryService.findAll();
+        model.addAttribute("category",categoryList);
         model.addAttribute("totalPagesR",totalPagesR);
         model.addAttribute("indexPageR",indexPageR);
         model.addAttribute("infoPageR",voPageR);

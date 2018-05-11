@@ -21,8 +21,6 @@ public class UserAccount2UserInfoVO {
         userInfoVO.setPhone(detail.getUserPhone());
         userInfoVO.setAddress(detail.getUserAddress());
         userInfoVO.setBirthday(detail.getUserBirthday());
-
-
         return userInfoVO;
     }
 }

@@ -229,6 +229,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						</span>
 					</div>
 					<div class="description" style="font-size:30px;">
+						<h5><i >发布者</i></h5>
+						<p style="font-size: 20px;" th:text="${result.assignmentOwner.userName}"></p>
+						<p style="font-size: 20px;color: #ac2925" th:text="'联系方式：'+${result.userPhone}">联系方式:</p>
+					</div>
+					<div class="description" style="font-size:30px;">
 						<h5><i >任务描述</i></h5>
 						<p style="font-size: 20px;" th:text="${result.assignmentDescription}">研运一体解决方案，Unity3D专业游戏引擎开发。营养可口，健康可靠</p>
 					</div>
@@ -236,19 +241,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<h5><i>发布时间</i></h5>
 						<p style="font-size: 20px;" th:text="${result.createTime}"></p>
 					</div>
-					<!--<div class="occasional">-->
-						<!--<h5>套餐选择 :</h5>-->
-						<!--<div class="colr ert">-->
-							<!--<label class="radio"><input type="radio" name="radio" checked=""><i></i>第一种方案</label>-->
-						<!--</div>-->
-						<!--<div class="colr">-->
-							<!--<label class="radio"><input type="radio" name="radio"><i></i>第二种方案</label>-->
-						<!--</div>-->
-						<!--<div class="colr">-->
-							<!--<label class="radio"><input type="radio" name="radio"><i></i>第三种方案</label>-->
-						<!--</div>-->
-						<!--<div class="clearfix"> </div>-->
-					<!--</div>-->
 					<div class="" style="height:50px;width:200px;background: #ff9f37;text-align: center;margin-left:50px;">
 						<a class="item_add" onclick="receive()" style="color: white;font-size:20px;height:50px;line-height:50px;" >接取任务 </a>
 					</div>
@@ -259,14 +251,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<div style="float:right;">
 							<a href="#" class="instagram">关于任务发布者 关于详情</a>
 						</div>
-						<!--<div class="social-right" style="">-->
-							<!--<ul class="social-icons" >-->
-								<!--&lt;!&ndash;<li><a href="#" class="facebook"></a></li>&ndash;&gt;-->
-								<!--&lt;!&ndash;<li><a href="#" class="twitter"></a></li>&ndash;&gt;-->
-								<!--&lt;!&ndash;<li><a href="#" class="g"></a></li>&ndash;&gt;-->
-								<!--<li><a href="#" class="instagram">关于详情</a></li>-->
-							<!--</ul>-->
-						<!--</div>-->
 						<div class="clearfix"> </div>
 						<div class="checkout-right-basket animated wow slideInRight " data-wow-delay=".3s" >
 							<a href="../index/" style="background: #ff9f37;"><span class="glyphicon glyphicon-menu-left " aria-hidden="true" ></span>返回首页</a>

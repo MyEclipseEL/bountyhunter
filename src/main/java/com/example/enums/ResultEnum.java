@@ -16,7 +16,8 @@ public enum ResultEnum {
     ACCOUNT_EMPTY(5,"用户信息为空"),
     RECEIVE_EXIST(6,"任务接取人已存在"),
     ACCOUNT_NOT_MATCHING(7,"用户不匹配"),
-    STATUS_NOT_TRUE(8,"任务状态不正确")
+    STATUS_NOT_TRUE(8,"任务状态不正确"),
+    CANNOT_RECEIVE_YOURS(9,"不能接取自己的任务")
     ;
 
     private Integer code;

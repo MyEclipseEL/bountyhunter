@@ -1,5 +1,6 @@
 package com.example.VO;
 
+import com.example.dataobject.UserAccount;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
@@ -50,8 +51,11 @@ public class AssignmentInfoVO {
     @JsonProperty("position")
     private String assignmentPosition;
 
+    @JsonProperty("receiver")
+    private UserAccountVO receiver;
+
     @JsonProperty("phone")
-    private String phone;
+    private String userPhone;
     /** 任务发布时间*/
     @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     private Date createTime;
