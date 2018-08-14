@@ -116,6 +116,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									</div>
 								</ul>
 							</li>
+							<li  ><a href="../assignment/list?categoryType=102" >悬赏物品</a></li>
 							<li  ><a href="../category/news" >最新任务列表</a></li>
 							<li><a href="../category/mail">任务发布</a></li>
 							<!--<li><a href="../category/check">历史任务</a></li>-->
@@ -212,7 +213,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<h4 style="text-align: center;padding:10px "><a href="../single.html" style="color:black" th:text="${list.assignmentName}">美味虾尾</a></h4>
 						<p style="font-size: 10px;color:gray;text-align: center" th:text="${list.assignmentDescription}">营养健康，能量加倍</p>
 						<div class="simpleCart_shelfItem products-right-grid1-add-cart">
-							<p><i>￥325</i> <span class="item_price" th:text="${list.assignmentReward}">￥250</span>
+							<p><i><!--￥325--></i> <span class="item_price" th:text="${list.assignmentReward}">￥250</span>
 							<div style="height:35px;text-align: center;border:1px solid orangered;line-height: 35px;"><a class="item_add" th:href="@{'/category/detail?assignmentId='+${list.assignmentId}}" style="color:orange">详 情 </a></div>
 							</p>
 						</div>

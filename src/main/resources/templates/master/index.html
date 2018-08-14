@@ -23,7 +23,7 @@
     <script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
     <script>DD_belatedPNG.fix('*');</script>
     <![endif]-->
-    <title>餐饮信息管理</title>
+    <title>赏金猎人管理系统</title>
     <meta name="keywords" content="H-ui.admin v2.4,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
     <meta name="description" content="H-ui.admin v2.4，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
 </head>
@@ -62,83 +62,23 @@
     <input runat="server" id="divScrollValue" type="hidden" value="" />
     <div class="menu_dropdown bk_2">
         <dl id="menu-article">
-            <dt><i class="Hui-iconfont">&#xe616;</i> 点菜<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-            <dd>
-                <ul>
+            <dt><i class="Hui-iconfont">&#xe616;</i> 用户管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 
-                                <li><a _href="cuisine.html" data-title="家常菜" href="javascript:void(0)">家常菜</a></li>
-                                <li><a _href="vegetarian.html" data-title="素菜" href="javascript:void(0)">素菜</a></li>
-
-                                <li><a _href="${pageContext.request.contextPath }/mainListServlet?id=9" data-title="汤羹" href="javascript:void(0)">汤羹</a></li>
-                                <li><a _href="congee.html" data-title="粥" href="javascript:void(0)">粥</a></li>
-
-                                <li><a _href="complete.html" data-title="套菜" href="javascript:;">套菜</a></li>
-                                <li><a _href="season.html" data-title="时令菜" href="javascript:void(0)">时令菜</a></li>
-
-                            </ul>
-                        </dd>
 
                     </dl>
         <dl id="menu">
-            <dt><i class="Hui-iconfont">&#xe613;</i> 顾客菜单<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-            <dd>
-                <ul>
-                    <li><a _href="customer.html" data-title="顾客菜单" href="javascript:void(0)">顾客菜单</a></li>
-                </ul>
-            </dd>
+            <dt><i class="Hui-iconfont">&#xe613;</i> 任务管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+
         </dl>
         <dl id="menu-picture">
-            <dt><i class="Hui-iconfont">&#xe613;</i> 前台结账<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-            <dd>
-                <ul>
-                    <li><a _href="pay.html" data-title="前台结账" href="javascript:void(0)">前台结账</a></li>
-                </ul>
-            </dd>
+            <dt><i class="Hui-iconfont">&#xe613;</i> 数据管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+
         </dl>
         <dl id="menu-member">
-            <dt><i class="Hui-iconfont">&#xe60d;</i> 会员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-            <dd>
-                <ul>
-                    <li><a _href="member-leval.html" data-title="会员折扣" href="javascript:;">会员折扣</a></li>
-                    <li><a _href="member-jifen.html" data-title="积分模式" href="javascript:;">积分模式</a></li>
-                    <li><a _href="member-list.html" data-title="个人会员档案管理" href="javascript:;">个人会员档案管理</a></li>
-                    <li><a _href="member-list2.html" data-title="协议单位会员档案管理" href="javascript:;">协议单位会员档案管理</a></li>
-                    <li><a _href="member-duihuan.html" data-title="积分兑换" href="javascript:;">积分兑换</a></li>
-                </ul>
-            </dd>
-        </dl>
-        <dl id="menu-admin">
-            <dt><i class="Hui-iconfont">&#xe62d;</i> 餐饮信息<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-            <dd>
-                <ul>
-                    <li><a _href="caipinziliao.html" data-title="菜品资料" href="javascript:void(0)">菜品资料</a></li>
-                    <li><a _href="yuanliao.html" data-title="原料资料" href="javascript:void(0)">原料资料</a></li>
-                    <li><a _href="canzhuo.html" data-title="餐桌资料" href="javascript:void(0)">餐桌资料</a></li>
-                    <li><a _href="gongyingshang.html" data-title="供应商资料" href="javascript:void(0)">供应商资料</a></li>
-                </ul>
-            </dd>
-        </dl>
-        <dl id="menu-tongji">
-            <dt><i class="Hui-iconfont">&#xe61a;</i> 库存管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-            <dd>
-                <ul>
-                    <li><a _href="logistics.html" data-title="物流管理" href="javascript:void(0)">物流管理</a></li>
-                    <li><a _href="out.html" data-title="物品出库" href="javascript:void(0)">物品出库</a></li>
-                    <li><a _href="enter.html" data-title="物品入库" href="javascript:void(0)">物品入库</a></li>
+            <dt><i class="Hui-iconfont">&#xe60d;</i> 资源管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 
+        </dl>
 
-                </ul>
-            </dd>
-        </dl>
-        <dl id="menu-product">
-            <dt><i class="Hui-iconfont">&#xe683;</i> 库存查询<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-            <dd>
-                <ul>
-                    <li><a _href="present.html" data-title="当前库存" href="javascript:void(0)">当前库存</a></li>
-                    <li><a _href="history.html" data-title="历史库存" href="javascript:void(0)">历史库存</a></li>
-                </ul>
-            </dd>
-        </dl>
     </div>
 </aside>
 <div class="dislpayArrow hidden-xs"><a class="pngfix" href="javascript:void(0);" onClick="displaynavbar(this)"></a></div>
@@ -154,7 +94,7 @@
     <div id="iframe_box" class="Hui-article">
         <div class="show_iframe">
             <div style="display:none" class="loading"></div>
-            <iframe scrolling="yes" frameborder="0" src="index-c.html"></iframe>
+            <iframe scrolling="yes" frameborder="0" src="canzhuo.html"></iframe>
         </div>
     </div>
 </section>

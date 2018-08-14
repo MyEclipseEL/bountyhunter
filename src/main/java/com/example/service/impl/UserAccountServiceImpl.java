@@ -72,9 +72,9 @@ public class UserAccountServiceImpl implements UserAccountService {
         user.setState(0);
         user.setDetailId(accountId);
 
-        /*Date date = new Date(System.currentTimeMillis());
+        Date date = new Date(System.currentTimeMillis());
         user.setCreateTime(date);
-        user.setUpdateTime(date);*/
+        //user.setUpdateTime(date);
 
         UserDetail userDetail = new UserDetail();
         userDetail.setDetailId(accountId);
